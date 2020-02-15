@@ -1,3 +1,8 @@
+function fetchCoordinates(zipCode) {
+  // TODO: Use real API
+  return Promise.resolve({ lat: 52.3028, lng: 4.8764 });
+}
+
 async function fetchNeighbourhood(sphericalMercator) {
   const bbox = [
     sphericalMercator[0] - 50,
@@ -42,5 +47,6 @@ function getUrl(parameters) {
 }
 
 module.exports = {
+  fetchCoordinates,
   fetchNeighbourhood
 };

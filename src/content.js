@@ -14,24 +14,29 @@ function getZipCode() {
   return match[0].replace(" ", "");
 }
 
-function addIncomeLabel(income) {
-  let labelsElement = document.querySelector(
+function getLabelsContainerElement() {
+  let labelsContainerElement = document.querySelector(
     ".object-header__details-info .labels"
   );
 
-  if (!labelsElement) {
-    labelsElement = document.createElement("ul");
-    labelsElement.classList.add("labels");
+  if (!labelsContainerElement) {
+    labelsContainerElement = document.createElement("ul");
+    labelsContainerElement.classList.add("labels");
     document
       .querySelector(".object-header__details-info")
-      .appendChild(labelsElement);
+      .appendChild(labelsContainerElement);
   }
 
+  return labelsContainerElement;
+}
+
+function addIncomeLabel(income) {
   const { labelText, color } = getIncomeLabel(income);
 
+  const labelsContainerElement = getLabelsContainerElement();
   const style = `margin-left: 16px; background: ${color};`;
 
-  labelsElement.innerHTML += `<li class="label-nieuw" style="${style}" title="${income}">${labelText}</li>`;
+  labelsContainerElement.innerHTML += `<li class="label-nieuw" style="${style}" title="${income}">${labelText}</li>`;
 }
 
 function getIncomeLabel(income) {

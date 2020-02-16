@@ -1,6 +1,14 @@
-function fetchCoordinates(zipCode) {
-  // TODO: Use real API
-  return Promise.resolve({ lat: 52.3028, lng: 4.8764 });
+async function fetchCoordinates(zipCode) {
+  const FAKE_ZIP = "1083VA";
+  const url = `https://k3c1bemtq1.execute-api.us-east-2.amazonaws.com/default/myOhioFunction?zipCode=${FAKE_ZIP}`;
+
+  const response = await fetch(url);
+  const responseJson = await response.json();
+
+  return {
+    lat: responseJson.latitude,
+    lng: responseJson.longitude
+  };
 }
 
 async function fetchNeighbourhood(sphericalMercator) {

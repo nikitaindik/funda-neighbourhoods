@@ -1,12 +1,19 @@
 const zipCode = getZipCode();
 
-chrome.runtime.sendMessage({ zipCode }, response => {
-  const { income } = response;
-  addIncomeLabel(income);
-});
+if (zipCode) {
+  chrome.runtime.sendMessage({ zipCode }, response => {
+    const { income } = response;
+    addIncomeLabel(income);
+  });
+}
 
 function getZipCode() {
   const zipCodeElement = document.querySelector(".object-header__subtitle");
+
+  if (zipCodeElement === null) {
+    return null;
+  }
+
   const elementText = zipCodeElement.innerText;
   const zipCodeRe = /\d\d\d\d\s*[A-Z][A-Z]/;
   const match = elementText.match(zipCodeRe);
@@ -58,52 +65,50 @@ function getIncomeLabel(income) {
     };
   }
 
-  if (income < 15000) {
-    return {
-      color: colors.hobos,
-      labelText: "Hobos"
-    };
-  }
-
-  if (income >= 15000 && income < 17000) {
-    return {
-      color: colors.veryPoor,
-      labelText: "Very Poor"
-    };
-  }
-
-  if (income >= 17000 && income < 19000) {
-    return {
-      color: colors.poor,
-      labelText: "Poor"
-    };
-  }
-
-  if (income >= 19000 && income < 21000) {
-    return {
-      color: colors.okay,
-      labelText: "Okay"
-    };
-  }
-
-  if (income >= 21000 && income < 25000) {
-    return {
-      color: colors.normies,
-      labelText: "Normies"
-    };
-  }
-
-  if (income >= 25000 && income < 30000) {
-    return {
-      color: colors.wellOff,
-      labelText: "Well-off"
-    };
-  }
-
   if (income >= 30000) {
     return {
       color: colors.rich,
       labelText: "Rich"
     };
   }
+
+  if (income >= 25000) {
+    return {
+      color: colors.wellOff,
+      labelText: "Well-off"
+    };
+  }
+
+  if (income >= 21000) {
+    return {
+      color: colors.normies,
+      labelText: "Normies"
+    };
+  }
+
+  if (income >= 19000) {
+    return {
+      color: colors.okay,
+      labelText: "Okay"
+    };
+  }
+
+  if (income >= 17000) {
+    return {
+      color: colors.poor,
+      labelText: "Poor"
+    };
+  }
+
+  if (income >= 15000) {
+    return {
+      color: colors.veryPoor,
+      labelText: "Very Poor"
+    };
+  }
+
+  return {
+    color: colors.hobos,
+    labelText: "Hobos"
+  };
 }

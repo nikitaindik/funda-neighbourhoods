@@ -1,5 +1,6 @@
 /node_modules
-/aws/node_modules
+/src/aws/node_modules
+/notes
 /build
 .DS_Store
 yarn-debug.log*

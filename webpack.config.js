@@ -7,8 +7,8 @@ module.exports = env => {
   return {
     mode: "production",
     entry: {
-      background: "./src/background.js",
-      content: "./src/content.js"
+      background: "./src/chromeExtension/background/background.js",
+      content: "./src/chromeExtension/content/content.js"
     },
     output: {
       filename: "[name].js",
@@ -20,7 +20,7 @@ module.exports = env => {
       }),
       new CopyPlugin([
         {
-          from: "./src/manifest.json",
+          from: "./src/chromeExtension/manifest.json",
           to: "[path][name].[ext]"
         }
       ])

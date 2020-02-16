@@ -1,6 +1,6 @@
 async function fetchCoordinates(zipCode) {
-  const FAKE_ZIP = "1083VA";
-  const url = `https://k3c1bemtq1.execute-api.us-east-2.amazonaws.com/default/myOhioFunction?zipCode=${FAKE_ZIP}`;
+  const FAKE_ZIP_CODE = "1083VA";
+  const url = `${process.env.API_PATH}?zipCode=${FAKE_ZIP_CODE}`;
 
   const response = await fetch(url);
   const responseJson = await response.json();

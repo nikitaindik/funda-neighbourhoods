@@ -22,6 +22,10 @@ module.exports = env => {
         {
           from: "./src/chromeExtension/manifest.json",
           to: "[path][name].[ext]"
+        },
+        {
+          from: "./src/chromeExtension/icons",
+          to: "[path]/icons/[name].[ext]"
         }
       ])
     ]

@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "Adds helpful info to Funda pages",
-  "permissions": ["activeTab"],
+  "permissions": [
+    "activeTab",
+    "https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com/"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
@@ -24,5 +27,6 @@
     "32": "icons/icon128.png",
     "48": "icons/icon128.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "default_locale": "en"
 }

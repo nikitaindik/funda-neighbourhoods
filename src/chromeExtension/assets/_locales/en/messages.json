@@ -1,0 +1,26 @@
+{
+  "neighbourhoodName": {
+    "message": "Neighbourhood name"
+  },
+  "meanIncomePerResident": {
+    "message": "Mean income per resident"
+  },
+  "meanIncomePerIncomeRecipient": {
+    "message": "Mean income per income recipient"
+  },
+  "residentsAge0to14Percentage": {
+    "message": "Residents age: 0 - 14 years"
+  },
+  "residentsAge15to24Percentage": {
+    "message": "Residents age: 15 - 24 years"
+  },
+  "residentsAge25to44Percentage": {
+    "message": "Residents age: 25 - 44 years"
+  },
+  "residentsAge45to64Percentage": {
+    "message": "Residents age: 45 - 64 years"
+  },
+  "residentsAge65AndOlder": {
+    "message": "Residents age: 65 and older"
+  }
+}

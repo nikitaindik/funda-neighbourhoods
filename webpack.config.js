@@ -24,8 +24,7 @@ module.exports = env => {
           to: "[path][name].[ext]"
         },
         {
-          from: "./src/chromeExtension/icons",
-          to: "[path]/icons/[name].[ext]"
+          from: "./src/chromeExtension/assets/"
         }
       ])
     ]

@@ -1,9 +1,13 @@
+const { makeTableHtml } = require("./table");
+
 const zipCode = getZipCode();
 
 if (zipCode) {
   chrome.runtime.sendMessage({ zipCode }, response => {
-    const { income } = response;
-    addIncomeLabel(income);
+    // const { income } = response;
+    // addIncomeLabel(income);
+    console.log("response", response);
+    addNeighbourhoodTable(response.tableData);
   });
 }
 
@@ -111,4 +115,14 @@ function getIncomeLabel(income) {
     color: colors.hobos,
     labelText: "Hobos"
   };
+}
+
+function addNeighbourhoodTable(tableData) {
+  const neighbourhoodNameElement = document.querySelector(
+    ".object-buurt__name"
+  );
+
+  const tableHtml = makeTableHtml(tableData);
+
+  neighbourhoodNameElement.insertAdjacentHTML("afterend", tableHtml);
 }

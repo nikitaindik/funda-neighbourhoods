@@ -1,3 +1,9 @@
+const {
+  INCOME_BANDS,
+  INCOME_BAND_COLORS,
+  DEFAULT_COLOR
+} = require("./constants");
+
 function getSphericalMercator(coordinates) {
   const R = 6378137;
   const MAX_LATITUDE = 85.0511287798;
@@ -18,14 +24,17 @@ function getProperties(neighbourhoodApiResponse, userSettings) {
     properties.buurtnaam
   );
 
+  const income = properties.gemiddeld_inkomen_per_inwoner * 1000;
+  const incomeBand = getIncomeBand(income);
   const meanIncomePerResident = getNeighbourhoodProperty(
     "meanIncomePerResident",
-    properties.gemiddeld_inkomen_per_inwoner * 1000
+    formatIncomeValue(income, incomeBand),
+    INCOME_BAND_COLORS[incomeBand]
   );
 
   const meanIncomePerIncomeRecipient = getNeighbourhoodProperty(
     "meanIncomePerIncomeRecipient",
-    properties.gemiddeld_inkomen_per_inkomensontvanger * 1000
+    formatMoney(properties.gemiddeld_inkomen_per_inkomensontvanger * 1000)
   );
 
   const residentsAge0to14Percentage = getNeighbourhoodProperty(
@@ -119,11 +128,12 @@ aantal_personen_met_een_algemene_bijstandsuitkering_totaal: 190
   };
 }
 
-function getNeighbourhoodProperty(i18nKey, value) {
+function getNeighbourhoodProperty(i18nKey, value, color) {
   return {
     label: chrome.i18n.getMessage(i18nKey),
     shortLabel: chrome.i18n.getMessage(i18nKey + "Short"),
-    value
+    value,
+    color: color || DEFAULT_COLOR
   };
 }
 
@@ -137,6 +147,54 @@ function getBadgeProperties(tableProperties, userSettings) {
   );
 
   return Object.fromEntries(badgeEntries);
+}
+
+function formatMoney(moneyValue) {
+  const incomeString = String(moneyValue);
+  const incomeWithComma = `${incomeString.slice(0, -3)},${incomeString.slice(
+    -3
+  )}`;
+
+  return `€${incomeWithComma}`;
+}
+
+function formatIncomeValue(income, incomeBand) {
+  const money = formatMoney(income);
+  const incomeBandTitle = chrome.i18n.getMessage(incomeBand);
+
+  return `${money} (${incomeBandTitle})`;
+}
+
+function getIncomeBand(income) {
+  if (!income) {
+    return INCOME_BANDS.noInfo;
+  }
+
+  if (income >= 30000) {
+    return INCOME_BANDS.veryHigh;
+  }
+
+  if (income >= 25000) {
+    return INCOME_BANDS.high;
+  }
+
+  if (income >= 21000) {
+    return INCOME_BANDS.average;
+  }
+
+  if (income >= 19000) {
+    return INCOME_BANDS.belowAverage;
+  }
+
+  if (income >= 17000) {
+    return INCOME_BANDS.low;
+  }
+
+  if (income >= 15000) {
+    return INCOME_BANDS.veryLow;
+  }
+
+  return INCOME_BANDS.extremelyLow;
 }
 
 module.exports = {

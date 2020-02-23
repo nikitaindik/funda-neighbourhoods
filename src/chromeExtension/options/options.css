@@ -1,3 +1,19 @@
-p {
-  color: brown;
+.table-row {
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.table-checkbox-container,
+.table-label-container {
+  display: flex;
+  align-items: center;
+}
+
+.table-checkbox-container {
+  margin-right: 6px;
+}
+
+.table-checkbox,
+.table-label {
+  cursor: pointer;
 }

@@ -9,6 +9,8 @@ if (zipCode) {
     ({ badgeProperties, tableProperties }) => {
       addBadges(badgeProperties);
       addNeighbourhoodTable(tableProperties);
+
+      subscribeToBadgeClicks();
     }
   );
 }
@@ -44,73 +46,6 @@ function getBadgesContainerElement() {
   return badgesContainerElement;
 }
 
-function getIncomeLabel(income) {
-  const colors = {
-    noInfo: "#c0c0c0",
-    hobos: "#4575b5",
-    veryPoor: "#849eba",
-    poor: "#c1ccbe",
-    okay: "#fdd835",
-    normies: "#fab681",
-    wellOff: "#ed7550",
-    rich: "#d62f28"
-  };
-
-  if (!income) {
-    return {
-      color: colors.noInfo,
-      labelText: "No Info"
-    };
-  }
-
-  if (income >= 30000) {
-    return {
-      color: colors.rich,
-      labelText: "Rich"
-    };
-  }
-
-  if (income >= 25000) {
-    return {
-      color: colors.wellOff,
-      labelText: "Well-off"
-    };
-  }
-
-  if (income >= 21000) {
-    return {
-      color: colors.normies,
-      labelText: "Normies"
-    };
-  }
-
-  if (income >= 19000) {
-    return {
-      color: colors.okay,
-      labelText: "Okay"
-    };
-  }
-
-  if (income >= 17000) {
-    return {
-      color: colors.poor,
-      labelText: "Poor"
-    };
-  }
-
-  if (income >= 15000) {
-    return {
-      color: colors.veryPoor,
-      labelText: "Very Poor"
-    };
-  }
-
-  return {
-    color: colors.hobos,
-    labelText: "Hobos"
-  };
-}
-
 function addNeighbourhoodTable(tableProperties) {
   const neighbourhoodNameElement = document.querySelector(
     ".object-buurt__name"
@@ -125,5 +60,18 @@ function addBadges(badgeProperties) {
   const badgesHtml = makeBadgesHtml(badgeProperties);
 
   const badgesContainerElement = getBadgesContainerElement();
-  badgesContainerElement.insertAdjacentHTML("afterbegin", badgesHtml);
+  badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
+}
+
+function subscribeToBadgeClicks() {
+  const badgesContainerElement = getBadgesContainerElement();
+
+  badgesContainerElement.addEventListener("click", event => {
+    const clickedElement = event.target;
+    const isBadgeClick = clickedElement.classList.contains("badge");
+
+    if (isBadgeClick) {
+      chrome.runtime.sendMessage({ action: "openOptionsPage" });
+    }
+  });
 }

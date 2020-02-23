@@ -4,6 +4,11 @@ const { getSphericalMercator, getProperties } = require("./utils");
 const { fetchCoordinates, fetchNeighbourhood } = require("./api");
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "openOptionsPage") {
+    chrome.runtime.openOptionsPage();
+    return;
+  }
+
   const { zipCode } = request;
 
   fetchCoordinates(zipCode).then(async coordinates => {

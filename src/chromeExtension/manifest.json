@@ -20,7 +20,8 @@
         "https://www.funda.nl/en/koop/*/*",
         "https://www.funda.nl/en/koop/*/*/*"
       ],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "css": ["content.css"]
     }
   ],
   "options_page": "options.html",

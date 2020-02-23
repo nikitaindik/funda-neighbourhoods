@@ -1,12 +1,11 @@
 function makeBadgesHtml(badgeProperties) {
   return Object.values(badgeProperties)
-    .map(({ label, shortLabel, value }) => {
+    .map(({ label, shortLabel, value, color }) => {
       const badgeLabel = `${shortLabel}: ${value}`;
 
-      const color = "palevioletred";
-      const style = `margin-left: 16px; background: ${color};`;
+      const style = `background: ${color};`;
 
-      return `<li class="label-nieuw" style="${style}" title="${label}">${badgeLabel}</li>`;
+      return `<li class="label-nieuw badge" style="${style}" title="${label}">${badgeLabel}</li>`;
     })
     .join("");
 }

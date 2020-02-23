@@ -1,4 +1,7 @@
 {
+  "selectBadges": {
+    "message": "Select badges visible at the top of the property page"
+  },
   "neighbourhoodName": {
     "message": "Neighbourhood name"
   },
@@ -46,5 +49,29 @@
   },
   "residentsAge65AndOlderShort": {
     "message": "65+ y.o."
+  },
+  "noInfo": {
+    "message": "No info"
+  },
+  "veryHigh": {
+    "message": "Very high"
+  },
+  "high": {
+    "message": "High"
+  },
+  "average": {
+    "message": "Average"
+  },
+  "belowAverage": {
+    "message": "Below average"
+  },
+  "low": {
+    "message": "Low"
+  },
+  "veryLow": {
+    "message": "Very low"
+  },
+  "extremelyLow": {
+    "message": "Extremely low"
   }
 }

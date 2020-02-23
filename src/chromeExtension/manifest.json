@@ -5,6 +5,7 @@
   "description": "Adds helpful info to Funda pages",
   "permissions": [
     "activeTab",
+    "storage",
     "https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com/"
   ],
   "background": {
@@ -22,6 +23,7 @@
       "js": ["content.js"]
     }
   ],
+  "options_page": "options.html",
   "icons": {
     "16": "icons/icon128.png",
     "32": "icons/icon128.png",

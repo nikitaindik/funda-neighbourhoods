@@ -24,6 +24,9 @@ module.exports = env => {
           to: "[path][name].[ext]"
         },
         {
+          from: "./src/chromeExtension/options/"
+        },
+        {
           from: "./src/chromeExtension/assets/"
         }
       ])

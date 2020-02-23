@@ -10,7 +10,7 @@ function getSphericalMercator(coordinates) {
   return [R * coordinates.lng * d, (R * Math.log((1 + sin) / (1 - sin))) / 2];
 }
 
-function getTableData(neighbourhoodApiResponse) {
+function getProperties(neighbourhoodApiResponse, userSettings) {
   const properties = neighbourhoodApiResponse.features[0].properties;
 
   const neighbourhoodName = getNeighbourhoodProperty(
@@ -52,6 +52,19 @@ function getTableData(neighbourhoodApiResponse) {
     "residentsAge45to64Percentage",
     `${properties.percentage_personen_65_jaar_en_ouder}%`
   );
+
+  const tableProperties = {
+    neighbourhoodName,
+    meanIncomePerResident,
+    meanIncomePerIncomeRecipient,
+    residentsAge0to14Percentage,
+    residentsAge15to24Percentage,
+    residentsAge25to44Percentage,
+    residentsAge45to64Percentage,
+    residentsAge65AndOlder
+  };
+
+  const badgeProperties = getBadgeProperties(tableProperties, userSettings);
 
   /*
 
@@ -101,25 +114,32 @@ aantal_personen_met_een_algemene_bijstandsuitkering_totaal: 190
   */
 
   return {
-    neighbourhoodName,
-    meanIncomePerResident,
-    meanIncomePerIncomeRecipient,
-    residentsAge0to14Percentage,
-    residentsAge15to24Percentage,
-    residentsAge25to44Percentage,
-    residentsAge45to64Percentage,
-    residentsAge65AndOlder
+    badgeProperties,
+    tableProperties
   };
 }
 
 function getNeighbourhoodProperty(i18nKey, value) {
   return {
     label: chrome.i18n.getMessage(i18nKey),
+    shortLabel: chrome.i18n.getMessage(i18nKey + "Short"),
     value
   };
 }
 
+function getBadgeProperties(tableProperties, userSettings) {
+  const badgeNames = Object.keys(tableProperties).filter(
+    propertyName => userSettings[propertyName] === true
+  );
+
+  const badgeEntries = Object.entries(tableProperties).filter(property =>
+    badgeNames.includes(property[0])
+  );
+
+  return Object.fromEntries(badgeEntries);
+}
+
 module.exports = {
   getSphericalMercator,
-  getTableData
+  getProperties
 };

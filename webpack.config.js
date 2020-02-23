@@ -8,7 +8,8 @@ module.exports = env => {
     mode: "production",
     entry: {
       background: "./src/chromeExtension/background/background.js",
-      content: "./src/chromeExtension/content/content.js"
+      content: "./src/chromeExtension/content/content.js",
+      options: "./src/chromeExtension/options/options.js"
     },
     output: {
       filename: "[name].js",

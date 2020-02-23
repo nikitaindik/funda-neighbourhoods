@@ -1,13 +1,5 @@
-const OPTIONS = [
-  "neighbourhoodName",
-  "meanIncomePerResident",
-  "meanIncomePerIncomeRecipient",
-  "residentsAge0to14Percentage",
-  "residentsAge15to24Percentage",
-  "residentsAge25to44Percentage",
-  "residentsAge45to64Percentage",
-  "residentsAge65AndOlder"
-];
+const { readUserSettings } = require("../common/readUserSettings");
+const { OPTIONS } = require("../common/constants");
 
 initializePage();
 
@@ -37,12 +29,6 @@ function makeOptionHtml(optionName, userSettings) {
             <input type="checkbox" ${checked} data-option-name="${optionName}" />
         </div>
     `;
-}
-
-async function readUserSettings() {
-  return new Promise(resolve => {
-    chrome.storage.sync.get(OPTIONS, resolve);
-  });
 }
 
 function handleClicks(event) {

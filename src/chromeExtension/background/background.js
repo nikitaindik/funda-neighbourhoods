@@ -1,4 +1,6 @@
-const { getSphericalMercator, getTableData } = require("./utils");
+const { readUserSettings } = require("../common/readUserSettings");
+
+const { getSphericalMercator, getProperties } = require("./utils");
 const { fetchCoordinates, fetchNeighbourhood } = require("./api");
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -11,9 +13,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sphericalMercator
     );
 
-    const tableData = getTableData(neighbourhoodApiResponse);
+    const userSettings = await readUserSettings();
 
-    sendResponse({ tableData });
+    const { badgeProperties, tableProperties } = getProperties(
+      neighbourhoodApiResponse,
+      userSettings
+    );
+
+    sendResponse({ badgeProperties, tableProperties });
   });
 
   return true;

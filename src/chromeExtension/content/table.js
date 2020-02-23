@@ -1,12 +1,12 @@
-function makeTableHtml(tableData) {
-  const rowsHtml = makeTableRowsHtml(tableData);
+function makeTableHtml(properties) {
+  const rowsHtml = makeTableRowsHtml(properties);
   const tableHtml = wrapTableRowsHtml(rowsHtml);
 
   return tableHtml;
 }
 
-function makeTableRowsHtml(tableData) {
-  return Object.values(tableData)
+function makeTableRowsHtml(properties) {
+  return Object.values(properties)
     .map(row => `<dt>${row.label}</dt><dd>${row.value}</dd>`)
     .join("");
 }

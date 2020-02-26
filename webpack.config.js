@@ -3,6 +3,8 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 
+const addApiPathToManifest = require("./src/chromeExtension/addApiPathToManifest");
+
 module.exports = env => {
   return {
     mode: "production",
@@ -22,12 +24,12 @@ module.exports = env => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.API_PATH": JSON.stringify(env.API_PATH)
+        "process.env.ZIPCODE_API_DOMAIN": JSON.stringify(env.ZIPCODE_API_DOMAIN)
       }),
       new CopyPlugin([
         {
           from: "./src/chromeExtension/manifest.json",
-          to: "[path][name].[ext]"
+          transform: addApiPathToManifest(env.ZIPCODE_API_DOMAIN)
         },
         {
           from: "./src/chromeExtension/content/content.css"

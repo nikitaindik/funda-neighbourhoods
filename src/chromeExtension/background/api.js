@@ -1,5 +1,5 @@
 export async function fetchCoordinates(zipCode) {
-  const url = `${process.env.API_PATH}?zipCode=${zipCode}`;
+  const url = `${process.env.ZIPCODE_API_DOMAIN}/default/getLocationByZipCode?zipCode=${zipCode}`;
 
   const response = await fetch(url);
   const responseJson = await response.json();

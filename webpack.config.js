@@ -15,6 +15,11 @@ module.exports = env => {
       filename: "[name].js",
       path: path.resolve(__dirname, "build")
     },
+    module: {
+      rules: [
+        { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+      ]
+    },
     plugins: [
       new webpack.DefinePlugin({
         "process.env.API_PATH": JSON.stringify(env.API_PATH)

@@ -14,12 +14,7 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://www.funda.nl/koop/*/*",
-        "https://www.funda.nl/koop/*/*/*",
-        "https://www.funda.nl/en/koop/*/*",
-        "https://www.funda.nl/en/koop/*/*/*"
-      ],
+      "matches": ["https://www.funda.nl/*"],
       "js": ["content.js"],
       "css": ["content.css"]
     }

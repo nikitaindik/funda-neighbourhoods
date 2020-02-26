@@ -30,6 +30,14 @@ function getZipCode() {
 }
 
 function getBadgesContainerElement() {
+  const headerDetailsElement = document.querySelector(
+    ".object-header__details-info"
+  );
+
+  if (!headerDetailsElement) {
+    return null;
+  }
+
   let badgesContainerElement = document.querySelector(
     ".object-header__details-info .labels"
   );
@@ -37,10 +45,7 @@ function getBadgesContainerElement() {
   if (!badgesContainerElement) {
     badgesContainerElement = document.createElement("ul");
     badgesContainerElement.classList.add("labels");
-
-    document
-      .querySelector(".object-header__details-info")
-      .appendChild(badgesContainerElement);
+    headerDetailsElement.appendChild(badgesContainerElement);
   }
 
   return badgesContainerElement;
@@ -51,16 +56,19 @@ function addNeighbourhoodTable(tableProperties) {
     ".object-buurt__name"
   );
 
-  const tableHtml = makeTableHtml(tableProperties);
-
-  neighbourhoodNameElement.insertAdjacentHTML("afterend", tableHtml);
+  if (neighbourhoodNameElement) {
+    const tableHtml = makeTableHtml(tableProperties);
+    neighbourhoodNameElement.insertAdjacentHTML("afterend", tableHtml);
+  }
 }
 
 function addBadges(badgeProperties) {
-  const badgesHtml = makeBadgesHtml(badgeProperties);
-
   const badgesContainerElement = getBadgesContainerElement();
-  badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
+
+  if (badgesContainerElement) {
+    const badgesHtml = makeBadgesHtml(badgeProperties);
+    badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
+  }
 }
 
 function subscribeToBadgeClicks() {

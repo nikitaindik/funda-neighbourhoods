@@ -1,7 +1,7 @@
 import { readUserSettings } from "../common/readUserSettings";
 
-import { getSphericalMercator, getProperties } from "./utils";
-import { fetchCoordinates, fetchNeighbourhood } from "./api";
+import { getSphericalMercatorCoordinates, getProperties } from "./utils";
+import { fetchLatitudeLongitude, fetchNeighbourhood } from "./api";
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "openOptionsPage") {
@@ -11,8 +11,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   const { zipCode } = request;
 
-  fetchCoordinates(zipCode).then(async coordinates => {
-    const sphericalMercator = getSphericalMercator(coordinates);
+  fetchLatitudeLongitude(zipCode).then(async latitudeLongitude => {
+    const sphericalMercator = getSphericalMercatorCoordinates(
+      latitudeLongitude
+    );
 
     const neighbourhoodApiResponse = await fetchNeighbourhood(
       sphericalMercator

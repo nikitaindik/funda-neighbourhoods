@@ -6,5 +6,8 @@ export const OPTIONS = [
   "residentsAge15to24Percentage",
   "residentsAge25to44Percentage",
   "residentsAge45to64Percentage",
-  "residentsAge65AndOlder"
+  "residentsAge65AndOlder",
+  "residentsFromAntillesOrAruba",
+  "singlePersonHouseholds",
+  "married"
 ];

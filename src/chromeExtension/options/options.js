@@ -1,5 +1,5 @@
-export { readUserSettings } from "../common/readUserSettings";
-export { OPTIONS } from "../common/constants";
+import { readUserSettings } from "../common/readUserSettings";
+import { OPTIONS } from "../common/constants";
 
 initializePage();
 

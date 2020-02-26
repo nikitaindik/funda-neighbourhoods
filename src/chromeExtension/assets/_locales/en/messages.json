@@ -50,6 +50,24 @@
   "residentsAge65AndOlderShort": {
     "message": "65+ y.o."
   },
+  "residentsFromAntillesOrAruba": {
+    "message": "Residents from Antilles or Aruba"
+  },
+  "residentsFromAntillesOrArubaShort": {
+    "message": "Antilles or Aruba"
+  },
+  "singlePersonHouseholds": {
+    "message": "Single person households"
+  },
+  "singlePersonHouseholdsShort": {
+    "message": "Single"
+  },
+  "married": {
+    "message": "Married"
+  },
+  "marriedShort": {
+    "message": "Married"
+  },
   "noInfo": {
     "message": "No info"
   },

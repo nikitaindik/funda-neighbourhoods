@@ -1,15 +1,18 @@
 import { INCOME_BANDS, INCOME_BAND_COLORS, DEFAULT_COLOR } from "./constants";
 
-export function getSphericalMercator(coordinates) {
+export function getSphericalMercatorCoordinates(latitudeLongitude) {
   const R = 6378137;
   const MAX_LATITUDE = 85.0511287798;
 
   const d = Math.PI / 180;
   const max = MAX_LATITUDE;
-  const lat = Math.max(Math.min(max, coordinates.lat), -max);
+  const lat = Math.max(Math.min(max, latitudeLongitude.lat), -max);
   const sin = Math.sin(lat * d);
 
-  return [R * coordinates.lng * d, (R * Math.log((1 + sin) / (1 - sin))) / 2];
+  return [
+    R * latitudeLongitude.lng * d,
+    (R * Math.log((1 + sin) / (1 - sin))) / 2
+  ];
 }
 
 export function getProperties(neighbourhoodApiResponse, userSettings) {
@@ -58,6 +61,21 @@ export function getProperties(neighbourhoodApiResponse, userSettings) {
     `${properties.percentage_personen_65_jaar_en_ouder}%`
   );
 
+  const residentsFromAntillesOrAruba = getNeighbourhoodProperty(
+    "residentsFromAntillesOrAruba",
+    `${properties.percentage_uit_nederlandse_antillen_en_aruba}%`
+  );
+
+  const singlePersonHouseholds = getNeighbourhoodProperty(
+    "singlePersonHouseholds",
+    `${properties.percentage_eenpersoonshuishoudens}%`
+  );
+
+  const married = getNeighbourhoodProperty(
+    "married",
+    `${properties.percentage_gehuwd}%`
+  );
+
   const tableProperties = {
     neighbourhoodName,
     meanIncomePerResident,
@@ -66,18 +84,16 @@ export function getProperties(neighbourhoodApiResponse, userSettings) {
     residentsAge15to24Percentage,
     residentsAge25to44Percentage,
     residentsAge45to64Percentage,
-    residentsAge65AndOlder
+    residentsAge65AndOlder,
+    residentsFromAntillesOrAruba,
+    singlePersonHouseholds,
+    married
   };
 
   const badgeProperties = getBadgeProperties(tableProperties, userSettings);
 
   /*
 
-percentage_uit_nederlandse_antillen_en_aruba: 1
-percentage_bewoond: 93
-percentage_eenpersoonshuishoudens: 60
-geboortes_per_1000_inwoners: 8
-percentage_gehuwd: 30
 percentage_gescheid: 10
 percentage_huishoudens_met_kinderen: 17
 percentage_huishoudens_zonder_kinderen: 22

@@ -1,4 +1,4 @@
-export async function fetchCoordinates(zipCode) {
+export async function fetchLatitudeLongitude(zipCode) {
   const url = `${process.env.ZIPCODE_API_DOMAIN}/default/getLocationByZipCode?zipCode=${zipCode}`;
 
   const response = await fetch(url);

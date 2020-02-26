@@ -1,11 +1,7 @@
-const { OPTIONS } = require("../common/constants");
+import { OPTIONS } from "../common/constants";
 
-async function readUserSettings() {
+export async function readUserSettings() {
   return new Promise(resolve => {
     chrome.storage.sync.get(OPTIONS, resolve);
   });
 }
-
-module.exports = {
-  readUserSettings
-};

@@ -1,10 +1,6 @@
-const {
-  INCOME_BANDS,
-  INCOME_BAND_COLORS,
-  DEFAULT_COLOR
-} = require("./constants");
+import { INCOME_BANDS, INCOME_BAND_COLORS, DEFAULT_COLOR } from "./constants";
 
-function getSphericalMercator(coordinates) {
+export function getSphericalMercator(coordinates) {
   const R = 6378137;
   const MAX_LATITUDE = 85.0511287798;
 
@@ -16,7 +12,7 @@ function getSphericalMercator(coordinates) {
   return [R * coordinates.lng * d, (R * Math.log((1 + sin) / (1 - sin))) / 2];
 }
 
-function getProperties(neighbourhoodApiResponse, userSettings) {
+export function getProperties(neighbourhoodApiResponse, userSettings) {
   const properties = neighbourhoodApiResponse.features[0].properties;
 
   const neighbourhoodName = getNeighbourhoodProperty(
@@ -196,8 +192,3 @@ function getIncomeBand(income) {
 
   return INCOME_BANDS.extremelyLow;
 }
-
-module.exports = {
-  getSphericalMercator,
-  getProperties
-};

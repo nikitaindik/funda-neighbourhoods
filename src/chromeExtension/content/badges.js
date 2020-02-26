@@ -1,4 +1,4 @@
-function makeBadgesHtml(badgeProperties) {
+export function makeBadgesHtml(badgeProperties) {
   return Object.values(badgeProperties)
     .map(({ label, shortLabel, value, color }) => {
       const badgeLabel = `${shortLabel}: ${value}`;
@@ -9,7 +9,3 @@ function makeBadgesHtml(badgeProperties) {
     })
     .join("");
 }
-
-module.exports = {
-  makeBadgesHtml
-};

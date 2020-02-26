@@ -1,5 +1,5 @@
-const { readUserSettings } = require("../common/readUserSettings");
-const { OPTIONS } = require("../common/constants");
+export { readUserSettings } from "../common/readUserSettings";
+export { OPTIONS } from "../common/constants";
 
 initializePage();
 

@@ -1,4 +1,4 @@
-function makeTableHtml(properties) {
+export function makeTableHtml(properties) {
   const rowsHtml = makeTableRowsHtml(properties);
   const tableHtml = wrapTableRowsHtml(rowsHtml);
 
@@ -20,7 +20,3 @@ function wrapTableRowsHtml(rowsHtml) {
       </div>
     `;
 }
-
-module.exports = {
-  makeTableHtml
-};

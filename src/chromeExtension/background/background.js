@@ -1,7 +1,7 @@
-const { readUserSettings } = require("../common/readUserSettings");
+import { readUserSettings } from "../common/readUserSettings";
 
-const { getSphericalMercator, getProperties } = require("./utils");
-const { fetchCoordinates, fetchNeighbourhood } = require("./api");
+import { getSphericalMercator, getProperties } from "./utils";
+import { fetchCoordinates, fetchNeighbourhood } from "./api";
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "openOptionsPage") {

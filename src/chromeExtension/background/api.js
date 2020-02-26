@@ -1,4 +1,4 @@
-async function fetchCoordinates(zipCode) {
+export async function fetchCoordinates(zipCode) {
   const url = `${process.env.API_PATH}?zipCode=${zipCode}`;
 
   const response = await fetch(url);
@@ -10,7 +10,7 @@ async function fetchCoordinates(zipCode) {
   };
 }
 
-async function fetchNeighbourhood(sphericalMercator) {
+export async function fetchNeighbourhood(sphericalMercator) {
   const bbox = [
     sphericalMercator[0] - 50,
     sphericalMercator[1] - 50,
@@ -52,8 +52,3 @@ function getUrl(parameters) {
 
   return `https://geodata.nationaalgeoregister.nl/wijkenbuurten2015/wms?${parametersString}`;
 }
-
-module.exports = {
-  fetchCoordinates,
-  fetchNeighbourhood
-};

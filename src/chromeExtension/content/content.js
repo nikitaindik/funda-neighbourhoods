@@ -1,5 +1,5 @@
-const { makeTableHtml } = require("./table");
-const { makeBadgesHtml } = require("./badges");
+import { makeTableHtml } from "./table";
+import { makeBadgesHtml } from "./badges";
 
 const zipCode = getZipCode();
 

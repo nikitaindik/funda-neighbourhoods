@@ -1,4 +1,4 @@
-const OPTIONS = [
+export const OPTIONS = [
   "neighbourhoodName",
   "meanIncomePerResident",
   "meanIncomePerIncomeRecipient",
@@ -8,7 +8,3 @@ const OPTIONS = [
   "residentsAge45to64Percentage",
   "residentsAge65AndOlder"
 ];
-
-module.exports = {
-  OPTIONS
-};

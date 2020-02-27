@@ -2,6 +2,15 @@ import { DEFAULT_COLOR } from "../common/constants";
 
 import { VIEWABLE_PROPERTIES } from "../common/viewableProperties";
 
+export function selectDefaultProperties({ reason }) {
+  if (reason === "install") {
+    chrome.storage.sync.set({
+      neighbourhoodName: true,
+      meanIncomePerResident: true
+    });
+  }
+}
+
 export function getSphericalMercatorCoordinates(latitudeLongitude) {
   const R = 6378137;
   const MAX_LATITUDE = 85.0511287798;

@@ -5,7 +5,7 @@ export function makeBadgesHtml(badgeProperties) {
 
       const style = `background: ${color};`;
 
-      return `<li class="label-nieuw badge" style="${style}" title="${label}">${badgeLabel}</li>`;
+      return `<li class="label-nieuw badge" style="${style}" title="${label} (2015)">${badgeLabel}</li>`;
     })
     .join("");
 }

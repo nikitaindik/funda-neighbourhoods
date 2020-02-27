@@ -174,13 +174,13 @@
     "message": "Multi-family"
   },
   "westernImmigrants": {
-    "message": "Western"
+    "message": "Residents with western background"
   },
   "westernImmigrantsShort": {
     "message": "Western imm."
   },
   "nonWesternImmigrants": {
-    "message": "Non-western"
+    "message": "Residents with non-western background"
   },
   "nonWesternImmigrantsShort": {
     "message": "Non-western imm."

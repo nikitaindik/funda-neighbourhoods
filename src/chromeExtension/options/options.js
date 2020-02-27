@@ -1,5 +1,6 @@
 import { readUserSettings } from "../common/readUserSettings";
 import { VIEWABLE_PROPERTIES } from "../common/viewableProperties";
+import { groupProperties } from "../common/utils";
 
 initializePage();
 
@@ -25,9 +26,19 @@ function makeHeaderHtml() {
 }
 
 function makeOptionsTableHtml(userSettings) {
-  return VIEWABLE_PROPERTIES.map(property =>
-    makeOptionHtml(property.name, userSettings)
-  ).join("");
+  const groupedProperties = groupProperties(VIEWABLE_PROPERTIES);
+  const groupNames = Object.keys(groupedProperties);
+
+  return groupNames
+    .map(groupName => {
+      const headerHtml = makeSectionHeaderHtml(groupName);
+
+      const group = groupedProperties[groupName];
+      const optionsSectionHtml = makeOptionsSectionHtml(group, userSettings);
+
+      return headerHtml + optionsSectionHtml;
+    })
+    .join("");
 }
 
 function makeOptionHtml(optionName, userSettings) {
@@ -35,12 +46,12 @@ function makeOptionHtml(optionName, userSettings) {
   const checked = userSettings[optionName] ? "checked" : "";
 
   return `
-    <div class="table-row">
-        <div class="table-checkbox-container">
-          <input class="table-checkbox" type="checkbox" ${checked} data-option-name="${optionName}" id="${optionName}" />
+    <div class="options-page-row">
+        <div class="options-page-checkbox-container">
+          <input class="options-page-checkbox" type="checkbox" ${checked} data-option-name="${optionName}" id="${optionName}" />
         </div>
-        <div class="table-label-container">
-          <label class="table-label" for="${optionName}">${label}</label>
+        <div class="options-page-label-container">
+          <label class="options-page-label" for="${optionName}">${label}</label>
         </div>
     </div>
   `;
@@ -54,4 +65,16 @@ function handleClicks(event) {
   if (isOptionClick) {
     chrome.storage.sync.set({ [clickedOptionName]: clickedElement.checked });
   }
+}
+
+function makeSectionHeaderHtml(groupName) {
+  const headerText = chrome.i18n.getMessage(groupName);
+
+  return `<div class="options-page-section-header">${headerText}</div>`;
+}
+
+function makeOptionsSectionHtml(group, userSettings) {
+  return group
+    .map(option => makeOptionHtml(option.name, userSettings))
+    .join("");
 }

@@ -47,3 +47,17 @@ export function formatIncomeValue(income, incomeBand) {
 
   return `${money} (${incomeBandTitle})`;
 }
+
+export function groupProperties(properties) {
+  return properties.reduce((grouped, property) => {
+    const groupName = property.group || "noGroup";
+
+    if (grouped.hasOwnProperty(groupName)) {
+      grouped[groupName].push(property);
+    } else {
+      grouped[groupName] = [property];
+    }
+
+    return grouped;
+  }, {});
+}

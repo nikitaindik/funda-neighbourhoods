@@ -41,6 +41,7 @@ function getNeighbourhoodProperty(viewableProperty, apiResponseProperties) {
   const label = chrome.i18n.getMessage(name);
   const shortLabel = chrome.i18n.getMessage(name + "Short");
   const value = viewableProperty.getValue(apiResponseProperties);
+  const group = viewableProperty.group;
   const color = viewableProperty.getColor
     ? viewableProperty.getColor(apiResponseProperties)
     : DEFAULT_COLOR;
@@ -50,6 +51,7 @@ function getNeighbourhoodProperty(viewableProperty, apiResponseProperties) {
     label,
     shortLabel,
     value,
+    group,
     color
   };
 }

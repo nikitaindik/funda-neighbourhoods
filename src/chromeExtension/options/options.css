@@ -1,19 +1,26 @@
-.table-row {
+.options-page-section-header {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.options-page-row {
   margin-bottom: 8px;
   display: flex;
 }
 
-.table-checkbox-container,
-.table-label-container {
+.options-page-checkbox-container,
+.options-page-label-container {
   display: flex;
   align-items: center;
 }
 
-.table-checkbox-container {
+.options-page-checkbox-container {
   margin-right: 6px;
 }
 
-.table-checkbox,
-.table-label {
+.options-page-checkbox,
+.options-page-label {
   cursor: pointer;
 }

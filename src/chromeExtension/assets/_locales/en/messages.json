@@ -2,6 +2,33 @@
   "selectBadges": {
     "message": "Select badges visible at the top of the property page"
   },
+  "doNotShowInTable": {
+    "message": ""
+  },
+  "yearBuilt": {
+    "message": "Year built"
+  },
+  "income": {
+    "message": "Income"
+  },
+  "residentsAge": {
+    "message": "Residents: age"
+  },
+  "residentsMaritalStatus": {
+    "message": "Residents: marital status"
+  },
+  "householdType": {
+    "message": "Household type"
+  },
+  "propertyOwnership": {
+    "message": "Property ownership"
+  },
+  "buildingType": {
+    "message": "Building type"
+  },
+  "immigrationBackground": {
+    "message": "Immigration background"
+  },
   "neighbourhoodName": {
     "message": "Neighbourhood name"
   },
@@ -33,22 +60,22 @@
     "message": "Recip. income"
   },
   "veryHighIncomeHouseholds": {
-    "message": "Very High Income Households"
+    "message": "Very high income households"
   },
   "veryHighIncomeHouseholdsShort": {
-    "message": "Very High Inc. HH"
+    "message": "Very high inc. HH"
   },
   "lowIncomeHouseholds": {
-    "message": "Low Income Households"
+    "message": "Low income households"
   },
   "lowIncomeHouseholdsShort": {
-    "message": "Low Inc. HH"
+    "message": "Low inc. HH"
   },
   "veryLowIncomeHouseholds": {
-    "message": "Very Low Income Households"
+    "message": "Very low income households"
   },
   "veryLowIncomeHouseholdsShort": {
-    "message": "Very Low Inc. HH"
+    "message": "Very low inc. HH"
   },
   "belowSocialMinimumHouseholds": {
     "message": "Households with income below social minimum"
@@ -87,7 +114,7 @@
     "message": "65+ y.o."
   },
   "singlePersonHouseholds": {
-    "message": "Single person households"
+    "message": "Single-person households"
   },
   "singlePersonHouseholdsShort": {
     "message": "Single"
@@ -117,76 +144,76 @@
     "message": "Widowed"
   },
   "householdsWithChildren": {
-    "message": "Households With Children"
+    "message": "Households with children"
   },
   "householdsWithChildrenShort": {
-    "message": "With Children"
+    "message": "With children"
   },
   "householdsWithoutChildren": {
-    "message": "Households Without Children"
+    "message": "Households without children"
   },
   "householdsWithoutChildrenShort": {
-    "message": "No Children"
+    "message": "No children"
   },
   "rentalProperties": {
-    "message": "Rental Properties"
+    "message": "Rental properties"
   },
   "rentalPropertiesShort": {
     "message": "Rental"
   },
-  "ownedlProperties": {
-    "message": "Owned Properties"
+  "ownedProperties": {
+    "message": "Owned properties"
   },
-  "ownedlPropertiesShort": {
+  "ownedPropertiesShort": {
     "message": "Owned"
   },
   "multiFamilyResidential": {
-    "message": "Multi-family Residential Properties"
+    "message": "Multi-family residential"
   },
   "multiFamilyResidentialShort": {
     "message": "Multi-family"
   },
   "westernImmigrants": {
-    "message": "Western immigration background"
+    "message": "Western"
   },
   "westernImmigrantsShort": {
     "message": "Western imm."
   },
   "nonWesternImmigrants": {
-    "message": "Non-western immigration background"
+    "message": "Non-western"
   },
   "nonWesternImmigrantsShort": {
     "message": "Non-western imm."
   },
   "residentsFromMorocco": {
-    "message": "Residents from Morocco"
+    "message": "Morocco"
   },
   "residentsFromMoroccoShort": {
     "message": "Morocco"
   },
   "residentsFromAntillesOrAruba": {
-    "message": "Residents from Antilles or Aruba"
+    "message": "Antilles or Aruba"
   },
   "residentsFromAntillesOrArubaShort": {
     "message": "Antilles or Aruba"
   },
   "residentsFromSuriname": {
-    "message": "Residents from Suriname"
+    "message": "Suriname"
   },
   "residentsFromSurinameShort": {
     "message": "Suriname"
   },
   "residentsFromTurkey": {
-    "message": "Residents from Turkey"
+    "message": "Turkey"
   },
   "residentsFromTurkeyShort": {
     "message": "Turkey"
   },
   "residentsOfOtherNonWesternBackground": {
-    "message": "Residents of other Non-western Background"
+    "message": "Other non-western"
   },
   "residentsOfOtherNonWesternBackgroundShort": {
-    "message": "Other Non-western"
+    "message": "Other non-western"
   },
   "noInfo": {
     "message": "No info"

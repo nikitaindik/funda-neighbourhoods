@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const addApiPathToManifest = require("./src/chromeExtension/addApiPathToManifest");
+const addVariablesToManifest = require("./src/chromeExtension/addVariablesToManifest");
 
 module.exports = env => {
   const isDevMode = env.IS_DEV_MODE === "true";
@@ -34,7 +34,7 @@ module.exports = env => {
       new CopyPlugin([
         {
           from: "./src/chromeExtension/manifest.json",
-          transform: addApiPathToManifest(env.ZIPCODE_API_DOMAIN)
+          transform: addVariablesToManifest(env.ZIPCODE_API_DOMAIN)
         },
         {
           from: "./src/chromeExtension/content/content.css"

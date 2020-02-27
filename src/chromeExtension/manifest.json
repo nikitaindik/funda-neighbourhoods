@@ -1,9 +1,8 @@
 {
-  "name": "Funda Helper",
-  "version": "0.0.1",
+  "name": "Funda Neighbourhoods",
   "manifest_version": 2,
-  "description": "Adds helpful info to Funda pages",
-  "permissions": ["activeTab", "storage"],
+  "description": "Adds helpful information about neighbourhood to house / apartment pages on funda.nl",
+  "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

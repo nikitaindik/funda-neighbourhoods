@@ -1,11 +1,12 @@
 {
   "name": "funda-chrome-extension",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "webpack --config webpack.config.js --env.IS_DEV_MODE=true",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "zip": "zip -r funda-neighbourhoods-build.zip build"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

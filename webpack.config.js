@@ -6,8 +6,11 @@ const CopyPlugin = require("copy-webpack-plugin");
 const addApiPathToManifest = require("./src/chromeExtension/addApiPathToManifest");
 
 module.exports = env => {
+  const isDevMode = env.IS_DEV_MODE === "true";
+
   return {
-    mode: "production",
+    mode: isDevMode ? "development" : "production",
+    watch: isDevMode ? true : false,
     entry: {
       background: "./src/chromeExtension/background/background.js",
       content: "./src/chromeExtension/content/content.js",
@@ -41,6 +44,7 @@ module.exports = env => {
           from: "./src/chromeExtension/assets/"
         }
       ])
-    ]
+    ],
+    devtool: isDevMode ? "inline-source-map" : false
   };
 };

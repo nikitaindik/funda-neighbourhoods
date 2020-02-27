@@ -74,6 +74,12 @@
   "divorcedShort": {
     "message": "Divorced"
   },
+  "householdsWithChildren": {
+    "message": "Households with Children"
+  },
+  "householdsWithChildrenShort": {
+    "message": "With Children"
+  },
   "noInfo": {
     "message": "No info"
   },

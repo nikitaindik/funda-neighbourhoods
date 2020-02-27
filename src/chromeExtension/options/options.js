@@ -1,5 +1,5 @@
 import { readUserSettings } from "../common/readUserSettings";
-import { OPTIONS } from "../common/constants";
+import { VIEWABLE_PROPERTIES } from "../common/viewableProperties";
 
 initializePage();
 
@@ -25,8 +25,8 @@ function makeHeaderHtml() {
 }
 
 function makeOptionsTableHtml(userSettings) {
-  return OPTIONS.map(optionName =>
-    makeOptionHtml(optionName, userSettings)
+  return VIEWABLE_PROPERTIES.map(property =>
+    makeOptionHtml(property.name, userSettings)
   ).join("");
 }
 

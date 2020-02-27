@@ -8,6 +8,18 @@
   "neighbourhoodNameShort": {
     "message": "Neighbourhood"
   },
+  "builtBefore2000": {
+    "message": "Buildings built before 2000"
+  },
+  "builtBefore2000Short": {
+    "message": "Before 2000"
+  },
+  "builtAfter2000": {
+    "message": "Buildings built after 2000"
+  },
+  "builtAfter2000Short": {
+    "message": "After 2000"
+  },
   "meanIncomePerResident": {
     "message": "Mean income per resident"
   },
@@ -19,6 +31,30 @@
   },
   "meanIncomePerIncomeRecipientShort": {
     "message": "Recip. income"
+  },
+  "veryHighIncomeHouseholds": {
+    "message": "Very High Income Households"
+  },
+  "veryHighIncomeHouseholdsShort": {
+    "message": "Very High Inc. HH"
+  },
+  "lowIncomeHouseholds": {
+    "message": "Low Income Households"
+  },
+  "lowIncomeHouseholdsShort": {
+    "message": "Low Inc. HH"
+  },
+  "veryLowIncomeHouseholds": {
+    "message": "Very Low Income Households"
+  },
+  "veryLowIncomeHouseholdsShort": {
+    "message": "Very Low Inc. HH"
+  },
+  "belowSocialMinimumHouseholds": {
+    "message": "Households with income below social minimum"
+  },
+  "belowSocialMinimumHouseholdsShort": {
+    "message": "Below social min. HH"
   },
   "residentsAge0to14Percentage": {
     "message": "Residents age: 0 - 14 years"
@@ -50,17 +86,17 @@
   "residentsAge65AndOlderShort": {
     "message": "65+ y.o."
   },
-  "residentsFromAntillesOrAruba": {
-    "message": "Residents from Antilles or Aruba"
-  },
-  "residentsFromAntillesOrArubaShort": {
-    "message": "Antilles or Aruba"
-  },
   "singlePersonHouseholds": {
     "message": "Single person households"
   },
   "singlePersonHouseholdsShort": {
     "message": "Single"
+  },
+  "nonMarried": {
+    "message": "Non-married"
+  },
+  "nonMarriedShort": {
+    "message": "Non-married"
   },
   "married": {
     "message": "Married"
@@ -74,11 +110,83 @@
   "divorcedShort": {
     "message": "Divorced"
   },
+  "widowed": {
+    "message": "Widowed"
+  },
+  "widowedShort": {
+    "message": "Widowed"
+  },
   "householdsWithChildren": {
-    "message": "Households with Children"
+    "message": "Households With Children"
   },
   "householdsWithChildrenShort": {
     "message": "With Children"
+  },
+  "householdsWithoutChildren": {
+    "message": "Households Without Children"
+  },
+  "householdsWithoutChildrenShort": {
+    "message": "No Children"
+  },
+  "rentalProperties": {
+    "message": "Rental Properties"
+  },
+  "rentalPropertiesShort": {
+    "message": "Rental"
+  },
+  "ownedlProperties": {
+    "message": "Owned Properties"
+  },
+  "ownedlPropertiesShort": {
+    "message": "Owned"
+  },
+  "multiFamilyResidential": {
+    "message": "Multi-family Residential Properties"
+  },
+  "multiFamilyResidentialShort": {
+    "message": "Multi-family"
+  },
+  "westernImmigrants": {
+    "message": "Western immigration background"
+  },
+  "westernImmigrantsShort": {
+    "message": "Western imm."
+  },
+  "nonWesternImmigrants": {
+    "message": "Non-western immigration background"
+  },
+  "nonWesternImmigrantsShort": {
+    "message": "Non-western imm."
+  },
+  "residentsFromMorocco": {
+    "message": "Residents from Morocco"
+  },
+  "residentsFromMoroccoShort": {
+    "message": "Morocco"
+  },
+  "residentsFromAntillesOrAruba": {
+    "message": "Residents from Antilles or Aruba"
+  },
+  "residentsFromAntillesOrArubaShort": {
+    "message": "Antilles or Aruba"
+  },
+  "residentsFromSuriname": {
+    "message": "Residents from Suriname"
+  },
+  "residentsFromSurinameShort": {
+    "message": "Suriname"
+  },
+  "residentsFromTurkey": {
+    "message": "Residents from Turkey"
+  },
+  "residentsFromTurkeyShort": {
+    "message": "Turkey"
+  },
+  "residentsOfOtherNonWesternBackground": {
+    "message": "Residents of other Non-western Background"
+  },
+  "residentsOfOtherNonWesternBackgroundShort": {
+    "message": "Other Non-western"
   },
   "noInfo": {
     "message": "No info"

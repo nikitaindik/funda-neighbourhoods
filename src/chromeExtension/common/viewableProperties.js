@@ -7,6 +7,15 @@ export const VIEWABLE_PROPERTIES = [
     getValue: properties => properties.buurtnaam
   },
   {
+    name: "builtBefore2000",
+    getValue: properties => `${properties.percentage_bouwjaarklasse_tot_2000}%`
+  },
+  {
+    name: "builtAfter2000",
+    getValue: properties =>
+      `${properties.percentage_bouwjaarklasse_vanaf_2000}%`
+  },
+  {
     name: "meanIncomePerResident",
     getValue: properties => {
       const income = properties.gemiddeld_inkomen_per_inwoner * 1000;
@@ -27,6 +36,28 @@ export const VIEWABLE_PROPERTIES = [
       const income = properties.gemiddeld_inkomen_per_inkomensontvanger * 1000;
       return formatMoney(income);
     }
+  },
+  {
+    name: "veryHighIncomeHouseholds",
+    getValue: properties =>
+      `${properties.percentage_huishoudens_met_hoogste_inkomen}%`
+  },
+  {
+    name: "lowIncomeHouseholds",
+    getValue: properties => {
+      const apiValue = properties.percentage_huishoudens_met_een_laag_inkomen;
+      return apiValue ? `${apiValue}%` : "-";
+    }
+  },
+  {
+    name: "veryLowIncomeHouseholds",
+    getValue: properties =>
+      `${properties.percentage_huishoudens_met_laagste_inkomen}%`
+  },
+  {
+    name: "belowSocialMinimumHouseholds",
+    getValue: properties =>
+      `${properties.percentage_huishoudens_onder_of_rond_sociaal_minimum}%`
   },
   {
     name: "residentsAge0to14Percentage",
@@ -50,13 +81,21 @@ export const VIEWABLE_PROPERTIES = [
       `${properties.percentage_personen_65_jaar_en_ouder}%`
   },
   {
-    name: "residentsFromAntillesOrAruba",
-    getValue: properties =>
-      `${properties.percentage_uit_nederlandse_antillen_en_aruba}%`
-  },
-  {
     name: "singlePersonHouseholds",
     getValue: properties => `${properties.percentage_eenpersoonshuishoudens}%`
+  },
+  {
+    name: "householdsWithChildren",
+    getValue: properties => `${properties.percentage_huishoudens_met_kinderen}%`
+  },
+  {
+    name: "householdsWithoutChildren",
+    getValue: properties =>
+      `${properties.percentage_huishoudens_zonder_kinderen}%`
+  },
+  {
+    name: "nonMarried",
+    getValue: properties => `${properties.percentage_ongehuwd}%`
   },
   {
     name: "married",
@@ -67,48 +106,50 @@ export const VIEWABLE_PROPERTIES = [
     getValue: properties => `${properties.percentage_gescheid}%`
   },
   {
-    name: "householdsWithChildren",
-    getValue: properties => `${properties.percentage_huishoudens_met_kinderen}%`
+    name: "widowed",
+    getValue: properties => `${properties.percentage_verweduwd}%`
+  },
+  {
+    name: "rentalProperties",
+    getValue: properties => `${properties.percentage_huurwoningen}%`
+  },
+  {
+    name: "ownedlProperties",
+    getValue: properties => `${properties.percentage_koopwoningen}%`
+  },
+  {
+    name: "multiFamilyResidential",
+    getValue: properties => `${properties.percentage_meergezinswoning}%`
+  },
+  {
+    name: "westernImmigrants",
+    getValue: properties => `${properties.percentage_westerse_allochtonen}%`
+  },
+  {
+    name: "nonWesternImmigrants",
+    getValue: properties =>
+      `${properties.percentage_niet_westerse_allochtonen}%`
+  },
+  {
+    name: "residentsFromMorocco",
+    getValue: properties => `${properties.percentage_uit_marokko}%`
+  },
+  {
+    name: "residentsFromAntillesOrAruba",
+    getValue: properties =>
+      `${properties.percentage_uit_nederlandse_antillen_en_aruba}%`
+  },
+  {
+    name: "residentsFromSuriname",
+    getValue: properties => `${properties.percentage_uit_suriname}%`
+  },
+  {
+    name: "residentsFromTurkey",
+    getValue: properties => `${properties.percentage_uit_turkije}%`
+  },
+  {
+    name: "residentsOfOtherNonWesternBackground",
+    getValue: properties =>
+      `${properties.percentage_overige_niet_westerse_allochtonen}%`
   }
 ];
-
-/*
-
-percentage_huishoudens_met_kinderen: 17
-percentage_huishoudens_zonder_kinderen: 22
-percentage_huishoudens_met_hoogste_inkomen: 18
-percentage_personen_met_hoog_inkomen: 28
-percentage_woningen_met_eigendom_onbekend: 0
-perc_huurwoningen_in_bezit_woningcorporaties: 31
-perc_huurwoningen_in_bezit_overige_verhuurders: 35
-percentage_huurwoningen: 66
-percentage_koopwoningen: 34
-percentage_huishoudens_met_laagste_inkomen: 47
-percentage_personen_met_laag_inkomen: 35
-percentage_leegstand_woningen: 7
-percentage_huishoudens_met_een_laag_inkomen: null
-percentage_uit_marokko: 2
-percentage_meergezinswoning: 92
-percentage_niet_westerse_allochtonen: 21
-percentage_ongehuwd: 50
-percentage_overige_niet_westerse_allochtonen: 13
-percentage_huishoudens_onder_of_rond_sociaal_minimum: 10
-aandeel_stadsverwarming: -99999999
-sterfte_relatief: 29
-percentage_uit_suriname: 3
-percentage_uit_turkije: 2
-percentage_verweduwd: 10
-percentage_westerse_allochtonen: 25
-percentage_bouwjaarklasse_tot_2000: 96
-percentage_bouwjaarklasse_vanaf_2000: 4
-meest_voorkomende_postcode: "1083"
-stedelijkheid_adressen_per_km2: 1
-sterfte_totaal: 225
-water: "NEE"
-wijkcode: "WK036304"
-woningvoorraad: 4321
-gemiddelde_woningwaarde: 203
-aantal_personen_met_een_ww_uitkering_totaal: 130
-aantal_personen_met_een_algemene_bijstandsuitkering_totaal: 190
-
-  */

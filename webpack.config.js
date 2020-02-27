@@ -2,6 +2,7 @@ const path = require("path");
 
 const webpack = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const addApiPathToManifest = require("./src/chromeExtension/addApiPathToManifest");
 
@@ -26,6 +27,7 @@ module.exports = env => {
       ]
     },
     plugins: [
+      new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
         "process.env.ZIPCODE_API_DOMAIN": JSON.stringify(env.ZIPCODE_API_DOMAIN)
       }),

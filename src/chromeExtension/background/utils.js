@@ -76,6 +76,11 @@ export function getProperties(neighbourhoodApiResponse, userSettings) {
     `${properties.percentage_gehuwd}%`
   );
 
+  const divorced = getNeighbourhoodProperty(
+    "divorced",
+    `${properties.percentage_gescheid}%`
+  );
+
   const tableProperties = {
     neighbourhoodName,
     meanIncomePerResident,
@@ -87,7 +92,8 @@ export function getProperties(neighbourhoodApiResponse, userSettings) {
     residentsAge65AndOlder,
     residentsFromAntillesOrAruba,
     singlePersonHouseholds,
-    married
+    married,
+    divorced
   };
 
   const badgeProperties = getBadgeProperties(tableProperties, userSettings);

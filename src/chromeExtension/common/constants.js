@@ -9,5 +9,6 @@ export const OPTIONS = [
   "residentsAge65AndOlder",
   "residentsFromAntillesOrAruba",
   "singlePersonHouseholds",
-  "married"
+  "married",
+  "divorced"
 ];

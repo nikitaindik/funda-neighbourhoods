@@ -68,6 +68,12 @@
   "marriedShort": {
     "message": "Married"
   },
+  "divorced": {
+    "message": "Divorced"
+  },
+  "divorcedShort": {
+    "message": "Divorced"
+  },
   "noInfo": {
     "message": "No info"
   },

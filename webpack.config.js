@@ -21,11 +21,6 @@ module.exports = env => {
       filename: "[name].js",
       path: path.resolve(__dirname, "build")
     },
-    module: {
-      rules: [
-        { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
-      ]
-    },
     plugins: [
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({

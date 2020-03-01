@@ -11,7 +11,7 @@ module.exports = env => {
 
   return {
     mode: isDevMode ? "development" : "production",
-    watch: isDevMode ? true : false,
+    watch: isDevMode,
     entry: {
       background: "./src/chromeExtension/background/background.js",
       content: "./src/chromeExtension/content/content.js",
@@ -22,7 +22,7 @@ module.exports = env => {
       path: path.resolve(__dirname, "build")
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      ...(isDevMode ? [] : [new CleanWebpackPlugin()]),
       new webpack.DefinePlugin({
         "process.env.ZIPCODE_API_DOMAIN": JSON.stringify(env.ZIPCODE_API_DOMAIN)
       }),

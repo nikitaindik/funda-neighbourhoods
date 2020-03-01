@@ -1,0 +1,248 @@
+{
+  "appName": {
+    "message": "Funda Buurten"
+  },
+  "appDescription": {
+    "message": "Voegt nuttige informatie over buurt toe aan huis- / appartementpagina's op funda.nl"
+  },
+  "selectBadges": {
+    "message": "Selecteer badges die zichtbaar zijn bovenaan de optiespagina"
+  },
+  "doNotShowInTable": {
+    "message": ""
+  },
+  "yearBuilt": {
+    "message": "Bouwjaar"
+  },
+  "income": {
+    "message": "Inkomen"
+  },
+  "residentsAge": {
+    "message": "Bewoners leeftijd"
+  },
+  "residentsMaritalStatus": {
+    "message": "Burgerlijke staat"
+  },
+  "householdType": {
+    "message": "Huishoudtype"
+  },
+  "propertyOwnership": {
+    "message": "Eigendomsrecht"
+  },
+  "buildingType": {
+    "message": "Gebouwtype"
+  },
+  "immigrationBackground": {
+    "message": "Allochtonen"
+  },
+  "neighbourhoodName": {
+    "message": "Buurtnaam"
+  },
+  "neighbourhoodNameShort": {
+    "message": "Buurt"
+  },
+  "builtBefore2000": {
+    "message": "Bouwjaarklasse tot 2000"
+  },
+  "builtBefore2000Short": {
+    "message": "Tot 2000"
+  },
+  "builtAfter2000": {
+    "message": "Bouwjaarklasse vanaf 2000"
+  },
+  "builtAfter2000Short": {
+    "message": "Vanaf 2000"
+  },
+  "meanIncomePerResident": {
+    "message": "Gemiddeld inkomen per inwoner"
+  },
+  "meanIncomePerResidentShort": {
+    "message": "Inw. inkomen"
+  },
+  "meanIncomePerIncomeRecipient": {
+    "message": "Gemiddeld inkomen per inkomensontvanger"
+  },
+  "meanIncomePerIncomeRecipientShort": {
+    "message": "Inkomensontv. inkomen"
+  },
+  "veryHighIncomeHouseholds": {
+    "message": "Huishoudens met hoogste inkomen"
+  },
+  "veryHighIncomeHouseholdsShort": {
+    "message": "Hoogste ink. HH"
+  },
+  "lowIncomeHouseholds": {
+    "message": "Huishoudens met laag inkomen"
+  },
+  "lowIncomeHouseholdsShort": {
+    "message": "Laag ink. HH"
+  },
+  "veryLowIncomeHouseholds": {
+    "message": "Huishoudens met laagste inkomen"
+  },
+  "veryLowIncomeHouseholdsShort": {
+    "message": "Laagste ink. HH"
+  },
+  "belowSocialMinimumHouseholds": {
+    "message": "Huishoudens onder of rond sociaal minimum"
+  },
+  "belowSocialMinimumHouseholdsShort": {
+    "message": "Onder sociaal min. HH"
+  },
+  "residentsAge0to14Percentage": {
+    "message": "Personen: 0 - 14 jaar"
+  },
+  "residentsAge0to14PercentageShort": {
+    "message": "0 - 15 jaar"
+  },
+  "residentsAge15to24Percentage": {
+    "message": "Personen: 15 - 24 jaar"
+  },
+  "residentsAge15to24PercentageShort": {
+    "message": "15 - 24 jaar"
+  },
+  "residentsAge25to44Percentage": {
+    "message": "Personen: 25 - 44 jaar"
+  },
+  "residentsAge25to44PercentageShort": {
+    "message": "25 - 44 jaar"
+  },
+  "residentsAge45to64Percentage": {
+    "message": "Personen: 45 - 64 jaar"
+  },
+  "residentsAge45to64PercentageShort": {
+    "message": "45 - 64 jaar"
+  },
+  "residentsAge65AndOlder": {
+    "message": "Personen: 65 jaar en ouder"
+  },
+  "residentsAge65AndOlderShort": {
+    "message": "65+ jaar"
+  },
+  "nonMarried": {
+    "message": "Ongehuwd"
+  },
+  "nonMarriedShort": {
+    "message": "Ongehuwd"
+  },
+  "married": {
+    "message": "Gehuwd"
+  },
+  "marriedShort": {
+    "message": "Gehuwd"
+  },
+  "divorced": {
+    "message": "Gescheid"
+  },
+  "divorcedShort": {
+    "message": "Gescheid"
+  },
+  "widowed": {
+    "message": "Verweduwd"
+  },
+  "widowedShort": {
+    "message": "Verweduwd"
+  },
+  "singlePersonHouseholds": {
+    "message": "Eenpersoonshuishoudens"
+  },
+  "singlePersonHouseholdsShort": {
+    "message": "Eenpersoon HH"
+  },
+  "householdsWithChildren": {
+    "message": "Huishoudens met kinderen"
+  },
+  "householdsWithChildrenShort": {
+    "message": "Met kinderen"
+  },
+  "householdsWithoutChildren": {
+    "message": "Huishoudens zonder kinderen"
+  },
+  "householdsWithoutChildrenShort": {
+    "message": "Zonder kinderen"
+  },
+  "rentalProperties": {
+    "message": "Huurwoningen"
+  },
+  "rentalPropertiesShort": {
+    "message": "Huurwoningen"
+  },
+  "ownedProperties": {
+    "message": "Koopwoningen"
+  },
+  "ownedPropertiesShort": {
+    "message": "Koopwoningen"
+  },
+  "multiFamilyResidential": {
+    "message": "Meergezinswoning"
+  },
+  "multiFamilyResidentialShort": {
+    "message": "Meergezinswoning"
+  },
+  "westernImmigrants": {
+    "message": "Westerse allochtonen"
+  },
+  "westernImmigrantsShort": {
+    "message": "Westerse all."
+  },
+  "nonWesternImmigrants": {
+    "message": "Niet-westerse allochtonen"
+  },
+  "nonWesternImmigrantsShort": {
+    "message": "Niet-westerse all."
+  },
+  "residentsFromMorocco": {
+    "message": "Uit Marokko"
+  },
+  "residentsFromMoroccoShort": {
+    "message": "Marokko"
+  },
+  "residentsFromAntillesOrAruba": {
+    "message": "Uit Antillen en Aruba"
+  },
+  "residentsFromAntillesOrArubaShort": {
+    "message": "Antillen en Aruba"
+  },
+  "residentsFromSuriname": {
+    "message": "Uit Suriname"
+  },
+  "residentsFromSurinameShort": {
+    "message": "Suriname"
+  },
+  "residentsFromTurkey": {
+    "message": "Uit Turkije"
+  },
+  "residentsFromTurkeyShort": {
+    "message": "Turkije"
+  },
+  "residentsOfOtherNonWesternBackground": {
+    "message": "Overige niet-westerse allochtonen"
+  },
+  "residentsOfOtherNonWesternBackgroundShort": {
+    "message": "Overige niet-west. all."
+  },
+  "noInfo": {
+    "message": "Geen info"
+  },
+  "veryHigh": {
+    "message": "Heel hoog"
+  },
+  "high": {
+    "message": "Hoog"
+  },
+  "average": {
+    "message": "Gemiddelde"
+  },
+  "belowAverage": {
+    "message": "Onder het gemiddelde"
+  },
+  "low": {
+    "message": "Laag"
+  },
+  "veryLow": {
+    "message": "Heel laag"
+  },
+  "extremelyLow": {
+    "message": "Extreem laag"
+  }
+}

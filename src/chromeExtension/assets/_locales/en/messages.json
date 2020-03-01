@@ -1,4 +1,10 @@
 {
+  "appName": {
+    "message": "Funda Neighbourhoods"
+  },
+  "appDescription": {
+    "message": "Adds helpful information about neighbourhood to house / apartment pages on funda.nl"
+  },
   "selectBadges": {
     "message": "Select badges visible at the top of the property page"
   },
@@ -113,12 +119,6 @@
   "residentsAge65AndOlderShort": {
     "message": "65+ y.o."
   },
-  "singlePersonHouseholds": {
-    "message": "Single-person households"
-  },
-  "singlePersonHouseholdsShort": {
-    "message": "Single"
-  },
   "nonMarried": {
     "message": "Non-married"
   },
@@ -142,6 +142,12 @@
   },
   "widowedShort": {
     "message": "Widowed"
+  },
+  "singlePersonHouseholds": {
+    "message": "Single-person households"
+  },
+  "singlePersonHouseholdsShort": {
+    "message": "Single"
   },
   "householdsWithChildren": {
     "message": "Households with children"
@@ -174,43 +180,43 @@
     "message": "Multi-family"
   },
   "westernImmigrants": {
-    "message": "Residents with western background"
+    "message": "Immigrants with western background"
   },
   "westernImmigrantsShort": {
     "message": "Western imm."
   },
   "nonWesternImmigrants": {
-    "message": "Residents with non-western background"
+    "message": "Immigrants with non-western background"
   },
   "nonWesternImmigrantsShort": {
     "message": "Non-western imm."
   },
   "residentsFromMorocco": {
-    "message": "Morocco"
+    "message": "From Morocco"
   },
   "residentsFromMoroccoShort": {
     "message": "Morocco"
   },
   "residentsFromAntillesOrAruba": {
-    "message": "Antilles or Aruba"
+    "message": "From Antilles or Aruba"
   },
   "residentsFromAntillesOrArubaShort": {
     "message": "Antilles or Aruba"
   },
   "residentsFromSuriname": {
-    "message": "Suriname"
+    "message": "From Suriname"
   },
   "residentsFromSurinameShort": {
     "message": "Suriname"
   },
   "residentsFromTurkey": {
-    "message": "Turkey"
+    "message": "From Turkey"
   },
   "residentsFromTurkeyShort": {
     "message": "Turkey"
   },
   "residentsOfOtherNonWesternBackground": {
-    "message": "Other non-western"
+    "message": "Imm. from non-western countries"
   },
   "residentsOfOtherNonWesternBackgroundShort": {
     "message": "Other non-western"

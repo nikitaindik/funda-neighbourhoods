@@ -1,7 +1,7 @@
 {
-  "name": "Funda Neighbourhoods",
+  "name": "__MSG_appName__",
   "manifest_version": 2,
-  "description": "Adds helpful information about neighbourhood to house / apartment pages on funda.nl",
+  "description": "__MSG_appDescription__",
   "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],

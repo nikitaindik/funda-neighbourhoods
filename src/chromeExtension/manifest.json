@@ -9,7 +9,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://www.funda.nl/*"],
+      "matches": [
+        "https://www.funda.nl/*",
+        "file:///Users/n.indik/Play/funda-neighbourhoods/tests/dummy.html"
+      ],
       "js": ["content.js"],
       "css": ["content.css"]
     }

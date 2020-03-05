@@ -41,7 +41,12 @@ function makeSectionHeaderHtml(groupName) {
 
 function makeRowsHtml(group) {
   const rows = Object.values(group)
-    .map(row => `<dt>${row.label}</dt><dd>${row.value}</dd>`)
+    .map(
+      row => `
+        <dt data-test="propertyRow-${row.name}-label">${row.label}</dt>
+        <dd data-test="propertyRow-${row.name}-value">${row.value}</dd>
+      `
+    )
     .join("");
 
   return `<dl class="object-kenmerken-list">${rows}</dl>`;

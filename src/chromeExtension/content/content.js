@@ -76,7 +76,9 @@ function subscribeToBadgeClicks() {
 
   badgesContainerElement.addEventListener("click", event => {
     const clickedElement = event.target;
-    const isBadgeClick = clickedElement.classList.contains("badge");
+    const isBadgeClick = clickedElement.classList.contains(
+      "funda-neighbourhoods-badge"
+    );
 
     if (isBadgeClick) {
       chrome.runtime.sendMessage({ action: "openOptionsPage" });

@@ -7,7 +7,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const addVariablesToManifest = require("./src/chromeExtension/addVariablesToManifest");
 
 module.exports = env => {
-  const isDevMode = env.IS_DEV_MODE === "true";
+  const isDevMode = env.BUILD_MODE === "dev";
+  const isTestMode = env.BUILD_MODE === "test";
 
   return {
     mode: isDevMode ? "development" : "production",
@@ -29,7 +30,7 @@ module.exports = env => {
       new CopyPlugin([
         {
           from: "./src/chromeExtension/manifest.json",
-          transform: addVariablesToManifest(env.ZIPCODE_API_DOMAIN)
+          transform: addVariablesToManifest(env.ZIPCODE_API_DOMAIN, isTestMode)
         },
         {
           from: "./src/chromeExtension/content/content.css"

@@ -1,10 +1,9 @@
+const { dummyHousePageUrl } = require("./utils");
 const { allPropertyNames, allGroupNames } = require("./groupAndPropertyNames");
 
 describe("Property page", () => {
   beforeAll(async () => {
-    await page.goto(
-      "file:///Users/n.indik/Play/funda-neighbourhoods/tests/dummy.html"
-    );
+    await page.goto(dummyHousePageUrl);
     await page.waitForSelector("[data-test^=badge]");
   });
 

@@ -2,3 +2,8 @@
   cursor: pointer;
   margin-left: 16px;
 }
+
+.funda-neighbourhoods-table-container {
+  height: auto;
+  margin-top: 16px;
+}

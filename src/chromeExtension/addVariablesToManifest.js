@@ -2,14 +2,14 @@ const path = require("path");
 const packageJson = require("../../package.json");
 
 const addVariablesToManifest = (
-  zipCodeApiPath,
+  zipCodeApiDomain,
   isTestMode
 ) => manifestContent => {
   const manifest = JSON.parse(manifestContent);
 
   manifest.version = packageJson.version;
 
-  manifest.permissions.push(zipCodeApiPath + "/");
+  manifest.permissions.push(zipCodeApiDomain + "/");
 
   if (isTestMode) {
     // Add permission to run extension on a dummy house page

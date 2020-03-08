@@ -10,6 +10,10 @@ module.exports = env => {
   const isDevMode = env.BUILD_MODE === "dev";
   const isTestMode = env.BUILD_MODE === "test";
 
+  const zipCodeApiDomain =
+    env.ZIPCODE_API_DOMAIN ||
+    "https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com";
+
   return {
     mode: isDevMode ? "development" : "production",
     watch: isDevMode,
@@ -25,12 +29,12 @@ module.exports = env => {
     plugins: [
       ...(isDevMode ? [] : [new CleanWebpackPlugin()]),
       new webpack.DefinePlugin({
-        "process.env.ZIPCODE_API_DOMAIN": JSON.stringify(env.ZIPCODE_API_DOMAIN)
+        "process.env.ZIPCODE_API_DOMAIN": JSON.stringify(zipCodeApiDomain)
       }),
       new CopyPlugin([
         {
           from: "./src/chromeExtension/manifest.json",
-          transform: addVariablesToManifest(env.ZIPCODE_API_DOMAIN, isTestMode)
+          transform: addVariablesToManifest(zipCodeApiDomain, isTestMode)
         },
         {
           from: "./src/chromeExtension/content/content.css"

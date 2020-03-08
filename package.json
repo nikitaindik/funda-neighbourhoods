@@ -7,7 +7,7 @@
     "start": "webpack --config webpack.config.js --env.BUILD_MODE=dev",
     "build": "webpack --config webpack.config.js --env.BUILD_MODE=production",
     "test": "webpack --config webpack.config.js --env.BUILD_MODE=test && jest --config=tests/jest.config.json",
-    "test:ci": "npm ci && npm run build:test && npm test",
+    "test:ci": "npm ci && npm run test",
     "zip": "zip -r funda-neighbourhoods-build.zip build"
   },
   "devDependencies": {

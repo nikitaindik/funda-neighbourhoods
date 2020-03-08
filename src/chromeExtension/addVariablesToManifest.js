@@ -21,8 +21,6 @@ const addVariablesToManifest = (
     manifest.content_scripts[0].matches.push(dummyPageUrl);
   }
 
-  console.log(manifest.content_scripts[0]);
-
   return JSON.stringify(manifest, null, 2);
 };
 

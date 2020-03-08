@@ -1,7 +1,7 @@
 const { dummyHousePageUrl, getExtensionBackgroundPage } = require("./utils");
 const { allPropertyNames, allGroupNames } = require("./groupAndPropertyNames");
 
-describe("Options page", () => {
+describe("Going to options page", () => {
   it("User should be able to go to options page by clicking on a badge", async () => {
     await page.goto(dummyHousePageUrl);
 
@@ -26,8 +26,10 @@ describe("Options page", () => {
 
     expect(targetUrl).toMatch(optionsPageUrl);
   });
+});
 
-  it("User should see all the properties on the options page", async () => {
+describe("Options page", () => {
+  beforeAll(async () => {
     const extensionBackgroundPage = await getExtensionBackgroundPage(browser);
 
     const optionsPageUrl = await extensionBackgroundPage.evaluate(() =>
@@ -35,7 +37,9 @@ describe("Options page", () => {
     );
 
     await page.goto(optionsPageUrl);
+  });
 
+  it("User should see all the properties on the options page", async () => {
     const { renderedGroupNames, renderedPropertyNames } = await page.$eval(
       "#options-table",
       tableContainerElement => {
@@ -71,5 +75,29 @@ describe("Options page", () => {
 
     // Check that all property rows are rendered
     expect(allPropertyNames).toEqual(renderedPropertyNames);
+  });
+
+  it("Default options should be selected", async () => {
+    const selectedOptions = await page.$$eval(
+      "[data-test^=optionsPagePropertyCheckbox]",
+      checkboxElements => {
+        const selectedCheckboxElements = checkboxElements.filter(
+          ({ checked }) => checked
+        );
+
+        const selectedCheckboxNames = selectedCheckboxElements
+          .map(({ dataset }) => dataset.test)
+          .map(
+            testHook => testHook.match(/optionsPagePropertyCheckbox-(.*)/)[1]
+          );
+
+        return selectedCheckboxNames;
+      }
+    );
+
+    expect(selectedOptions).toEqual([
+      "neighbourhoodName",
+      "meanIncomePerResident"
+    ]);
   });
 });

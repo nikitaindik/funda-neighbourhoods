@@ -48,12 +48,13 @@ function makeOptionHtml(optionName, userSettings) {
   return `
     <div class="options-page-row">
         <div class="options-page-checkbox-container">
-        <input
-          ${checked}
-          id="${optionName}" />
-          class="options-page-checkbox"
-          type="checkbox"
-          data-test="optionsPagePropertyCheckbox-${optionName}"
+          <input
+            ${checked}
+            id="${optionName}"
+            class="options-page-checkbox"
+            type="checkbox"
+            data-test="optionsPagePropertyCheckbox-${optionName}"
+          />
         </div>
         <div class="options-page-label-container">
           <label

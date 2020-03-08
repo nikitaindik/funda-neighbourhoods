@@ -36,4 +36,4 @@ jobs:
         env:
           CI: "true"
         with:
-          args: "npm test"
+          args: "npm ci && npm run testBuild -- --env.ZIPCODE_API_DOMAIN=https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com && npm test"

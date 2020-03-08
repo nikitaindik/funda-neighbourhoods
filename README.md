@@ -35,7 +35,7 @@ Data comes from Dutch census bureau (CBS) API and is from 2015.
 
 **Extension code**: Vanilla JS  
 **Bundling**: Webpack 4  
-**Tests**: Puppeteer + Jest
+**Tests**: Puppeteer + Jest  
 **Zipcode API**: AWS Lambda + DynamoDB  
 **Neighbourhood info API**: http://geodata.nationaalgeoregister.nl/
 

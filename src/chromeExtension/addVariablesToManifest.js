@@ -1,15 +1,27 @@
+const path = require("path");
 const packageJson = require("../../package.json");
 
-const addVariablesToManifest = zipCodeApiPath => manifestContent => {
+const addVariablesToManifest = (
+  zipCodeApiPath,
+  isTestMode
+) => manifestContent => {
   const manifest = JSON.parse(manifestContent);
 
-  const updatedManifest = {
-    ...manifest,
-    permissions: [...manifest.permissions, zipCodeApiPath + "/"],
-    version: packageJson.version
-  };
+  manifest.version = packageJson.version;
 
-  return JSON.stringify(updatedManifest, null, 2);
+  manifest.permissions.push(zipCodeApiPath + "/");
+
+  if (isTestMode) {
+    // Add permission to run extension on a dummy house page
+    const dummyPagePath = path.resolve(
+      __dirname,
+      "../../tests/dummyHousePage.html"
+    );
+    const dummyPageUrl = `file://${dummyPagePath}`;
+    manifest.content_scripts[0].matches.push(dummyPageUrl);
+  }
+
+  return JSON.stringify(manifest, null, 2);
 };
 
 module.exports = addVariablesToManifest;

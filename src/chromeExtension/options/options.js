@@ -48,10 +48,23 @@ function makeOptionHtml(optionName, userSettings) {
   return `
     <div class="options-page-row">
         <div class="options-page-checkbox-container">
-          <input class="options-page-checkbox" type="checkbox" ${checked} data-option-name="${optionName}" id="${optionName}" />
+          <input
+            ${checked}
+            id="${optionName}"
+            class="options-page-checkbox"
+            type="checkbox"
+            data-option-name="${optionName}"
+            data-test="optionsPagePropertyCheckbox-${optionName}"
+          />
         </div>
         <div class="options-page-label-container">
-          <label class="options-page-label" for="${optionName}">${label}</label>
+          <label
+            class="options-page-label"
+            for="${optionName}"
+            data-test="optionsPagePropertyLabel-${optionName}"
+          >
+            ${label}
+          </label>
         </div>
     </div>
   `;
@@ -70,7 +83,11 @@ function handleClicks(event) {
 function makeSectionHeaderHtml(groupName) {
   const headerText = chrome.i18n.getMessage(groupName);
 
-  return `<div class="options-page-section-header">${headerText}</div>`;
+  return `
+    <div class="options-page-section-header" data-test="optionsPageGroupHeader-${groupName}">
+      ${headerText}
+    </div>
+  `;
 }
 
 function makeOptionsSectionHtml(group, userSettings) {

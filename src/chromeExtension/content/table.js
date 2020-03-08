@@ -25,7 +25,7 @@ function makeTableSectionsHtml(properties) {
 
 function wrapTableRowsHtml(sectionsHtml) {
   return `
-      <div class="object-kenmerken-body" style="height: auto; margin-top: 16px;">
+      <div class="object-kenmerken-body" class="funda-neighbourhoods-table-container" data-test="tableContainer">
         <dl class="object-kenmerken-list">
         ${sectionsHtml}
         </dl>
@@ -36,12 +36,21 @@ function wrapTableRowsHtml(sectionsHtml) {
 function makeSectionHeaderHtml(groupName) {
   const headerText = chrome.i18n.getMessage(groupName);
 
-  return `<h3 class="object-kenmerken-list-header">${headerText}</h3>`;
+  return `
+    <h3 class="object-kenmerken-list-header" data-test="propertiesGroup-${groupName}">
+      ${headerText}
+    </h3>
+  `;
 }
 
 function makeRowsHtml(group) {
   const rows = Object.values(group)
-    .map(row => `<dt>${row.label}</dt><dd>${row.value}</dd>`)
+    .map(
+      row => `
+        <dt data-test="propertyRowLabel-${row.name}">${row.label}</dt>
+        <dd data-test="propertyRowValue-${row.name}">${row.value}</dd>
+      `
+    )
     .join("");
 
   return `<dl class="object-kenmerken-list">${rows}</dl>`;

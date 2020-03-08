@@ -25,6 +25,7 @@ Data comes from Dutch census bureau (CBS) API and is from 2015.
 ### Commands
 
 `yarn build` - build for production  
+`yarn testBuild` - build for testing with Puppeteer (same as production, but uses a mocked Funda page)
 `yarn start` - build for development (no minification, uses webpack watch mode)  
 `yarn zip` - package build folder into a ZIP, so it can be uploaded to extensions store dashboard
 
@@ -34,6 +35,7 @@ Data comes from Dutch census bureau (CBS) API and is from 2015.
 
 **Extension code**: Vanilla JS  
 **Bundling**: Webpack 4  
+**Tests**: Puppeteer + Jest
 **Zipcode API**: AWS Lambda + DynamoDB  
 **Neighbourhood info API**: http://geodata.nationaalgeoregister.nl/
 

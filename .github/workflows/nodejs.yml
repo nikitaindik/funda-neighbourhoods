@@ -25,13 +25,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm ci
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
-
       - name: Test Code
         uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
           args: "npm run test:ci"

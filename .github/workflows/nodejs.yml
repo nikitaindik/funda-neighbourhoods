@@ -29,11 +29,9 @@ jobs:
         env:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
 
-      - run: npm run testBuild -- --env.ZIPCODE_API_DOMAIN="https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com"
-
       - name: Test Code
         uses: mujo-code/puppeteer-headful@master
         env:
           CI: "true"
         with:
-          args: "npm run ciStuff"
+          args: "npm run test:ci"

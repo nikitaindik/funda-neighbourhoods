@@ -6,10 +6,10 @@
   "scripts": {
     "start": "webpack --config webpack.config.js --env.BUILD_MODE=dev",
     "build": "webpack --config webpack.config.js --env.BUILD_MODE=production",
-    "testBuild": "webpack --config webpack.config.js --env.BUILD_MODE=test",
+    "build:test": "webpack --config webpack.config.js --env.BUILD_MODE=test",
     "test": "jest --config=tests/jest.config.json",
-    "zip": "zip -r funda-neighbourhoods-build.zip build",
-    "ciStuff": "npm ci && npm run testBuild -- --env.ZIPCODE_API_DOMAIN=https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com && npm test"
+    "test:ci": "npm ci && npm run build:test -- --env.ZIPCODE_API_DOMAIN=https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com && npm test",
+    "zip": "zip -r funda-neighbourhoods-build.zip build"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",

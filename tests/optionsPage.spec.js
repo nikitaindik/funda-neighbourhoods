@@ -37,6 +37,7 @@ describe("Options page", () => {
     );
 
     await page.goto(optionsPageUrl);
+    await page.waitFor("[data-test^=optionsPagePropertyCheckbox]");
   });
 
   it("User should see all the properties on the options page", async () => {
@@ -98,6 +99,44 @@ describe("Options page", () => {
     expect(selectedOptions).toEqual([
       "neighbourhoodName",
       "meanIncomePerResident"
+    ]);
+  });
+
+  it("User should see selected badges", async () => {
+    // Un-select default "neighbourhood name" badge
+    await page.$eval(
+      "[data-test=optionsPagePropertyCheckbox-neighbourhoodName]",
+      checkboxElement => checkboxElement.click()
+    );
+
+    // Select "married"
+    await page.$eval(
+      "[data-test=optionsPagePropertyCheckbox-married]",
+      checkboxElement => checkboxElement.click()
+    );
+
+    // Select "residents over 65 years old"
+    await page.$eval(
+      "[data-test=optionsPagePropertyCheckbox-residentsAge65AndOlder]",
+      checkboxElement => checkboxElement.click()
+    );
+
+    await page.goto(dummyHousePageUrl);
+
+    await page.waitForSelector("[data-test^=badge]");
+
+    const badgeNames = await page.$$eval("[data-test^=badge]", badges => {
+      const badgeNames = badges
+        .map(badge => badge.dataset.test)
+        .map(testHook => testHook.match(/badge-(.*)/)[1]);
+
+      return badgeNames;
+    });
+
+    expect(badgeNames).toEqual([
+      "meanIncomePerResident",
+      "residentsAge65AndOlder",
+      "married"
     ]);
   });
 });

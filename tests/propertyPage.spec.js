@@ -8,27 +8,15 @@ describe("Property page", () => {
   });
 
   it("User should see default badges", async () => {
-    const { badgeCount, badgeNames } = await page.$$eval(
-      "[data-test^=badge]",
-      badges => {
-        const badgeCount = badges.length;
-        const badgeNames = badges.map(badge => badge.dataset.test);
+    const badgeNames = await page.$$eval("[data-test^=badge]", badges => {
+      const badgeNames = badges
+        .map(badge => badge.dataset.test)
+        .map(testHook => testHook.match(/badge-(.*)/)[1]);
 
-        return {
-          badgeCount,
-          badgeNames
-        };
-      }
-    );
+      return badgeNames;
+    });
 
-    // Check that there are only 2 default badges
-    expect(badgeCount).toBe(2);
-
-    // First badge is "neigbourhood name"
-    expect(badgeNames[0]).toEqual("badge-neighbourhoodName");
-
-    // Second badge is "mean income per resident"
-    expect(badgeNames[1]).toEqual("badge-meanIncomePerResident");
+    expect(badgeNames).toEqual(["neighbourhoodName", "meanIncomePerResident"]);
   });
 
   it("User should see a table with all available neighbourhood properties", async () => {

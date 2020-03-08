@@ -53,6 +53,7 @@ function makeOptionHtml(optionName, userSettings) {
             id="${optionName}"
             class="options-page-checkbox"
             type="checkbox"
+            data-option-name="${optionName}"
             data-test="optionsPagePropertyCheckbox-${optionName}"
           />
         </div>

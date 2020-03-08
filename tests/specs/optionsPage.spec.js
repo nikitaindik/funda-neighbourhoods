@@ -1,5 +1,5 @@
-const { dummyHousePageUrl, getExtensionBackgroundPage } = require("./utils");
-const { allPropertyNames, allGroupNames } = require("./groupAndPropertyNames");
+const { dummyHousePageUrl, getExtensionBackgroundPage } = require("../utils");
+const { allPropertyNames, allGroupNames } = require("../groupAndPropertyNames");
 
 describe("Going to options page", () => {
   it("User should be able to go to options page by clicking on a badge", async () => {

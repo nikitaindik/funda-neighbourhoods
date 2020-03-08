@@ -1,5 +1,5 @@
-const { dummyHousePageUrl } = require("./utils");
-const { allPropertyNames, allGroupNames } = require("./groupAndPropertyNames");
+const { dummyHousePageUrl } = require("../utils");
+const { allPropertyNames, allGroupNames } = require("../groupAndPropertyNames");
 
 describe("Property page", () => {
   beforeAll(async () => {

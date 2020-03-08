@@ -8,7 +8,8 @@
     "build": "webpack --config webpack.config.js --env.BUILD_MODE=production",
     "testBuild": "webpack --config webpack.config.js --env.BUILD_MODE=test",
     "test": "jest --config=tests/jest.config.json",
-    "zip": "zip -r funda-neighbourhoods-build.zip build"
+    "zip": "zip -r funda-neighbourhoods-build.zip build",
+    "ciStuff": "npm ci && npm run testBuild -- --env.ZIPCODE_API_DOMAIN=https://gq4qc1c0fa.execute-api.eu-west-1.amazonaws.com && npm test"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",

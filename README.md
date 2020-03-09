@@ -1,4 +1,4 @@
-# Funda Neighbourhooods &middot; ![](https://github.com/nikitaindik/funda-neighbourhoods/workflows/Node.js%20CI/badge.svg)
+# Funda Neighbourhoods &middot; ![](https://github.com/nikitaindik/funda-neighbourhoods/workflows/Node.js%20CI/badge.svg)
 
 Chrome / Edge extension that adds useful info about a neighbourhood to funda.nl pages.
 

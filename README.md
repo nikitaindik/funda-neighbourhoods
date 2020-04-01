@@ -18,7 +18,7 @@ Data comes from Dutch census bureau (CBS) API and is from 2015.
 ### Install extension
 
 **Chrome**: https://chrome.google.com/webstore/detail/funda-neighbourhoods/jibdjhaojkpiagiccmolddmlhllancgj  
-**Edge**: [pending review]
+**Edge**: https://microsoftedge.microsoft.com/addons/detail/ndloapdppofpipoclcpehfijapbfbpip
 
 ---
 
@@ -44,6 +44,5 @@ Data comes from Dutch census bureau (CBS) API and is from 2015.
 
 ### Future plans
 
-- [ ] Translate to Dutch
 - [ ] Find / build a more up-to-date API for neighbourhood info
 - [ ] Add badges to map view

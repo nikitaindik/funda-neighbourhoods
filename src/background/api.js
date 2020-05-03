@@ -37,31 +37,6 @@ export async function fetchNeighbourhoodStats(neighbourhoodCode) {
   return mergeYearlyData(neighbourhoodStatsWithYears);
 }
 
-function removeEmptyFields(dataForYear) {
-  const entries = Object.entries(dataForYear);
-  const nonEmptyEntries = entries.filter(([, value]) => value !== null);
-  return Object.fromEntries(nonEmptyEntries);
-}
-
-function addYearToEveryField(dataForYear, year) {
-  const entries = Object.entries(dataForYear);
-  const entriesWithYears = entries.map(([fieldName, fieldValue]) => [
-    fieldName,
-    { year: Number(year), value: fieldValue },
-  ]);
-  return Object.fromEntries(entriesWithYears);
-}
-
-function processNeighbourhoodDataFromApi(year, dataForYear) {
-  const withoutEmptyFields = removeEmptyFields(dataForYear);
-  const withYears = addYearToEveryField(withoutEmptyFields, year);
-  return withYears;
-}
-
-function mergeYearlyData(yearlyData) {
-  return Object.assign({}, ...yearlyData);
-}
-
 async function getNeighbourhoodStatsWithYears(neighbourhoodCode) {
   const years = Object.keys(STATS_API_ID_BY_YEAR);
 
@@ -94,6 +69,31 @@ async function fetchDataForYear(apiId, neighbourhoodCode) {
   } catch (error) {
     return null;
   }
+}
+
+function mergeYearlyData(yearlyData) {
+  return Object.assign({}, ...yearlyData);
+}
+
+function removeEmptyFields(dataForYear) {
+  const entries = Object.entries(dataForYear);
+  const nonEmptyEntries = entries.filter(([, value]) => value !== null);
+  return Object.fromEntries(nonEmptyEntries);
+}
+
+function addYearToEveryField(dataForYear, year) {
+  const entries = Object.entries(dataForYear);
+  const entriesWithYears = entries.map(([fieldName, fieldValue]) => [
+    fieldName,
+    { year: Number(year), value: fieldValue },
+  ]);
+  return Object.fromEntries(entriesWithYears);
+}
+
+function processNeighbourhoodDataFromApi(year, dataForYear) {
+  const withoutEmptyFields = removeEmptyFields(dataForYear);
+  const withYears = addYearToEveryField(withoutEmptyFields, year);
+  return withYears;
 }
 
 function getParametersString(parameters) {

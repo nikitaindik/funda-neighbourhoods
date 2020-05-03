@@ -44,5 +44,5 @@ Data comes from Dutch census bureau (CBS) API.
 
 ### Future plans
 
-- [ ] Find / build a more up-to-date API for neighbourhood info
+- [ ] Make options page easily discoverable
 - [ ] Add badges to map view

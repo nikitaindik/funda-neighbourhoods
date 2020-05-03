@@ -1,5 +1,4 @@
 /node_modules
-/src/aws/node_modules
 /notes
 /build
 .DS_Store

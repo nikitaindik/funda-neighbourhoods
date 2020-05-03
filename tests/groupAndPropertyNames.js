@@ -7,11 +7,12 @@ const allGroupNames = [
   "householdType",
   "propertyOwnership",
   "buildingType",
-  "immigrationBackground"
+  "immigrationBackground",
 ];
 
 const allPropertyNames = [
   "neighbourhoodName",
+  "municipalityName",
   "builtBefore2000",
   "builtAfter2000",
   "meanIncomePerResident",
@@ -34,17 +35,19 @@ const allPropertyNames = [
   "householdsWithoutChildren",
   "rentalProperties",
   "ownedProperties",
+  "singleFamilyResidential",
   "multiFamilyResidential",
+  "nonImmigrants",
   "westernImmigrants",
   "nonWesternImmigrants",
   "residentsFromMorocco",
   "residentsFromAntillesOrAruba",
   "residentsFromSuriname",
   "residentsFromTurkey",
-  "residentsOfOtherNonWesternBackground"
+  "residentsOfOtherNonWesternBackground",
 ];
 
 module.exports = {
   allGroupNames,
-  allPropertyNames
+  allPropertyNames,
 };

@@ -1,18 +1,15 @@
-import { makeTableHtml } from "./table";
+import { wrapTableWithTitle, makeTableHtml } from "./table";
 import { makeBadgesHtml } from "./badges";
 
 const zipCode = getZipCode();
 
 if (zipCode) {
-  chrome.runtime.sendMessage(
-    { zipCode },
-    ({ badgeProperties, tableProperties }) => {
-      addBadges(badgeProperties);
-      addNeighbourhoodTable(tableProperties);
+  chrome.runtime.sendMessage({ zipCode }, ({ badgeProperties, tableProperties }) => {
+    addBadges(badgeProperties);
+    addNeighbourhoodTable(tableProperties);
 
-      subscribeToBadgeClicks();
-    }
-  );
+    subscribeToBadgeClicks();
+  });
 }
 
 function getZipCode() {
@@ -30,17 +27,13 @@ function getZipCode() {
 }
 
 function getBadgesContainerElement() {
-  const headerDetailsElement = document.querySelector(
-    ".object-header__details-info"
-  );
+  const headerDetailsElement = document.querySelector(".object-header__details-info");
 
   if (!headerDetailsElement) {
     return null;
   }
 
-  let badgesContainerElement = document.querySelector(
-    ".object-header__details-info .labels"
-  );
+  let badgesContainerElement = document.querySelector(".object-header__details-info .labels");
 
   if (!badgesContainerElement) {
     badgesContainerElement = document.createElement("ul");
@@ -52,13 +45,19 @@ function getBadgesContainerElement() {
 }
 
 function addNeighbourhoodTable(tableProperties) {
-  const neighbourhoodNameElement = document.querySelector(
-    ".object-buurt__name"
-  );
+  const tableHtml = makeTableHtml(tableProperties);
+
+  const neighbourhoodNameElement = document.querySelector(".object-buurt__name");
 
   if (neighbourhoodNameElement) {
-    const tableHtml = makeTableHtml(tableProperties);
     neighbourhoodNameElement.insertAdjacentHTML("afterend", tableHtml);
+  }
+
+  const agentElement = document.querySelector(".object-detail-verkocht__makelaars-header");
+
+  if (agentElement) {
+    const tableWithTitle = wrapTableWithTitle(tableProperties, tableHtml);
+    agentElement.insertAdjacentHTML("beforebegin", tableWithTitle);
   }
 }
 
@@ -76,9 +75,7 @@ function subscribeToBadgeClicks() {
 
   badgesContainerElement.addEventListener("click", event => {
     const clickedElement = event.target;
-    const isBadgeClick = clickedElement.classList.contains(
-      "funda-neighbourhoods-badge"
-    );
+    const isBadgeClick = clickedElement.classList.contains("funda-neighbourhoods-badge");
 
     if (isBadgeClick) {
       chrome.runtime.sendMessage({ action: "openOptionsPage" });

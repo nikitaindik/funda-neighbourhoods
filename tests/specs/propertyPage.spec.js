@@ -1,4 +1,4 @@
-const { dummyHousePageUrl, getExtensionBackgroundPage } = require("../utils");
+const { dummyHousePageUrl, dummySoldHousePageUrl, getExtensionBackgroundPage } = require("../utils");
 const { allPropertyNames, allGroupNames } = require("../groupAndPropertyNames");
 
 describe("Property page", () => {
@@ -9,9 +9,7 @@ describe("Property page", () => {
 
   it("User should see default badges", async () => {
     const badgeNames = await page.$$eval("[data-test^=badge]", badges => {
-      const badgeNames = badges
-        .map(badge => badge.dataset.test)
-        .map(testHook => testHook.match(/badge-(.*)/)[1]);
+      const badgeNames = badges.map(badge => badge.dataset.test).map(testHook => testHook.match(/badge-(.*)/)[1]);
 
       return badgeNames;
     });
@@ -23,19 +21,13 @@ describe("Property page", () => {
     const { renderedGroupNames, renderedPropertyNames } = await page.$eval(
       "[data-test=tableContainer]",
       tableContainerElement => {
-        const renderedGroups = Array.from(
-          tableContainerElement.querySelectorAll("[data-test^=propertiesGroup]")
-        );
+        const renderedGroups = Array.from(tableContainerElement.querySelectorAll("[data-test^=propertiesGroup]"));
 
         const renderedGroupNames = renderedGroups
           .map(groupHeaderElement => groupHeaderElement.dataset.test)
           .map(testHook => testHook.match(/propertiesGroup-(.*)/)[1]);
 
-        const renderedProperties = Array.from(
-          tableContainerElement.querySelectorAll(
-            "[data-test^=propertyRowLabel]"
-          )
-        );
+        const renderedProperties = Array.from(tableContainerElement.querySelectorAll("[data-test^=propertyRowLabel]"));
 
         const renderedPropertyNames = renderedProperties
           .map(propertyElement => propertyElement.dataset.test)
@@ -43,20 +35,59 @@ describe("Property page", () => {
 
         return {
           renderedGroupNames,
-          renderedPropertyNames
+          renderedPropertyNames,
         };
       }
     );
 
     // Check that all groups are rendered
-    const visibleGroupNames = allGroupNames.filter(
-      groupName => groupName !== "doNotShowInTable"
-    );
+    const visibleGroupNames = allGroupNames.filter(groupName => groupName !== "doNotShowInTable");
     expect(visibleGroupNames).toEqual(renderedGroupNames);
 
     // Check that all property rows are rendered
     const visiblePropertyNames = allPropertyNames.filter(
-      propertyName => propertyName !== "neighbourhoodName"
+      propertyName => propertyName !== "neighbourhoodName" && propertyName !== "municipalityName"
+    );
+    expect(visiblePropertyNames).toEqual(renderedPropertyNames);
+  });
+});
+
+describe("Sold property page", () => {
+  beforeAll(async () => {
+    await page.goto(dummySoldHousePageUrl);
+    await page.waitForSelector("[data-test^=badge]");
+  });
+
+  it("User should see a table with all available neighbourhood properties", async () => {
+    const { renderedGroupNames, renderedPropertyNames } = await page.$eval(
+      "[data-test=tableContainer]",
+      tableContainerElement => {
+        const renderedGroups = Array.from(tableContainerElement.querySelectorAll("[data-test^=propertiesGroup]"));
+
+        const renderedGroupNames = renderedGroups
+          .map(groupHeaderElement => groupHeaderElement.dataset.test)
+          .map(testHook => testHook.match(/propertiesGroup-(.*)/)[1]);
+
+        const renderedProperties = Array.from(tableContainerElement.querySelectorAll("[data-test^=propertyRowLabel]"));
+
+        const renderedPropertyNames = renderedProperties
+          .map(propertyElement => propertyElement.dataset.test)
+          .map(testHook => testHook.match(/propertyRowLabel-(.*)/)[1]);
+
+        return {
+          renderedGroupNames,
+          renderedPropertyNames,
+        };
+      }
+    );
+
+    // Check that all groups are rendered
+    const visibleGroupNames = allGroupNames.filter(groupName => groupName !== "doNotShowInTable");
+    expect(visibleGroupNames).toEqual(renderedGroupNames);
+
+    // Check that all property rows are rendered
+    const visiblePropertyNames = allPropertyNames.filter(
+      propertyName => propertyName !== "neighbourhoodName" && propertyName !== "municipalityName"
     );
     expect(visiblePropertyNames).toEqual(renderedPropertyNames);
   });
@@ -81,9 +112,7 @@ describe("Going to options page", () => {
 
     const extensionBackgroundPage = await getExtensionBackgroundPage(browser);
 
-    const optionsPageUrl = await extensionBackgroundPage.evaluate(() =>
-      chrome.runtime.getURL("options.html")
-    );
+    const optionsPageUrl = await extensionBackgroundPage.evaluate(() => chrome.runtime.getURL("options.html"));
 
     expect(targetUrl).toMatch(optionsPageUrl);
   });
@@ -93,44 +122,33 @@ describe("Options page", () => {
   beforeAll(async () => {
     const extensionBackgroundPage = await getExtensionBackgroundPage(browser);
 
-    const optionsPageUrl = await extensionBackgroundPage.evaluate(() =>
-      chrome.runtime.getURL("options.html")
-    );
+    const optionsPageUrl = await extensionBackgroundPage.evaluate(() => chrome.runtime.getURL("options.html"));
 
     await page.goto(optionsPageUrl);
     await page.waitFor("[data-test^=optionsPagePropertyCheckbox]");
   });
 
   it("User should see all the properties on the options page", async () => {
-    const { renderedGroupNames, renderedPropertyNames } = await page.$eval(
-      "#options-table",
-      tableContainerElement => {
-        const renderedGroups = Array.from(
-          tableContainerElement.querySelectorAll(
-            "[data-test^=optionsPageGroupHeader]"
-          )
-        );
+    const { renderedGroupNames, renderedPropertyNames } = await page.$eval("#options-table", tableContainerElement => {
+      const renderedGroups = Array.from(tableContainerElement.querySelectorAll("[data-test^=optionsPageGroupHeader]"));
 
-        const renderedGroupNames = renderedGroups
-          .map(groupHeaderElement => groupHeaderElement.dataset.test)
-          .map(testHook => testHook.match(/optionsPageGroupHeader-(.*)/)[1]);
+      const renderedGroupNames = renderedGroups
+        .map(groupHeaderElement => groupHeaderElement.dataset.test)
+        .map(testHook => testHook.match(/optionsPageGroupHeader-(.*)/)[1]);
 
-        const renderedProperties = Array.from(
-          tableContainerElement.querySelectorAll(
-            "[data-test^=optionsPagePropertyLabel]"
-          )
-        );
+      const renderedProperties = Array.from(
+        tableContainerElement.querySelectorAll("[data-test^=optionsPagePropertyLabel]")
+      );
 
-        const renderedPropertyNames = renderedProperties
-          .map(propertyElement => propertyElement.dataset.test)
-          .map(testHook => testHook.match(/optionsPagePropertyLabel-(.*)/)[1]);
+      const renderedPropertyNames = renderedProperties
+        .map(propertyElement => propertyElement.dataset.test)
+        .map(testHook => testHook.match(/optionsPagePropertyLabel-(.*)/)[1]);
 
-        return {
-          renderedGroupNames,
-          renderedPropertyNames
-        };
-      }
-    );
+      return {
+        renderedGroupNames,
+        renderedPropertyNames,
+      };
+    });
 
     // Check that all groups are rendered
     expect(allGroupNames).toEqual(renderedGroupNames);
@@ -140,46 +158,31 @@ describe("Options page", () => {
   });
 
   it("Default options should be selected", async () => {
-    const selectedOptions = await page.$$eval(
-      "[data-test^=optionsPagePropertyCheckbox]",
-      checkboxElements => {
-        const selectedCheckboxElements = checkboxElements.filter(
-          ({ checked }) => checked
-        );
+    const selectedOptions = await page.$$eval("[data-test^=optionsPagePropertyCheckbox]", checkboxElements => {
+      const selectedCheckboxElements = checkboxElements.filter(({ checked }) => checked);
 
-        const selectedCheckboxNames = selectedCheckboxElements
-          .map(({ dataset }) => dataset.test)
-          .map(
-            testHook => testHook.match(/optionsPagePropertyCheckbox-(.*)/)[1]
-          );
+      const selectedCheckboxNames = selectedCheckboxElements
+        .map(({ dataset }) => dataset.test)
+        .map(testHook => testHook.match(/optionsPagePropertyCheckbox-(.*)/)[1]);
 
-        return selectedCheckboxNames;
-      }
-    );
+      return selectedCheckboxNames;
+    });
 
-    expect(selectedOptions).toEqual([
-      "neighbourhoodName",
-      "meanIncomePerResident"
-    ]);
+    expect(selectedOptions).toEqual(["neighbourhoodName", "meanIncomePerResident"]);
   });
 
   it("User should see selected badges", async () => {
     // Un-select default "neighbourhood name" badge
-    await page.$eval(
-      "[data-test=optionsPagePropertyCheckbox-neighbourhoodName]",
-      checkboxElement => checkboxElement.click()
+    await page.$eval("[data-test=optionsPagePropertyCheckbox-neighbourhoodName]", checkboxElement =>
+      checkboxElement.click()
     );
 
     // Select "married"
-    await page.$eval(
-      "[data-test=optionsPagePropertyCheckbox-married]",
-      checkboxElement => checkboxElement.click()
-    );
+    await page.$eval("[data-test=optionsPagePropertyCheckbox-married]", checkboxElement => checkboxElement.click());
 
     // Select "residents over 65 years old"
-    await page.$eval(
-      "[data-test=optionsPagePropertyCheckbox-residentsAge65AndOlder]",
-      checkboxElement => checkboxElement.click()
+    await page.$eval("[data-test=optionsPagePropertyCheckbox-residentsAge65AndOlder]", checkboxElement =>
+      checkboxElement.click()
     );
 
     await page.goto(dummyHousePageUrl);
@@ -187,17 +190,11 @@ describe("Options page", () => {
     await page.waitForSelector("[data-test^=badge]");
 
     const badgeNames = await page.$$eval("[data-test^=badge]", badges => {
-      const badgeNames = badges
-        .map(badge => badge.dataset.test)
-        .map(testHook => testHook.match(/badge-(.*)/)[1]);
+      const badgeNames = badges.map(badge => badge.dataset.test).map(testHook => testHook.match(/badge-(.*)/)[1]);
 
       return badgeNames;
     });
 
-    expect(badgeNames).toEqual([
-      "meanIncomePerResident",
-      "residentsAge65AndOlder",
-      "married"
-    ]);
+    expect(badgeNames).toEqual(["meanIncomePerResident", "residentsAge65AndOlder", "married"]);
   });
 });

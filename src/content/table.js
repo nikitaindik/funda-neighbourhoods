@@ -1,5 +1,20 @@
 import { groupProperties } from "../common/utils";
 
+export function wrapTableWithTitle(properties, tableHtml) {
+  const neighbourhoodTitle = chrome.i18n.getMessage("neighbourhood");
+
+  const neighbourhoodName = properties.find(({ name }) => name === "neighbourhoodName").value;
+  const municipalityName = properties.find(({ name }) => name === "municipalityName").value;
+
+  return `
+    <div class="object-buurt">
+      <h2 class="object-buurt__title">${neighbourhoodTitle}</h2>
+      <p class="object-buurt__name">${neighbourhoodName}, ${municipalityName}</p>
+      ${tableHtml}
+    </div>
+  `;
+}
+
 export function makeTableHtml(properties) {
   const sectionsHtml = makeTableSectionsHtml(properties);
   const tableHtml = wrapTableRowsHtml(sectionsHtml);
@@ -25,7 +40,7 @@ function makeTableSectionsHtml(properties) {
 
 function wrapTableRowsHtml(sectionsHtml) {
   return `
-      <div class="object-kenmerken-body" class="funda-neighbourhoods-table-container" data-test="tableContainer">
+      <div class="object-kenmerken-body funda-neighbourhoods-table-container" data-test="tableContainer">
         <dl class="object-kenmerken-list">
         ${sectionsHtml}
         </dl>
@@ -48,7 +63,7 @@ function makeRowsHtml(group) {
     .map(
       row => `
         <dt data-test="propertyRowLabel-${row.name}">${row.label}</dt>
-        <dd data-test="propertyRowValue-${row.name}">${row.value}</dd>
+        <dd data-test="propertyRowValue-${row.name}" title="${row.value} (${row.year})">${row.value}</dd>
       `
     )
     .join("");
@@ -57,7 +72,5 @@ function makeRowsHtml(group) {
 }
 
 function getVisibleGroupNames(groupedProperties) {
-  return Object.keys(groupedProperties).filter(
-    groupName => groupName !== "doNotShowInTable"
-  );
+  return Object.keys(groupedProperties).filter(groupName => groupName !== "doNotShowInTable");
 }

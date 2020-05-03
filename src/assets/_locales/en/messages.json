@@ -5,6 +5,9 @@
   "appDescription": {
     "message": "Adds helpful information about neighbourhood to house / apartment pages on funda.nl"
   },
+  "neighbourhood": {
+    "message": "Neighbourhood"
+  },
   "selectBadges": {
     "message": "Select badges visible at the top of the property page"
   },
@@ -40,6 +43,12 @@
   },
   "neighbourhoodNameShort": {
     "message": "Neighbourhood"
+  },
+  "municipalityName": {
+    "message": "Municipality name"
+  },
+  "municipalityNameShort": {
+    "message": "Municipality"
   },
   "builtBefore2000": {
     "message": "Buildings built before 2000"
@@ -173,11 +182,23 @@
   "ownedPropertiesShort": {
     "message": "Owned"
   },
+  "singleFamilyResidential": {
+    "message": "Single-family residential"
+  },
+  "singleFamilyResidentialShort": {
+    "message": "Single-family"
+  },
   "multiFamilyResidential": {
     "message": "Multi-family residential"
   },
   "multiFamilyResidentialShort": {
     "message": "Multi-family"
+  },
+  "nonImmigrants": {
+    "message": "Non-immigrants"
+  },
+  "nonImmigrantsShort": {
+    "message": "Non-immigrants"
   },
   "westernImmigrants": {
     "message": "Immigrants with western background"

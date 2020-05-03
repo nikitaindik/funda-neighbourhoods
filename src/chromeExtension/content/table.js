@@ -1,5 +1,20 @@
 import { groupProperties } from "../common/utils";
 
+export function wrapTableWithTitle(properties, tableHtml) {
+  const neighbourhoodTitle = chrome.i18n.getMessage("neighbourhood");
+
+  const neighbourhoodName = properties.find(({ name }) => name === "neighbourhoodName").value;
+  const municipalityName = properties.find(({ name }) => name === "municipalityName").value;
+
+  return `
+    <div class="object-buurt">
+      <h2 class="object-buurt__title">${neighbourhoodTitle}</h2>
+      <p class="object-buurt__name">${neighbourhoodName}, ${municipalityName}</p>
+      ${tableHtml}
+    </div>
+  `;
+}
+
 export function makeTableHtml(properties) {
   const sectionsHtml = makeTableSectionsHtml(properties);
   const tableHtml = wrapTableRowsHtml(sectionsHtml);

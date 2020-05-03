@@ -1,8 +1,8 @@
 export function makeBadgesHtml(badgeProperties) {
   return Object.values(badgeProperties)
-    .map(({ name, label, shortLabel, value, color }) => {
+    .map(({ name, label, year, shortLabel, value, color }) => {
       const badgeLabel = `${shortLabel}: ${value}`;
-      const badgeTitle = `${label} (2015)`;
+      const badgeTitle = year ? `${label} (${year})` : label;
 
       const style = `background: ${color};`;
 

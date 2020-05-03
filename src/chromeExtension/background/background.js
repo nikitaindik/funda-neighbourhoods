@@ -1,5 +1,5 @@
 import { readUserSettings } from "../common/readUserSettings";
-import { fetchNeighbourhood, fetchNeighbourhoodCode } from "./api";
+import { fetchNeighbourhoodStats, fetchNeighbourhoodMeta } from "./api";
 
 import { getProperties, selectDefaultProperties } from "./utils";
 
@@ -13,29 +13,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   const { zipCode } = request;
 
-  fetchNeighbourhoodCode(zipCode).then(async neighbourhoodCodeAndName => {
-    if (!neighbourhoodCodeAndName) {
-      console.error("Failed to fetch neighbourhood code for zipCode:", zipCode);
+  fetchNeighbourhoodMeta(zipCode).then(async neighbourhoodMeta => {
+    if (!neighbourhoodMeta) {
+      console.error("Failed to fetch neighbourhood meta for zipCode:", zipCode);
       return;
     }
 
-    const { neighbourhoodCode, neighbourhoodName } = neighbourhoodCodeAndName;
+    const { neighbourhoodCode, neighbourhoodName, municipalityName } = neighbourhoodMeta;
 
-    const neighbourhood = await fetchNeighbourhood(neighbourhoodCode);
+    const neighbourhood = await fetchNeighbourhoodStats(neighbourhoodCode);
 
     if (!neighbourhood) {
       console.error("Failed to fetch neighbourhood code for neighbourhoodCode:", neighbourhoodCode);
       return;
     }
 
-    const neighbourhoodWithName = {
+    const neighbourhoodWithMeta = {
       neighbourhoodName: { value: neighbourhoodName },
+      municipalityName: { value: municipalityName },
       ...neighbourhood,
     };
 
     const userSettings = await readUserSettings();
 
-    const { badgeProperties, tableProperties } = getProperties(neighbourhoodWithName, userSettings);
+    const { badgeProperties, tableProperties } = getProperties(neighbourhoodWithMeta, userSettings);
 
     sendResponse({ badgeProperties, tableProperties });
   });

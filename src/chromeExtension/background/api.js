@@ -6,7 +6,7 @@ const API_ID_BY_YEAR = {
   2019: "84583NED",
 };
 
-export async function fetchNeighbourhoodCode(zipCode) {
+export async function fetchNeighbourhoodMeta(zipCode) {
   const parameters = {
     q: zipCode,
     fq: "type:adres",
@@ -24,13 +24,14 @@ export async function fetchNeighbourhoodCode(zipCode) {
     return {
       neighbourhoodCode: firstPayloadItem.buurtcode,
       neighbourhoodName: firstPayloadItem.buurtnaam,
+      municipalityName: firstPayloadItem.gemeentenaam,
     };
   } catch (error) {
     return null;
   }
 }
 
-export async function fetchNeighbourhood(neigbourhoodCode) {
+export async function fetchNeighbourhoodStats(neigbourhoodCode) {
   const neigbourhoodStatsWithYears = await getNeigbourhoodStatsWithYears(neigbourhoodCode);
 
   return mergeYearlyData(neigbourhoodStatsWithYears);

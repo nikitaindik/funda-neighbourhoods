@@ -12,6 +12,7 @@ const allGroupNames = [
 
 const allPropertyNames = [
   "neighbourhoodName",
+  "municipalityName",
   "builtBefore2000",
   "builtAfter2000",
   "meanIncomePerResident",

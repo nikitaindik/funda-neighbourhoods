@@ -7,6 +7,10 @@ export const VIEWABLE_PROPERTIES = [
     group: "doNotShowInTable",
   },
   {
+    name: "municipalityName",
+    group: "doNotShowInTable",
+  },
+  {
     name: "builtBefore2000",
     group: "yearBuilt",
     apiField: "BouwjaarVoor2000_45",

@@ -5,6 +5,9 @@
   "appDescription": {
     "message": "Voegt nuttige informatie over buurt toe aan huis- / appartementpagina's op funda.nl"
   },
+  "neighbourhood": {
+    "message": "Buurt"
+  },
   "selectBadges": {
     "message": "Selecteer badges die zichtbaar zijn bovenaan de optiespagina"
   },
@@ -40,6 +43,12 @@
   },
   "neighbourhoodNameShort": {
     "message": "Buurt"
+  },
+  "municipalityName": {
+    "message": "Gemeentenaam"
+  },
+  "municipalityNameShort": {
+    "message": "Gemeentenaam"
   },
   "builtBefore2000": {
     "message": "Bouwjaarklasse tot 2000"

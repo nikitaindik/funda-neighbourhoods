@@ -173,11 +173,23 @@
   "ownedPropertiesShort": {
     "message": "Koopwoningen"
   },
+  "singleFamilyResidential": {
+    "message": "Eengezinswoning"
+  },
+  "singleFamilyResidentialShort": {
+    "message": "Eengezinswoning"
+  },
   "multiFamilyResidential": {
     "message": "Meergezinswoning"
   },
   "multiFamilyResidentialShort": {
     "message": "Meergezinswoning"
+  },
+  "nonImmigrants": {
+    "message": "Niet allochtonen"
+  },
+  "nonImmigrantsShort": {
+    "message": "Niet allochtonen"
   },
   "westernImmigrants": {
     "message": "Westerse allochtonen"

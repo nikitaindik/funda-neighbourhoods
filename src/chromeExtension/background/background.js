@@ -1,11 +1,7 @@
 import { readUserSettings } from "../common/readUserSettings";
-import { fetchLatitudeLongitude, fetchNeighbourhood } from "./api";
+import { fetchNeighbourhood, fetchNeighbourhoodCode } from "./api";
 
-import {
-  getSphericalMercatorCoordinates,
-  getProperties,
-  selectDefaultProperties
-} from "./utils";
+import { getProperties, selectDefaultProperties } from "./utils";
 
 chrome.runtime.onInstalled.addListener(selectDefaultProperties);
 
@@ -17,21 +13,29 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   const { zipCode } = request;
 
-  fetchLatitudeLongitude(zipCode).then(async latitudeLongitude => {
-    const sphericalMercator = getSphericalMercatorCoordinates(
-      latitudeLongitude
-    );
+  fetchNeighbourhoodCode(zipCode).then(async neighbourhoodCodeAndName => {
+    if (!neighbourhoodCodeAndName) {
+      console.error("Failed to fetch neighbourhood code for zipCode:", zipCode);
+      return;
+    }
 
-    const neighbourhoodApiResponse = await fetchNeighbourhood(
-      sphericalMercator
-    );
+    const { neighbourhoodCode, neighbourhoodName } = neighbourhoodCodeAndName;
+
+    const neighbourhood = await fetchNeighbourhood(neighbourhoodCode);
+
+    if (!neighbourhood) {
+      console.error("Failed to fetch neighbourhood code for neighbourhoodCode:", neighbourhoodCode);
+      return;
+    }
+
+    const neighbourhoodWithName = {
+      neighbourhoodName: { value: neighbourhoodName },
+      ...neighbourhood,
+    };
 
     const userSettings = await readUserSettings();
 
-    const { badgeProperties, tableProperties } = getProperties(
-      neighbourhoodApiResponse,
-      userSettings
-    );
+    const { badgeProperties, tableProperties } = getProperties(neighbourhoodWithName, userSettings);
 
     sendResponse({ badgeProperties, tableProperties });
   });

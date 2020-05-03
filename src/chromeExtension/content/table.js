@@ -25,7 +25,7 @@ function makeTableSectionsHtml(properties) {
 
 function wrapTableRowsHtml(sectionsHtml) {
   return `
-      <div class="object-kenmerken-body" class="funda-neighbourhoods-table-container" data-test="tableContainer">
+      <div class="object-kenmerken-body funda-neighbourhoods-table-container" data-test="tableContainer">
         <dl class="object-kenmerken-list">
         ${sectionsHtml}
         </dl>
@@ -48,7 +48,7 @@ function makeRowsHtml(group) {
     .map(
       row => `
         <dt data-test="propertyRowLabel-${row.name}">${row.label}</dt>
-        <dd data-test="propertyRowValue-${row.name}">${row.value}</dd>
+        <dd data-test="propertyRowValue-${row.name}" title="${row.value} (${row.year})">${row.value}</dd>
       `
     )
     .join("");
@@ -57,7 +57,5 @@ function makeRowsHtml(group) {
 }
 
 function getVisibleGroupNames(groupedProperties) {
-  return Object.keys(groupedProperties).filter(
-    groupName => groupName !== "doNotShowInTable"
-  );
+  return Object.keys(groupedProperties).filter(groupName => groupName !== "doNotShowInTable");
 }

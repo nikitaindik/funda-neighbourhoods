@@ -1,3 +1,8 @@
+export const VALUE_FORMATS = {
+  PERCENTAGE: "PERCENTAGE",
+  CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE: "CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE",
+};
+
 export const INCOME_BANDS = {
   noInfo: "noInfo",
   veryHigh: "veryHigh",
@@ -6,7 +11,7 @@ export const INCOME_BANDS = {
   belowAverage: "belowAverage",
   low: "low",
   veryLow: "veryLow",
-  extremelyLow: "extremelyLow"
+  extremelyLow: "extremelyLow",
 };
 
 export const INCOME_BAND_COLORS = {
@@ -17,7 +22,7 @@ export const INCOME_BAND_COLORS = {
   [INCOME_BANDS.belowAverage]: "#e4c332",
   [INCOME_BANDS.low]: "#c1ccbe",
   [INCOME_BANDS.veryLow]: "#849eba",
-  [INCOME_BANDS.extremelyLow]: "#4575b5"
+  [INCOME_BANDS.extremelyLow]: "#4575b5",
 };
 
 export const DEFAULT_COLOR = "#607d8b";

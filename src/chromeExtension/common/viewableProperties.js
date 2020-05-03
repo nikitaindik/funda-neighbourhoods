@@ -1,186 +1,223 @@
-import { INCOME_BAND_COLORS } from "./constants";
+import { INCOME_BAND_COLORS, VALUE_FORMATS } from "./constants";
 import { getIncomeBand, formatIncomeValue, formatMoney } from "./utils";
 
 export const VIEWABLE_PROPERTIES = [
   {
     name: "neighbourhoodName",
     group: "doNotShowInTable",
-    getValue: properties => properties.buurtnaam
   },
   {
     name: "builtBefore2000",
     group: "yearBuilt",
-    getValue: properties => `${properties.percentage_bouwjaarklasse_tot_2000}%`
+    apiField: "BouwjaarVoor2000_45",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "builtAfter2000",
     group: "yearBuilt",
-    getValue: properties =>
-      `${properties.percentage_bouwjaarklasse_vanaf_2000}%`
+    apiField: "BouwjaarVanaf2000_46",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "meanIncomePerResident",
     group: "income",
-    getValue: properties => {
-      const income = properties.gemiddeld_inkomen_per_inwoner * 1000;
+    apiField: "GemiddeldInkomenPerInwoner_66",
+    valueFormat: (apiField, properties) => {
+      const income = properties[apiField].value * 1000;
       const incomeBand = getIncomeBand(income);
 
       return formatIncomeValue(income, incomeBand);
     },
-    getColor: properties => {
-      const income = properties.gemiddeld_inkomen_per_inwoner * 1000;
+    getColor: (apiField, properties) => {
+      const income = properties[apiField].value * 1000;
       const incomeBand = getIncomeBand(income);
 
       return INCOME_BAND_COLORS[incomeBand];
-    }
+    },
   },
   {
     name: "meanIncomePerIncomeRecipient",
     group: "income",
-    getValue: properties => {
-      const income = properties.gemiddeld_inkomen_per_inkomensontvanger * 1000;
+    apiField: "GemiddeldInkomenPerInkomensontvanger_65",
+    valueFormat: (apiField, properties) => {
+      const income = properties[apiField].value * 1000;
       return formatMoney(income);
-    }
+    },
   },
   {
     name: "veryHighIncomeHouseholds",
     group: "income",
-    getValue: properties =>
-      `${properties.percentage_huishoudens_met_hoogste_inkomen}%`
+    apiField: "k_20HuishoudensMetHoogsteInkomen_71",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "lowIncomeHouseholds",
     group: "income",
-    getValue: properties => {
-      const apiValue = properties.percentage_huishoudens_met_een_laag_inkomen;
-      return apiValue ? `${apiValue}%` : "-";
-    }
+    apiField: "HuishoudensMetEenLaagInkomen_72",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "veryLowIncomeHouseholds",
     group: "income",
-    getValue: properties =>
-      `${properties.percentage_huishoudens_met_laagste_inkomen}%`
+    apiField: "k_40HuishoudensMetLaagsteInkomen_70",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "belowSocialMinimumHouseholds",
     group: "income",
-    getValue: properties =>
-      `${properties.percentage_huishoudens_onder_of_rond_sociaal_minimum}%`
+    apiField: "HuishOnderOfRondSociaalMinimum_73",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "residentsAge0to14Percentage",
     group: "residentsAge",
-    getValue: properties => `${properties.percentage_personen_0_tot_15_jaar}%`
+    apiField: "k_0Tot15Jaar_8",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsAge15to24Percentage",
     group: "residentsAge",
-    getValue: properties => `${properties.percentage_personen_15_tot_25_jaar}%`
+    apiField: "k_15Tot25Jaar_9",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsAge25to44Percentage",
     group: "residentsAge",
-    getValue: properties => `${properties.percentage_personen_25_tot_45_jaar}%`
+    apiField: "k_25Tot45Jaar_10",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsAge45to64Percentage",
     group: "residentsAge",
-    getValue: properties => `${properties.percentage_personen_45_tot_65_jaar}%`
+    apiField: "k_45Tot65Jaar_11",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsAge65AndOlder",
     group: "residentsAge",
-    getValue: properties =>
-      `${properties.percentage_personen_65_jaar_en_ouder}%`
+    apiField: "k_65JaarOfOuder_12",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "nonMarried",
     group: "residentsMaritalStatus",
-    getValue: properties => `${properties.percentage_ongehuwd}%`
+    apiField: "Ongehuwd_13",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "married",
     group: "residentsMaritalStatus",
-    getValue: properties => `${properties.percentage_gehuwd}%`
+    apiField: "Gehuwd_14",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "divorced",
     group: "residentsMaritalStatus",
-    getValue: properties => `${properties.percentage_gescheid}%`
+    apiField: "Gescheiden_15",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "widowed",
     group: "residentsMaritalStatus",
-    getValue: properties => `${properties.percentage_verweduwd}%`
+    apiField: "Verweduwd_16",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "singlePersonHouseholds",
     group: "householdType",
-    getValue: properties => `${properties.percentage_eenpersoonshuishoudens}%`
+    apiField: "Eenpersoonshuishoudens_29",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "householdsWithChildren",
     group: "householdType",
-    getValue: properties => `${properties.percentage_huishoudens_met_kinderen}%`
+    apiField: "HuishoudensMetKinderen_31",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "householdsWithoutChildren",
     group: "householdType",
-    getValue: properties =>
-      `${properties.percentage_huishoudens_zonder_kinderen}%`
+    apiField: "HuishoudensZonderKinderen_30",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "rentalProperties",
     group: "propertyOwnership",
-    getValue: properties => `${properties.percentage_huurwoningen}%`
+    apiField: "HuurwoningenTotaal_41",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "ownedProperties",
     group: "propertyOwnership",
-    getValue: properties => `${properties.percentage_koopwoningen}%`
+    apiField: "Koopwoningen_40",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
+  },
+  {
+    name: "singleFamilyResidential",
+    group: "buildingType",
+    apiField: "PercentageEengezinswoning_36",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
   },
   {
     name: "multiFamilyResidential",
     group: "buildingType",
-    getValue: properties => `${properties.percentage_meergezinswoning}%`
+    apiField: "PercentageMeergezinswoning_37",
+    valueFormat: VALUE_FORMATS.PERCENTAGE,
+  },
+  {
+    name: "nonImmigrants",
+    group: "immigrationBackground",
+    valueFormat: (apiField, properties) => {
+      const residentsCount = properties["AantalInwoners_5"].value;
+      const westernImmigrantsCount = properties["WestersTotaal_17"].value;
+      const nonWesternImmigrantsCount = properties["NietWestersTotaal_18"].value;
+      const totalImmigrantsCount = westernImmigrantsCount + nonWesternImmigrantsCount;
+      const shareOfImmigrants = totalImmigrantsCount / residentsCount;
+      const shareOfNonImmigrants = 1 - shareOfImmigrants;
+      const integerPercentage = Math.round(shareOfNonImmigrants * 100);
+      return integerPercentage + "%";
+    },
   },
   {
     name: "westernImmigrants",
     group: "immigrationBackground",
-    getValue: properties => `${properties.percentage_westerse_allochtonen}%`
+    apiField: "WestersTotaal_17",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "nonWesternImmigrants",
     group: "immigrationBackground",
-    getValue: properties =>
-      `${properties.percentage_niet_westerse_allochtonen}%`
+    apiField: "NietWestersTotaal_18",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsFromMorocco",
     group: "immigrationBackground",
-    getValue: properties => `${properties.percentage_uit_marokko}%`
+    apiField: "Marokko_19",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsFromAntillesOrAruba",
     group: "immigrationBackground",
-    getValue: properties =>
-      `${properties.percentage_uit_nederlandse_antillen_en_aruba}%`
+    apiField: "NederlandseAntillenEnAruba_20",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsFromSuriname",
     group: "immigrationBackground",
-    getValue: properties => `${properties.percentage_uit_suriname}%`
+    apiField: "Suriname_21",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsFromTurkey",
     group: "immigrationBackground",
-    getValue: properties => `${properties.percentage_uit_turkije}%`
+    apiField: "Turkije_22",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
   },
   {
     name: "residentsOfOtherNonWesternBackground",
     group: "immigrationBackground",
-    getValue: properties =>
-      `${properties.percentage_overige_niet_westerse_allochtonen}%`
-  }
+    apiField: "OverigNietWesters_23",
+    valueFormat: VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE,
+  },
 ];

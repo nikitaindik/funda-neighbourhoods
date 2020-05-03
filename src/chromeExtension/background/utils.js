@@ -1,4 +1,4 @@
-import { DEFAULT_COLOR } from "../common/constants";
+import { DEFAULT_COLOR, VALUE_FORMATS } from "../common/constants";
 
 import { VIEWABLE_PROPERTIES } from "../common/viewableProperties";
 
@@ -6,54 +6,62 @@ export function selectDefaultProperties({ reason }) {
   if (reason === "install") {
     chrome.storage.sync.set({
       neighbourhoodName: true,
-      meanIncomePerResident: true
+      meanIncomePerResident: true,
     });
   }
 }
 
-export function getSphericalMercatorCoordinates(latitudeLongitude) {
-  const R = 6378137;
-  const MAX_LATITUDE = 85.0511287798;
-
-  const d = Math.PI / 180;
-  const max = MAX_LATITUDE;
-  const lat = Math.max(Math.min(max, latitudeLongitude.lat), -max);
-  const sin = Math.sin(lat * d);
-
-  return [
-    R * latitudeLongitude.lng * d,
-    (R * Math.log((1 + sin) / (1 - sin))) / 2
-  ];
-}
-
 export function getProperties(neighbourhoodApiResponse, userSettings) {
-  const apiResponseProperties = neighbourhoodApiResponse.features[0].properties;
-
-  const tableProperties = getTableProperties(apiResponseProperties);
+  const tableProperties = getTableProperties(neighbourhoodApiResponse);
 
   const badgeProperties = getBadgeProperties(tableProperties, userSettings);
 
   return {
     badgeProperties,
-    tableProperties
+    tableProperties,
   };
 }
 
 function getTableProperties(apiResponseProperties) {
-  return VIEWABLE_PROPERTIES.map(viewableProperty =>
-    getNeighbourhoodProperty(viewableProperty, apiResponseProperties)
-  );
+  return VIEWABLE_PROPERTIES.map(viewableProperty => getNeighbourhoodProperty(viewableProperty, apiResponseProperties));
 }
 
-function getNeighbourhoodProperty(viewableProperty, apiResponseProperties) {
-  const name = viewableProperty.name;
+function getPropertyValue(propertyConfig, properties) {
+  const { name, apiField, valueFormat } = propertyConfig;
+
+  if (typeof valueFormat === "function") {
+    return valueFormat(apiField, properties);
+  }
+
+  if (valueFormat === VALUE_FORMATS.PERCENTAGE) {
+    return properties[apiField].value + "%";
+  }
+
+  if (valueFormat === VALUE_FORMATS.CONVERT_RESIDENTS_COUNT_TO_PERCENTAGE) {
+    const residentsCount = properties["AantalInwoners_5"].value;
+    const shareOfResidents = properties[apiField].value / residentsCount;
+    const integerPercentage = Math.round(shareOfResidents * 100);
+    return integerPercentage + "%";
+  }
+
+  if (properties[apiField]) {
+    return properties[apiField].value;
+  }
+
+  return properties[name].value;
+}
+
+function getNeighbourhoodProperty(propertyConfig, apiResponseProperties) {
+  const { name, apiField, valueFormat, group, getColor } = propertyConfig;
+
   const label = chrome.i18n.getMessage(name);
   const shortLabel = chrome.i18n.getMessage(name + "Short");
-  const value = viewableProperty.getValue(apiResponseProperties);
-  const group = viewableProperty.group;
-  const color = viewableProperty.getColor
-    ? viewableProperty.getColor(apiResponseProperties)
-    : DEFAULT_COLOR;
+
+  const year = apiField && apiResponseProperties[apiField].year;
+
+  const value = getPropertyValue(propertyConfig, apiResponseProperties);
+
+  const color = getColor ? getColor(apiField, apiResponseProperties) : DEFAULT_COLOR;
 
   return {
     name,
@@ -61,7 +69,8 @@ function getNeighbourhoodProperty(viewableProperty, apiResponseProperties) {
     shortLabel,
     value,
     group,
-    color
+    color,
+    year,
   };
 }
 

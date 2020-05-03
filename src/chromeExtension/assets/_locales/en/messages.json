@@ -173,11 +173,23 @@
   "ownedPropertiesShort": {
     "message": "Owned"
   },
+  "singleFamilyResidential": {
+    "message": "Single-family residential"
+  },
+  "singleFamilyResidentialShort": {
+    "message": "Single-family"
+  },
   "multiFamilyResidential": {
     "message": "Multi-family residential"
   },
   "multiFamilyResidentialShort": {
     "message": "Multi-family"
+  },
+  "nonImmigrants": {
+    "message": "Non-immigrants"
+  },
+  "nonImmigrantsShort": {
+    "message": "Non-immigrants"
   },
   "westernImmigrants": {
     "message": "Immigrants with western background"

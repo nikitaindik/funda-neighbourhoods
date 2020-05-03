@@ -23,11 +23,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     const neighbourhood = await fetchNeighbourhoodStats(neighbourhoodCode);
 
-    if (!neighbourhood) {
-      console.error("Failed to fetch neighbourhood code for neighbourhoodCode:", neighbourhoodCode);
-      return;
-    }
-
     const neighbourhoodWithMeta = {
       neighbourhoodName: { value: neighbourhoodName },
       municipalityName: { value: municipalityName },

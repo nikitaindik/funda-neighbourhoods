@@ -1,4 +1,4 @@
-const API_ID_BY_YEAR = {
+const STATS_API_ID_BY_YEAR = {
   2015: "83220NED",
   2016: "83487NED",
   2017: "83765NED",
@@ -31,10 +31,10 @@ export async function fetchNeighbourhoodMeta(zipCode) {
   }
 }
 
-export async function fetchNeighbourhoodStats(neigbourhoodCode) {
-  const neigbourhoodStatsWithYears = await getNeigbourhoodStatsWithYears(neigbourhoodCode);
+export async function fetchNeighbourhoodStats(neighbourhoodCode) {
+  const neighbourhoodStatsWithYears = await getNeighbourhoodStatsWithYears(neighbourhoodCode);
 
-  return mergeYearlyData(neigbourhoodStatsWithYears);
+  return mergeYearlyData(neighbourhoodStatsWithYears);
 }
 
 function removeEmptyFields(dataForYear) {
@@ -52,7 +52,7 @@ function addYearToEveryField(dataForYear, year) {
   return Object.fromEntries(entriesWithYears);
 }
 
-function processNeigbourhoodDataFromApi(year, dataForYear) {
+function processNeighbourhoodDataFromApi(year, dataForYear) {
   const withoutEmptyFields = removeEmptyFields(dataForYear);
   const withYears = addYearToEveryField(withoutEmptyFields, year);
   return withYears;
@@ -62,29 +62,34 @@ function mergeYearlyData(yearlyData) {
   return Object.assign({}, ...yearlyData);
 }
 
-async function getNeigbourhoodStatsWithYears(neigbourhoodCode) {
-  const years = Object.keys(API_ID_BY_YEAR);
+async function getNeighbourhoodStatsWithYears(neighbourhoodCode) {
+  const years = Object.keys(STATS_API_ID_BY_YEAR);
 
   const requests = years.map(async year => {
-    const apiId = API_ID_BY_YEAR[year];
+    const apiId = STATS_API_ID_BY_YEAR[year];
 
-    const neighbourhoodDataForYear = await fetchDataForYear(apiId, neigbourhoodCode);
+    const neighbourhoodDataForYear = await fetchDataForYear(apiId, neighbourhoodCode);
 
-    return processNeigbourhoodDataFromApi(year, neighbourhoodDataForYear);
+    if (!neighbourhoodDataForYear) {
+      console.error("Failed to fetch neighbourhood stats for year:", year, "apiId:", apiId);
+      return null;
+    }
+
+    return processNeighbourhoodDataFromApi(year, neighbourhoodDataForYear);
   });
 
   const yearlyDataForNeighbourhood = await Promise.all(requests);
 
-  return yearlyDataForNeighbourhood;
+  return yearlyDataForNeighbourhood.filter(dataForYear => dataForYear !== null);
 }
 
-async function fetchDataForYear(apiId, neigbourhoodCode) {
-  const parameters = `$filter=WijkenEnBuurten eq '${neigbourhoodCode}'`;
-
-  const response = await fetch(`https://opendata.cbs.nl/ODataApi/odata/${apiId}/TypedDataSet?${parameters}`);
-  const responseJson = await response.json();
+async function fetchDataForYear(apiId, neighbourhoodCode) {
+  const parameters = `$filter=WijkenEnBuurten eq '${neighbourhoodCode}'`;
+  const requestUrl = `https://opendata.cbs.nl/ODataApi/odata/${apiId}/TypedDataSet?${parameters}`;
 
   try {
+    const response = await fetch(requestUrl);
+    const responseJson = await response.json();
     return responseJson.value[0];
   } catch (error) {
     return null;

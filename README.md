@@ -11,7 +11,7 @@ Chrome / Edge extension that adds useful info about a neighbourhood to funda.nl 
 - immigration background statistics
 - other stuff
 
-Data comes from Dutch census bureau (CBS) API and is from 2015.
+Data comes from Dutch census bureau (CBS) API.
 
 ---
 

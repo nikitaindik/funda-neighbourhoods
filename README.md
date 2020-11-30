@@ -28,7 +28,7 @@ Data comes from Dutch census bureau (CBS) API.
 `npm run start` - build for development (no minification, uses webpack watch mode)  
 `npm run test` - build for testing with Puppeteer (same as production, but uses a mocked Funda page) and run test  
 `npm run test:ci` - used by CI to build and run tests  
-`npm run deploy` - pack build folder into a ZIP, so it can be uploaded to extensions store dashboard
+`npm run release` - pack build folder into a ZIP, so it can be uploaded to extensions store dashboard
 
 ---
 

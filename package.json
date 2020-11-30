@@ -1,6 +1,6 @@
 {
   "name": "funda-chrome-extension",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "webpack --config webpack.config.js --env.BUILD_MODE=production",
     "test": "webpack --config webpack.config.js --env.BUILD_MODE=test && jest --config=tests/jest.config.js",
     "test:ci": "npm ci && npm run test",
-    "zip": "zip -r funda-neighbourhoods-build.zip build"
+    "release": "npm run build && ./create-release-zip.sh"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",

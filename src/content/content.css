@@ -1,6 +1,18 @@
+.badges-container {
+  flex-wrap: wrap;
+}
+
+.badges-container > li {
+  margin-bottom: 8px !important;
+}
+
 .funda-neighbourhoods-badge {
   cursor: pointer;
-  margin-left: 16px;
+  margin-right: 8px !important;
+}
+
+li[class*="label-"] + .funda-neighbourhoods-badge {
+  margin-left: 4px !important;
 }
 
 .funda-neighbourhoods-table-container {

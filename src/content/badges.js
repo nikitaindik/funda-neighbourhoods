@@ -7,7 +7,7 @@ export function makeBadgesHtml(badgeProperties) {
       const style = `background: ${color};`;
 
       return `
-        <li class="label-nieuw funda-neighbourhoods-badge" style="${style}" title="${badgeTitle}" data-test="badge-${name}">
+        <li class="funda-neighbourhoods-badge fd-border-radius fd-m-right-2xs fd-p-horizontal-xs" style="${style}" title="${badgeTitle}" data-test="badge-${name}">
           ${badgeLabel}
         </li>`;
     })

@@ -4,6 +4,7 @@ const STATS_API_ID_BY_YEAR = {
   2017: "83765NED",
   2018: "84286NED",
   2019: "84583NED",
+  2020: "84799NED",
 };
 
 export async function fetchNeighbourhoodMeta(zipCode) {

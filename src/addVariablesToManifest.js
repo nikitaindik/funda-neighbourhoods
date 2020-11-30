@@ -1,4 +1,3 @@
-const path = require("path");
 const packageJson = require("../package.json");
 const { dummyHousePageUrl, dummySoldHousePageUrl } = require("../tests/utils.js");
 
@@ -8,7 +7,7 @@ const addVariablesToManifest = isTestMode => manifestContent => {
   manifest.version = packageJson.version;
 
   if (isTestMode) {
-    // Add permission to run extension on a dummy house pages
+    // Add permission to run extension on a dummy house page
     manifest.content_scripts[0].matches.push(dummyHousePageUrl, dummySoldHousePageUrl);
   }
 

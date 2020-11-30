@@ -4,7 +4,9 @@ import { makeBadgesHtml } from "./badges";
 const zipCode = getZipCode();
 
 if (zipCode) {
+  console.log({ zipCode });
   chrome.runtime.sendMessage({ zipCode }, ({ badgeProperties, tableProperties }) => {
+    console.log({ badgeProperties, tableProperties });
     addBadges(badgeProperties);
     addNeighbourhoodTable(tableProperties);
 
@@ -27,18 +29,26 @@ function getZipCode() {
 }
 
 function getBadgesContainerElement() {
-  const headerDetailsElement = document.querySelector(".object-header__details-info");
-
-  if (!headerDetailsElement) {
-    return null;
-  }
-
-  let badgesContainerElement = document.querySelector(".object-header__details-info .labels");
+  let badgesContainerElement = document.querySelector(".object-header__details .object-header__labels ul");
 
   if (!badgesContainerElement) {
     badgesContainerElement = document.createElement("ul");
-    badgesContainerElement.classList.add("labels");
-    headerDetailsElement.appendChild(badgesContainerElement);
+    badgesContainerElement.classList.add(
+      "fd-color-white",
+      "fd-flex",
+      "fd-list--none",
+      "fd-m-bottom-xs",
+      "fd-p-none",
+      "fd-text--emphasis",
+      "fd-text-size-s"
+    );
+
+    const headerLabelsElement = document.createElement("div");
+    headerLabelsElement.classList.add("object-header__labels");
+    headerLabelsElement.appendChild(badgesContainerElement);
+
+    const headerDetailsElement = document.querySelector(".object-header__details");
+    headerDetailsElement.insertAdjacentElement("afterbegin", headerLabelsElement);
   }
 
   return badgesContainerElement;
@@ -65,6 +75,8 @@ function addBadges(badgeProperties) {
   const badgesContainerElement = getBadgesContainerElement();
 
   if (badgesContainerElement) {
+    badgesContainerElement.classList.add("badges-container");
+
     const badgesHtml = makeBadgesHtml(badgeProperties);
     badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
   }

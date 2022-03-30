@@ -61,3 +61,7 @@ export function groupProperties(properties) {
     return grouped;
   }, {});
 }
+
+export function findApiResponsePropertyName(apiResponseProperties, apiField) {
+  return Object.keys(apiResponseProperties).find(propertyName => propertyName.includes(apiField));
+}

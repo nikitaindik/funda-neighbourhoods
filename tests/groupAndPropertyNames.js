@@ -37,7 +37,6 @@ const allPropertyNames = [
   "ownedProperties",
   "singleFamilyResidential",
   "multiFamilyResidential",
-  "nonImmigrants",
   "westernImmigrants",
   "nonWesternImmigrants",
   "residentsFromMorocco",
@@ -45,6 +44,7 @@ const allPropertyNames = [
   "residentsFromSuriname",
   "residentsFromTurkey",
   "residentsOfOtherNonWesternBackground",
+  "nonImmigrants",
 ];
 
 module.exports = {

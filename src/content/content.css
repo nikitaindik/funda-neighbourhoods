@@ -19,3 +19,8 @@ li[class*="label-"] + .funda-neighbourhoods-badge {
   height: auto;
   margin-top: 16px;
 }
+
+.funda-neighbourhoods-generic-error-message {
+  color: black;
+  margin-right: 8px;
+}

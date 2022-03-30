@@ -265,5 +265,11 @@
   },
   "extremelyLow": {
     "message": "Extreem laag"
+  },
+  "genericErrorMessage": {
+    "message": "Niet mogelijk om info te vinden voor deze buurt"
+  },
+  "configureBadges": {
+    "message": "Badges configureren"
   }
 }

@@ -17,19 +17,26 @@ export async function fetchNeighbourhoodMeta(zipCode) {
 
   const urlParametersString = getParametersString(parameters);
 
-  const response = await fetch(`https://geodata.nationaalgeoregister.nl/locatieserver/v3/free?${urlParametersString}`);
-
-  const responseJson = await response.json();
-
   try {
-    const firstPayloadItem = responseJson.response.docs[0];
+    const response = await fetch(
+      `https://geodata.nationaalgeoregister.nl/locatieserver/v3/free?${urlParametersString}`
+    );
+
+    const responseJson = await response.json();
+
+    const { buurtcode, buurtnaam, gemeentenaam } = responseJson.response.docs[0];
+
+    if (!buurtcode) {
+      return { error: `No buurtcode for zipCode ${zipCode} in API response` };
+    }
+
     return {
-      neighbourhoodCode: firstPayloadItem.buurtcode,
-      neighbourhoodName: firstPayloadItem.buurtnaam,
-      municipalityName: firstPayloadItem.gemeentenaam,
+      neighbourhoodCode: buurtcode,
+      neighbourhoodName: buurtnaam,
+      municipalityName: gemeentenaam,
     };
   } catch (error) {
-    return null;
+    return { error: `Failed to fetch neighbourhood meta for zipCode ${zipCode}. Additional info: ${error.message}` };
   }
 }
 

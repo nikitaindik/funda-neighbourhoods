@@ -14,8 +14,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { zipCode } = request;
 
   fetchNeighbourhoodMeta(zipCode).then(async neighbourhoodMeta => {
-    if (!neighbourhoodMeta) {
-      console.error("Failed to fetch neighbourhood meta for zipCode:", zipCode);
+    if (neighbourhoodMeta.error) {
+      console.error(neighbourhoodMeta.error);
+      sendResponse({ error: neighbourhoodMeta.error });
       return;
     }
 

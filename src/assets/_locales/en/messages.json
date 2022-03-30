@@ -265,5 +265,11 @@
   },
   "extremelyLow": {
     "message": "Extremely low"
+  },
+  "genericErrorMessage": {
+    "message": "Couldn't find info for this neighbourhood"
+  },
+  "configureBadges": {
+    "message": "Configure badges"
   }
 }

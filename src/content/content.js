@@ -1,14 +1,28 @@
 import { wrapTableWithTitle, makeTableHtml } from "./table";
-import { makeBadgesHtml } from "./badges";
+import { makeBadgesHtml, makeSettingsButtonHtml } from "./badges";
 
 const zipCode = getZipCode();
 
 if (zipCode) {
-  console.log({ zipCode });
-  chrome.runtime.sendMessage({ zipCode }, ({ badgeProperties, tableProperties }) => {
+  console.log("Funda Neighbourhoods extension:", { zipCode });
+  chrome.runtime.sendMessage({ zipCode }, ({ badgeProperties, tableProperties, error }) => {
     console.log({ badgeProperties, tableProperties });
-    addBadges(badgeProperties);
-    addNeighbourhoodTable(tableProperties);
+
+    const badgesContainerElement = getBadgesContainerElement();
+
+    if (!badgesContainerElement) {
+      console.log("No badges container on this page");
+      return;
+    }
+
+    if (error) {
+      addGenericErrorMessage(badgesContainerElement);
+      addSettingsButton(badgesContainerElement);
+    } else {
+      addBadges(badgesContainerElement, badgeProperties);
+      addSettingsButton(badgesContainerElement);
+      addNeighbourhoodTable(tableProperties);
+    }
 
     subscribeToBadgeClicks();
   });
@@ -57,7 +71,7 @@ function getBadgesContainerElement() {
 function addNeighbourhoodTable(tableProperties) {
   const tableHtml = makeTableHtml(tableProperties);
 
-  const neighbourhoodNameElement = document.querySelector(".object-buurt__name");
+  const neighbourhoodNameElement = document.querySelector(".object-buurt__title ~ [data-local-insights-entry-point]");
 
   if (neighbourhoodNameElement) {
     neighbourhoodNameElement.insertAdjacentHTML("afterend", tableHtml);
@@ -71,15 +85,23 @@ function addNeighbourhoodTable(tableProperties) {
   }
 }
 
-function addBadges(badgeProperties) {
-  const badgesContainerElement = getBadgesContainerElement();
+function addBadges(badgesContainerElement, badgeProperties) {
+  badgesContainerElement.classList.add("badges-container");
 
-  if (badgesContainerElement) {
-    badgesContainerElement.classList.add("badges-container");
+  const badgesHtml = makeBadgesHtml(badgeProperties);
+  badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
+}
 
-    const badgesHtml = makeBadgesHtml(badgeProperties);
-    badgesContainerElement.insertAdjacentHTML("beforeend", badgesHtml);
-  }
+function addSettingsButton(badgesContainerElement) {
+  const settingsButtonHtml = makeSettingsButtonHtml();
+  badgesContainerElement.insertAdjacentHTML("beforeend", settingsButtonHtml);
+}
+
+function addGenericErrorMessage(badgesContainerElement) {
+  const message = `<span class="funda-neighbourhoods-generic-error-message">${chrome.i18n.getMessage(
+    "genericErrorMessage"
+  )}</span>`;
+  badgesContainerElement.insertAdjacentHTML("beforeend", message);
 }
 
 function subscribeToBadgeClicks() {
@@ -87,7 +109,9 @@ function subscribeToBadgeClicks() {
 
   badgesContainerElement.addEventListener("click", event => {
     const clickedElement = event.target;
-    const isBadgeClick = clickedElement.classList.contains("funda-neighbourhoods-badge");
+    const isBadgeClick =
+      clickedElement.classList.contains("funda-neighbourhoods-badge") ||
+      clickedElement.classList.contains("funda-neighbourhoods-configure-badge");
 
     if (isBadgeClick) {
       chrome.runtime.sendMessage({ action: "openOptionsPage" });

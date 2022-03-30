@@ -5,8 +5,6 @@ const dummySoldHousePageUrl = `file://${path.resolve(__dirname, "./dummySoldHous
 
 async function getExtensionBackgroundPage(browser) {
   const targets = await browser.targets();
-  const version = await page.browser().version();
-  console.log({ version });
   const backgroundPageTarget = targets.find(target => target.type() === "background_page");
   const backgroundPage = await backgroundPageTarget.page();
 

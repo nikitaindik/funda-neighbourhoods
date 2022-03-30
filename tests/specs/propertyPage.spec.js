@@ -3,6 +3,9 @@ const { allPropertyNames, allGroupNames } = require("../groupAndPropertyNames");
 
 describe("Property page", () => {
   beforeAll(async () => {
+    const browserVersion = await page.browser().version();
+    console.log({ browserVersion });
+
     await page.goto(dummyHousePageUrl);
     await page.waitForSelector("[data-test^=badge]");
   });

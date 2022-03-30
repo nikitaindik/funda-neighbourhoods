@@ -1,10 +1,6 @@
 const path = require("path");
-const fs = require("fs");
 
 const pathToExtension = path.resolve("./build");
-fs.readdir(pathToExtension, (error, files) => {
-  console.log(files);
-});
 
 module.exports = {
   launch: {

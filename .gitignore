@@ -2,6 +2,6 @@
 /notes
 /build
 .DS_Store
-funda-neighbourhoods-build.zip
 yarn-debug.log*
 yarn-error.log*
+funda-neighbourhoods-v*.zip

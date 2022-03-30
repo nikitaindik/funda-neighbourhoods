@@ -16,7 +16,6 @@
     "jest": "^25.1.0",
     "jest-puppeteer": "^4.4.0",
     "puppeteer": "^2.1.1",
-    "puppeteer-core": "^13.5.1",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   }

@@ -27,7 +27,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Build and Test
-        uses: mujo-code/puppeteer-headful@master
+        uses: mujo-code/puppeteer-headful@v1
         env:
           CI: "true"
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"

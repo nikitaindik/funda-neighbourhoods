@@ -12,7 +12,7 @@ RUN apt-get update \
 # && apt-get install -y google-chrome-stable --no-install-recommends \
 # && rm -rf /var/lib/apt/lists/*
 
-ARG CHROME_VERSION="81.0.4044.113-1"
+ARG CHROME_VERSION="80.0.3987.163-0ubuntu1"
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb \
     && apt install -y /tmp/chrome.deb \
     && rm /tmp/chrome.deb

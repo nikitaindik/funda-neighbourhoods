@@ -18,7 +18,7 @@ Data comes from Dutch census bureau (CBS) API.
 ### Install extension
 
 **Chrome**: https://chrome.google.com/webstore/detail/funda-neighbourhoods/jibdjhaojkpiagiccmolddmlhllancgj  
-**Edge**: https://microsoftedge.microsoft.com/addons/detail/ndloapdppofpipoclcpehfijapbfbpip
+**Edge**: https://microsoftedge.microsoft.com/addons/detail/ndloapdppofpipoclcpehfijapbfbpip  
 **Firefox**: https://addons.mozilla.org/en-US/firefox/addon/funda-neighbourhoods/
 
 ---

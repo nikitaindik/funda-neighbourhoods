@@ -11,6 +11,18 @@
   margin-right: 8px !important;
 }
 
+.funda-neighbourhoods-configure-badge {
+  position: relative;
+}
+
+.funda-neighbourhoods-configure-badge-clickable-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 li[class*="label-"] + .funda-neighbourhoods-badge {
   margin-left: 4px !important;
 }

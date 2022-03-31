@@ -111,7 +111,7 @@ function subscribeToBadgeClicks() {
     const clickedElement = event.target;
     const isBadgeClick =
       clickedElement.classList.contains("funda-neighbourhoods-badge") ||
-      clickedElement.classList.contains("funda-neighbourhoods-configure-badge");
+      clickedElement.classList.contains("funda-neighbourhoods-configure-badge-clickable-area");
 
     if (isBadgeClick) {
       chrome.runtime.sendMessage({ action: "openOptionsPage" });

@@ -9,7 +9,8 @@
     "test": "webpack --config webpack.config.js --env.BUILD_MODE=test && jest --config=tests/jest.config.js",
     "test:ci": "npm ci && npm run test",
     "release": "rm -rf build && npm run build && ./create-release-zip.sh",
-    "test:e2e": "jest --config=e2e/jest.config.js"
+    "test:e2e": "jest --config=e2e/jest.config.js",
+    "test:e2e:xfvb": "xvfb-run --auto-servernum jest --config=e2e/jest.config.js"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",

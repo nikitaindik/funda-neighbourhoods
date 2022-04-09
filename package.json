@@ -8,14 +8,19 @@
     "build": "webpack --config webpack.config.js --env.BUILD_MODE=production",
     "test": "webpack --config webpack.config.js --env.BUILD_MODE=test && jest --config=tests/jest.config.js",
     "test:ci": "npm ci && npm run test",
-    "release": "rm -rf build && npm run build && ./create-release-zip.sh"
+    "release": "rm -rf build && npm run build && ./create-release-zip.sh",
+    "test:e2e": "jest --config=e2e/jest.config.js"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "jest": "^25.1.0",
+    "get-port": "^5.1.1",
+    "jest": "^27.5.1",
     "jest-puppeteer": "^4.4.0",
     "puppeteer": "^2.1.1",
+    "puppeteer-core": "^13.5.2",
+    "typescript": "^4.6.3",
+    "web-ext": "^6.8.0",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
   }

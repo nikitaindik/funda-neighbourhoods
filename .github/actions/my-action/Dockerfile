@@ -1,6 +1,6 @@
 FROM node:12
 
-RUN apt-get update \
+RUN apt update \
     # See https://crbug.com/795759
     && apt install -yq libgconf-2-4 \
     # Install latest chrome dev package, which installs the necessary libs to

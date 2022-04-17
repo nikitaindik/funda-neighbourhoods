@@ -18,18 +18,19 @@ describe("Property page", () => {
     console.log("Got free port", cdpPort);
 
     console.log("Starting FF with web-ext...", process.env.FIREFOX_BINARY_PATH || "/bin/firefox");
+    child_process.execSync(`${process.env.FIREFOX_BINARY_PATH} --remote-debugging-port=${cdpPort}`);
     // console.log(child_process.execSync("ls").toString());
     // console.log(child_process.execSync("whoami").toString()); // root
-    await webExt.cmd.run(
-      {
-        firefox: process.env.FIREFOX_BINARY_PATH || "/bin/firefox",
-        sourceDir: path.resolve(__dirname, "../build"),
-        // args: ["--remote-debugging-port", cdpPort, "--start-maximized", "--verbose"],
-        args: [`--remote-debugging-port=${cdpPort}`, "--start-maximized", "--verbose"],
-        pref: { "intl.accept_languages": "nl-NL, nl, en-US, en", "intl.regional_prefs.use_os_locales": true }, // Doesn't work for some reason
-      },
-      { shouldExitProgram: false }
-    );
+    // await webExt.cmd.run(
+    //   {
+    //     firefox: process.env.FIREFOX_BINARY_PATH || "/bin/firefox",
+    //     sourceDir: path.resolve(__dirname, "../build"),
+    //     // args: ["--remote-debugging-port", cdpPort, "--start-maximized", "--verbose"],
+    //     args: [`--remote-debugging-port=${cdpPort}`, "--start-maximized", "--verbose"],
+    //     pref: { "intl.accept_languages": "nl-NL, nl, en-US, en", "intl.regional_prefs.use_os_locales": true }, // Doesn't work for some reason
+    //   },
+    //   { shouldExitProgram: false }
+    // );
     console.log("FF started");
 
     console.log("Waiting for the FF to get ready for receiving connections...");

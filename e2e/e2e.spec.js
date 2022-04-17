@@ -19,7 +19,7 @@ describe("Property page", () => {
 
     console.log("Starting FF with web-ext...", process.env.FIREFOX_BINARY_PATH || "/bin/firefox");
     const lsResult = child_process.execSync("ls");
-    console.log(lsResult);
+    console.log(lsResult.toString());
     await webExt.cmd.run(
       {
         firefox: process.env.FIREFOX_BINARY_PATH || "/bin/firefox",

@@ -20,7 +20,7 @@ describe("Property page", () => {
     console.log("Starting FF with web-ext...");
     await webExt.cmd.run(
       {
-        firefox: "/bin/firefox",
+        firefox: process.env.FIREFOX_BINARY_PATH || "/bin/firefox",
         sourceDir: path.resolve(__dirname, "../build"),
         args: ["--remote-debugging-port", cdpPort, "--start-maximized"],
         pref: { "intl.accept_languages": "nl-NL, nl, en-US, en", "intl.regional_prefs.use_os_locales": true }, // Doesn't work for some reason

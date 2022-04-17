@@ -18,7 +18,8 @@ describe("Property page", () => {
     console.log("Got free port", cdpPort);
 
     console.log("Starting FF with web-ext...", process.env.FIREFOX_BINARY_PATH || "/bin/firefox");
-    child_process.execSync("ls");
+    const lsResult = child_process.execSync("ls");
+    console.log(lsResult);
     await webExt.cmd.run(
       {
         firefox: process.env.FIREFOX_BINARY_PATH || "/bin/firefox",

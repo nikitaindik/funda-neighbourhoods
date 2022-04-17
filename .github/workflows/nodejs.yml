@@ -32,4 +32,4 @@ jobs:
           CI: "true"
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
-          args: "npm run test:e2e:xfvb"
+          args: "npm run test:e2e:xvfb"

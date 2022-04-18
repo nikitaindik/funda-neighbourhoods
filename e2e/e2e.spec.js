@@ -20,7 +20,7 @@ describe("Property page", () => {
     console.log("Starting FF with web-ext...", process.env.FIREFOX_BINARY_PATH || "/bin/firefox");
     // child_process.execSync(`${process.env.FIREFOX_BINARY_PATH} --remote-debugging-port=${cdpPort}`);
     // console.log(child_process.execSync("ls").toString());
-    // console.log(child_process.execSync("whoami").toString()); // root
+    console.log(child_process.execSync("whoami").toString()); // root
     try {
       await webExt.cmd.run(
         {

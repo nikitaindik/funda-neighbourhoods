@@ -6,7 +6,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 ENV FIREFOX_BINARY_PATH /usr/bin/firefox-esr
 
 RUN groupadd -r myuser && useradd -r -g myuser myuser
-USER myuser
+# USER myuser
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

@@ -2,8 +2,6 @@ const child_process = require("child_process");
 const path = require("path");
 
 const puppeteer = require("puppeteer-core");
-// const webExt = require("./web-ext");
-// FF silently fails with "Running Firefox as root in a regular user's session is not supported.  ($HOME is /github/home which is owned by uid 1001.)"
 const webExt = require("web-ext");
 const getPort = require("get-port");
 

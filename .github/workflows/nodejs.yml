@@ -8,6 +8,8 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -27,9 +29,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Build and Test
-        uses: ./.github/actions/my-action
+        uses: ./.github/actions/e2e-firefox
         env:
           CI: "true"
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
-          args: "npm run test:ci"
+          args: "npm run test:e2e:xvfb"

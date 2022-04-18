@@ -5,29 +5,23 @@
  * in a Chromium-based browser instance.
  */
 
-import path from 'path';
+import path from "path";
 
-import fs from 'fs-extra';
-import asyncMkdirp from 'mkdirp';
-import {
-  Launcher as ChromeLauncher,
-  launch as defaultChromiumLaunch,
-} from 'chrome-launcher';
-import WebSocket from 'ws';
+import fs from "fs-extra";
+import asyncMkdirp from "mkdirp";
+import { Launcher as ChromeLauncher, launch as defaultChromiumLaunch } from "chrome-launcher";
+import WebSocket from "ws";
 
-import {createLogger} from '../util/logger';
-import {TempDir} from '../util/temp-dir';
-import type {
-  ExtensionRunnerParams,
-  ExtensionRunnerReloadResult,
-} from './base';
-import isDirectory from '../util/is-directory';
-import fileExists from '../util/file-exists';
+import { createLogger } from "../util/logger";
+import { TempDir } from "../util/temp-dir";
+import type { ExtensionRunnerParams, ExtensionRunnerReloadResult } from "./base";
+import isDirectory from "../util/is-directory";
+import fileExists from "../util/file-exists";
 
 type ChromiumSpecificRunnerParams = {|
-   chromiumBinary?: string,
-   chromiumProfile?: string,
-   chromiumLaunch?: typeof defaultChromiumLaunch,
+  chromiumBinary?: string,
+  chromiumProfile?: string,
+  chromiumLaunch?: typeof defaultChromiumLaunch,
 |};
 
 export type ChromiumExtensionRunnerParams = {|
@@ -38,13 +32,11 @@ export type ChromiumExtensionRunnerParams = {|
 
 const log = createLogger(__filename);
 
-const EXCLUDED_CHROME_FLAGS = [
-  '--disable-extensions',
-  '--mute-audio',
-];
+const EXCLUDED_CHROME_FLAGS = ["--disable-extensions", "--mute-audio"];
 
-export const DEFAULT_CHROME_FLAGS: Array<string> = ChromeLauncher.defaultFlags()
-  .filter((flag) => !EXCLUDED_CHROME_FLAGS.includes(flag));
+export const DEFAULT_CHROME_FLAGS: Array<string> = ChromeLauncher.defaultFlags().filter(
+  flag => !EXCLUDED_CHROME_FLAGS.includes(flag)
+);
 
 /**
  * Implements an IExtensionRunner which manages a Chromium instance.
@@ -60,9 +52,7 @@ export class ChromiumExtensionRunner {
   _promiseSetupDone: ?Promise<void>;
 
   constructor(params: ChromiumExtensionRunnerParams) {
-    const {
-      chromiumLaunch = defaultChromiumLaunch,
-    } = params;
+    const { chromiumLaunch = defaultChromiumLaunch } = params;
     this.params = params;
     this.chromiumLaunch = chromiumLaunch;
     this.cleanupCallbacks = new Set();
@@ -74,7 +64,7 @@ export class ChromiumExtensionRunner {
    * Returns the runner name.
    */
   getName(): string {
-    return 'Chromium';
+    return "Chromium";
   }
 
   async run(): Promise<void> {
@@ -84,23 +74,21 @@ export class ChromiumExtensionRunner {
   }
 
   static async isUserDataDir(dirPath: string): Promise<boolean> {
-    const localStatePath = path.join(dirPath, 'Local State');
-    const defaultPath = path.join(dirPath, 'Default');
+    const localStatePath = path.join(dirPath, "Local State");
+    const defaultPath = path.join(dirPath, "Default");
     // Local State and Default are typical for the user-data-dir
-    return await fileExists(localStatePath)
-      && await isDirectory(defaultPath);
+    return (await fileExists(localStatePath)) && (await isDirectory(defaultPath));
   }
 
   static async isProfileDir(dirPath: string): Promise<boolean> {
-    const securePreferencesPath = path.join(
-      dirPath, 'Secure Preferences');
+    const securePreferencesPath = path.join(dirPath, "Secure Preferences");
     //Secure Preferences is typical for a profile dir inside a user data dir
     return await fileExists(securePreferencesPath);
   }
 
   static async getProfilePaths(chromiumProfile: ?string): Promise<{
     userDataDir: ?string,
-    profileDirName: ?string
+    profileDirName: ?string,
   }> {
     if (!chromiumProfile) {
       return {
@@ -110,12 +98,11 @@ export class ChromiumExtensionRunner {
     }
 
     const isProfileDirAndNotUserData =
-      await ChromiumExtensionRunner.isProfileDir(chromiumProfile)
-      && !await ChromiumExtensionRunner.isUserDataDir(chromiumProfile);
+      (await ChromiumExtensionRunner.isProfileDir(chromiumProfile)) &&
+      !(await ChromiumExtensionRunner.isUserDataDir(chromiumProfile));
 
     if (isProfileDirAndNotUserData) {
-      const {dir: userDataDir, base: profileDirName} =
-        path.parse(chromiumProfile);
+      const { dir: userDataDir, base: profileDirName } = path.parse(chromiumProfile);
       return {
         userDataDir,
         profileDirName,
@@ -126,7 +113,6 @@ export class ChromiumExtensionRunner {
       userDataDir: chromiumProfile,
       profileDirName: null,
     };
-
   }
 
   /**
@@ -134,21 +120,22 @@ export class ChromiumExtensionRunner {
    */
   async setupInstance(): Promise<void> {
     // Start a websocket server on a free localhost TCP port.
-    this.wss = await new Promise((resolve) => {
+    this.wss = await new Promise(resolve => {
       const server = new WebSocket.Server(
         // Use a ipv4 host so we don't need to escape ipv6 address
         // https://github.com/mozilla/web-ext/issues/2331
-        {port: 0, host: '127.0.0.1'},
+        { port: 0, host: "127.0.0.1" },
         // Wait the server to be listening (so that the extension
         // runner can successfully retrieve server address and port).
-        () => resolve(server));
+        () => resolve(server)
+      );
     });
 
     // Prevent unhandled socket error (e.g. when chrome
     // is exiting, See https://github.com/websockets/ws/issues/1256).
-    this.wss.on('connection', function(socket) {
-      socket.on('error', (err) => {
-        log.debug(`websocket connection error: ${err}`);
+    this.wss.on("connection", function (socket) {
+      socket.on("error", err => {
+        console.log(`websocket connection error: ${err}`);
       });
     });
 
@@ -156,16 +143,16 @@ export class ChromiumExtensionRunner {
     this.reloadManagerExtension = await this.createReloadManagerExtension();
 
     // Start chrome pointing it to a given profile dir
-    const extensions = [this.reloadManagerExtension].concat(
-      this.params.extensions.map(({sourceDir}) => sourceDir)
-    ).join(',');
+    const extensions = [this.reloadManagerExtension]
+      .concat(this.params.extensions.map(({ sourceDir }) => sourceDir))
+      .join(",");
 
-    const {chromiumBinary} = this.params;
+    const { chromiumBinary } = this.params;
 
-    log.debug('Starting Chromium instance...');
+    console.log("Starting Chromium instance...");
 
     if (chromiumBinary) {
-      log.debug(`(chromiumBinary: ${chromiumBinary})`);
+      console.log(`(chromiumBinary: ${chromiumBinary})`);
     }
 
     const chromeFlags = [...DEFAULT_CHROME_FLAGS];
@@ -177,17 +164,16 @@ export class ChromiumExtensionRunner {
     }
 
     // eslint-disable-next-line prefer-const
-    let {userDataDir, profileDirName} =
-      await ChromiumExtensionRunner.getProfilePaths(
-        this.params.chromiumProfile);
+    let { userDataDir, profileDirName } = await ChromiumExtensionRunner.getProfilePaths(this.params.chromiumProfile);
 
     if (userDataDir && this.params.keepProfileChanges) {
-      if (profileDirName
-        && !await ChromiumExtensionRunner.isUserDataDir(userDataDir)) {
-        throw new Error('The profile you provided is not in a ' +
-          'user-data-dir. The changes cannot be kept. Please either ' +
-          'remove --keep-profile-changes or use a profile in a ' +
-          'user-data-dir directory');
+      if (profileDirName && !(await ChromiumExtensionRunner.isUserDataDir(userDataDir))) {
+        throw new Error(
+          "The profile you provided is not in a " +
+            "user-data-dir. The changes cannot be kept. Please either " +
+            "remove --keep-profile-changes or use a profile in a " +
+            "user-data-dir directory"
+        );
       }
     } else if (!this.params.keepProfileChanges) {
       // the user provided an existing profile directory but doesn't want
@@ -199,12 +185,7 @@ export class ChromiumExtensionRunner {
 
       if (userDataDir && profileDirName) {
         // copy profile dir to this temp user data dir.
-        await fs.copy(path.join(
-          userDataDir,
-          profileDirName), path.join(
-          tmpDirPath,
-          profileDirName),
-        );
+        await fs.copy(path.join(userDataDir, profileDirName), path.join(tmpDirPath, profileDirName));
       } else if (userDataDir) {
         await fs.copy(userDataDir, tmpDirPath);
       }
@@ -217,8 +198,7 @@ export class ChromiumExtensionRunner {
 
     let startingUrl;
     if (this.params.startUrl) {
-      const startingUrls = Array.isArray(this.params.startUrl) ?
-        this.params.startUrl : [this.params.startUrl];
+      const startingUrls = Array.isArray(this.params.startUrl) ? this.params.startUrl : [this.params.startUrl];
       startingUrl = startingUrls.shift();
       chromeFlags.push(...startingUrls);
     }
@@ -233,31 +213,31 @@ export class ChromiumExtensionRunner {
       ignoreDefaultFlags: true,
     });
 
-    this.chromiumInstance.process.once('close', () => {
+    this.chromiumInstance.process.once("close", () => {
       this.chromiumInstance = null;
 
       if (!this.exiting) {
-        log.info('Exiting on Chromium instance disconnected.');
+        console.log("Exiting on Chromium instance disconnected.");
         this.exit();
       }
     });
   }
 
   async wssBroadcast(data: Object): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const clients = this.wss ? new Set(this.wss.clients) : new Set();
 
       function cleanWebExtReloadComplete() {
         const client = this;
-        client.removeEventListener('message', webExtReloadComplete);
-        client.removeEventListener('close', cleanWebExtReloadComplete);
+        client.removeEventListener("message", webExtReloadComplete);
+        client.removeEventListener("close", cleanWebExtReloadComplete);
         clients.delete(client);
       }
 
-      const webExtReloadComplete = async (message) => {
+      const webExtReloadComplete = async message => {
         const msg = JSON.parse(message.data);
 
-        if (msg.type === 'webExtReloadExtensionComplete') {
+        if (msg.type === "webExtReloadExtensionComplete") {
           for (const client of clients) {
             cleanWebExtReloadComplete.call(client);
           }
@@ -267,8 +247,8 @@ export class ChromiumExtensionRunner {
 
       for (const client of clients) {
         if (client.readyState === WebSocket.OPEN) {
-          client.addEventListener('message', webExtReloadComplete);
-          client.addEventListener('close', cleanWebExtReloadComplete);
+          client.addEventListener("message", webExtReloadComplete);
+          client.addEventListener("close", cleanWebExtReloadComplete);
 
           client.send(JSON.stringify(data));
         } else {
@@ -287,24 +267,21 @@ export class ChromiumExtensionRunner {
     await tmpDir.create();
     this.registerCleanup(() => tmpDir.remove());
 
-    const extPath = path.join(
-      tmpDir.path(),
-      `reload-manager-extension-${Date.now()}`
-    );
+    const extPath = path.join(tmpDir.path(), `reload-manager-extension-${Date.now()}`);
 
-    log.debug(`Creating reload-manager-extension in ${extPath}`);
+    console.log(`Creating reload-manager-extension in ${extPath}`);
 
     await asyncMkdirp(extPath);
 
     await fs.writeFile(
-      path.join(extPath, 'manifest.json'),
+      path.join(extPath, "manifest.json"),
       JSON.stringify({
         manifest_version: 2,
-        name: 'web-ext Reload Manager Extension',
-        version: '1.0',
-        permissions: ['management', 'tabs'],
+        name: "web-ext Reload Manager Extension",
+        version: "1.0",
+        permissions: ["management", "tabs"],
         background: {
-          scripts: ['bg.js'],
+          scripts: ["bg.js"],
         },
       })
     );
@@ -347,7 +324,7 @@ export class ChromiumExtensionRunner {
       };
     })()`;
 
-    await fs.writeFile(path.join(extPath, 'bg.js'), bgPage);
+    await fs.writeFile(path.join(extPath, "bg.js"), bgPage);
     return extPath;
   }
 
@@ -359,14 +336,13 @@ export class ChromiumExtensionRunner {
     const runnerName = this.getName();
 
     await this.wssBroadcast({
-      type: 'webExtReloadAllExtensions',
+      type: "webExtReloadAllExtensions",
     });
 
-    process.stdout.write(
-      `\rLast extension reload: ${(new Date()).toTimeString()}`);
-    log.debug('\n');
+    process.stdout.write(`\rLast extension reload: ${new Date().toTimeString()}`);
+    console.log("\n");
 
-    return [{runnerName}];
+    return [{ runnerName }];
   }
 
   /**
@@ -401,8 +377,8 @@ export class ChromiumExtensionRunner {
     // being started.
     if (this._promiseSetupDone) {
       // Ignore initialization errors if any.
-      await this._promiseSetupDone.catch((err) => {
-        log.debug(`ignored setup error on chromium runner shutdown: ${err}`);
+      await this._promiseSetupDone.catch(err => {
+        console.log(`ignored setup error on chromium runner shutdown: ${err}`);
       });
     }
 
@@ -412,8 +388,7 @@ export class ChromiumExtensionRunner {
     }
 
     if (this.wss) {
-      await new Promise((resolve) =>
-        this.wss ? this.wss.close(resolve) : resolve());
+      await new Promise(resolve => (this.wss ? this.wss.close(resolve) : resolve()));
       this.wss = null;
     }
 
@@ -422,7 +397,7 @@ export class ChromiumExtensionRunner {
       try {
         fn();
       } catch (error) {
-        log.error(error);
+        console.log(error);
       }
     }
   }

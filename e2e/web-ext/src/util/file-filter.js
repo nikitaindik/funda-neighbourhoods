@@ -1,9 +1,9 @@
 /* @flow */
-import path from 'path';
+import path from "path";
 
-import multimatch from 'multimatch';
+import multimatch from "multimatch";
 
-import {createLogger} from './logger';
+import { createLogger } from "./logger";
 
 const log = createLogger(__filename);
 
@@ -14,7 +14,7 @@ export const isSubPath = (src: string, target: string): boolean => {
   if (!relate) {
     return false;
   }
-  if (relate === '..') {
+  if (relate === "..") {
     return false;
   }
   return !relate.startsWith(`..${path.sep}`);
@@ -38,12 +38,12 @@ export class FileFilter {
 
   constructor({
     baseIgnoredPatterns = [
-      '**/*.xpi',
-      '**/*.zip',
-      '**/.*', // any hidden file and folder
-      '**/.*/**/*', // and the content inside hidden folder
-      '**/node_modules',
-      '**/node_modules/**/*',
+      "**/*.xpi",
+      "**/*.zip",
+      "**/.*", // any hidden file and folder
+      "**/.*/**/*", // and the content inside hidden folder
+      "**/node_modules",
+      "**/node_modules/**/*",
     ],
     ignoreFiles = [],
     sourceDir,
@@ -60,14 +60,8 @@ export class FileFilter {
     }
     if (artifactsDir && isSubPath(sourceDir, artifactsDir)) {
       artifactsDir = path.resolve(artifactsDir);
-      log.debug(
-        `Ignoring artifacts directory "${artifactsDir}" ` +
-        'and all its subdirectories'
-      );
-      this.addToIgnoreList([
-        artifactsDir,
-        path.join(artifactsDir, '**', '*'),
-      ]);
+      console.log(`Ignoring artifacts directory "${artifactsDir}" ` + "and all its subdirectories");
+      this.addToIgnoreList([artifactsDir, path.join(artifactsDir, "**", "*")]);
     }
   }
 
@@ -76,10 +70,7 @@ export class FileFilter {
    */
   resolveWithSourceDir(file: string): string {
     const resolvedPath = path.resolve(this.sourceDir, file);
-    log.debug(
-      `Resolved path ${file} with sourceDir ${this.sourceDir} ` +
-      `to ${resolvedPath}`
-    );
+    console.log(`Resolved path ${file} with sourceDir ${this.sourceDir} ` + `to ${resolvedPath}`);
     return resolvedPath;
   }
 
@@ -88,7 +79,7 @@ export class FileFilter {
    */
   addToIgnoreList(files: Array<string>) {
     for (const file of files) {
-      if (file.charAt(0) === '!') {
+      if (file.charAt(0) === "!") {
         const resolvedFile = this.resolveWithSourceDir(file.substr(1));
         this.filesToIgnore.push(`!${resolvedFile}`);
       } else {
@@ -111,7 +102,7 @@ export class FileFilter {
     const resolvedPath = this.resolveWithSourceDir(filePath);
     const matches = multimatch(resolvedPath, this.filesToIgnore);
     if (matches.length > 0) {
-      log.debug(`FileFilter: ignoring file ${resolvedPath}`);
+      console.log(`FileFilter: ignoring file ${resolvedPath}`);
       return false;
     }
     return true;
@@ -120,8 +111,6 @@ export class FileFilter {
 
 // a helper function to make mocking easier
 
-export const createFileFilter = (
-  (params: FileFilterOptions): FileFilter => new FileFilter(params)
-);
+export const createFileFilter = (params: FileFilterOptions): FileFilter => new FileFilter(params);
 
 export type FileFilterCreatorFn = typeof createFileFilter;

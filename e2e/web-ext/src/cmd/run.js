@@ -1,27 +1,22 @@
 /* @flow */
-import { fs } from 'mz';
+import { fs } from "mz";
 
-import defaultBuildExtension from './build';
-import {
-  showDesktopNotification as defaultDesktopNotifications,
-} from '../util/desktop-notifier';
-import * as defaultFirefoxApp from '../firefox';
-import {
-  connectWithMaxRetries as defaultFirefoxClient,
-} from '../firefox/remote';
-import {createLogger} from '../util/logger';
-import defaultGetValidatedManifest from '../util/manifest';
-import {UsageError} from '../../src/errors';
+import defaultBuildExtension from "./build";
+import { showDesktopNotification as defaultDesktopNotifications } from "../util/desktop-notifier";
+import * as defaultFirefoxApp from "../firefox";
+import { connectWithMaxRetries as defaultFirefoxClient } from "../firefox/remote";
+import { createLogger } from "../util/logger";
+import defaultGetValidatedManifest from "../util/manifest";
+import { UsageError } from "../../src/errors";
 import {
   createExtensionRunner,
   defaultReloadStrategy,
   MultiExtensionRunner as DefaultMultiExtensionRunner,
-} from '../extension-runners';
+} from "../extension-runners";
 // Import objects that are only used as Flow types.
-import type {FirefoxPreferences} from '../firefox/preferences';
+import type { FirefoxPreferences } from "../firefox/preferences";
 
 const log = createLogger(__filename);
-
 
 // Run command types and implementation.
 
@@ -110,18 +105,16 @@ export default async function run(
     reloadStrategy = defaultReloadStrategy,
     MultiExtensionRunner = DefaultMultiExtensionRunner,
     getValidatedManifest = defaultGetValidatedManifest,
-  }: CmdRunOptions = {}): Promise<DefaultMultiExtensionRunner> {
-
-  log.info(`Running web extension from ${sourceDir}`);
+  }: CmdRunOptions = {}
+): Promise<DefaultMultiExtensionRunner> {
+  console.log(`Running web extension from ${sourceDir}`);
   if (preInstall) {
-    log.info('Disabled auto-reloading because it\'s not possible with ' +
-             '--pre-install');
+    console.log("Disabled auto-reloading because it's not possible with " + "--pre-install");
     noReload = true;
   }
 
-  if (watchFile != null && (!Array.isArray(watchFile) ||
-      !watchFile.every((el) => typeof el === 'string'))) {
-    throw new UsageError('Unexpected watchFile type');
+  if (watchFile != null && (!Array.isArray(watchFile) || !watchFile.every(el => typeof el === "string"))) {
+    throw new UsageError("Unexpected watchFile type");
   }
 
   // Create an alias for --pref since it has been transformed into an
@@ -133,16 +126,13 @@ export default async function run(
 
   if (profileCreateIfMissing) {
     if (!profileDir) {
-      throw new UsageError(
-        '--profile-create-if-missing requires ' +
-        '--firefox-profile or --chromium-profile'
-      );
+      throw new UsageError("--profile-create-if-missing requires " + "--firefox-profile or --chromium-profile");
     }
     const isDir = fs.existsSync(profileDir);
     if (isDir) {
-      log.info(`Profile directory ${profileDir} already exists`);
+      console.log(`Profile directory ${profileDir} already exists`);
     } else {
-      log.info(`Profile directory not found. Creating directory ${profileDir}`);
+      console.log(`Profile directory not found. Creating directory ${profileDir}`);
       await fs.mkdir(profileDir);
     }
   }
@@ -151,14 +141,14 @@ export default async function run(
 
   const commonRunnerParams = {
     // Common options.
-    extensions: [{sourceDir, manifestData}],
+    extensions: [{ sourceDir, manifestData }],
     keepProfileChanges,
     startUrl,
     args,
     desktopNotifications,
   };
 
-  if (!target || target.length === 0 || target.includes('firefox-desktop')) {
+  if (!target || target.length === 0 || target.includes("firefox-desktop")) {
     const firefoxDesktopRunnerParams = {
       ...commonRunnerParams,
 
@@ -175,13 +165,13 @@ export default async function run(
     };
 
     const firefoxDesktopRunner = await createExtensionRunner({
-      target: 'firefox-desktop',
+      target: "firefox-desktop",
       params: firefoxDesktopRunnerParams,
     });
     runners.push(firefoxDesktopRunner);
   }
 
-  if (target && target.includes('firefox-android')) {
+  if (target && target.includes("firefox-android")) {
     const firefoxAndroidRunnerParams = {
       ...commonRunnerParams,
 
@@ -204,28 +194,31 @@ export default async function run(
       firefoxClient,
       desktopNotifications: defaultDesktopNotifications,
       buildSourceDir: (extensionSourceDir: string, tmpArtifactsDir: string) => {
-        return buildExtension({
-          sourceDir: extensionSourceDir,
-          ignoreFiles,
-          asNeeded: false,
-          // Use a separate temporary directory for building the extension zip file
-          // that we are going to upload on the android device.
-          artifactsDir: tmpArtifactsDir,
-        }, {
-          // Suppress the message usually logged by web-ext build.
-          showReadyMessage: false,
-        });
+        return buildExtension(
+          {
+            sourceDir: extensionSourceDir,
+            ignoreFiles,
+            asNeeded: false,
+            // Use a separate temporary directory for building the extension zip file
+            // that we are going to upload on the android device.
+            artifactsDir: tmpArtifactsDir,
+          },
+          {
+            // Suppress the message usually logged by web-ext build.
+            showReadyMessage: false,
+          }
+        );
       },
     };
 
     const firefoxAndroidRunner = await createExtensionRunner({
-      target: 'firefox-android',
+      target: "firefox-android",
       params: firefoxAndroidRunnerParams,
     });
     runners.push(firefoxAndroidRunner);
   }
 
-  if (target && target.includes('chromium')) {
+  if (target && target.includes("chromium")) {
     const chromiumRunnerParams = {
       ...commonRunnerParams,
       chromiumBinary,
@@ -233,7 +226,7 @@ export default async function run(
     };
 
     const chromiumRunner = await createExtensionRunner({
-      target: 'chromium',
+      target: "chromium",
       params: chromiumRunnerParams,
     });
     runners.push(chromiumRunner);
@@ -247,9 +240,9 @@ export default async function run(
   await extensionRunner.run();
 
   if (noReload) {
-    log.info('Automatic extension reloading has been disabled');
+    console.log("Automatic extension reloading has been disabled");
   } else {
-    log.info('The extension will reload if any source file changes');
+    console.log("The extension will reload if any source file changes");
 
     reloadStrategy({
       extensionRunner,

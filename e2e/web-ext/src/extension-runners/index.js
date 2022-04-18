@@ -1,67 +1,61 @@
 /* @flow */
 
-import readline from 'readline';
+import readline from "readline";
 
-import type Watchpack from 'watchpack';
+import type Watchpack from "watchpack";
 
 import type {
   IExtensionRunner, // eslint-disable-line import/named
   ExtensionRunnerReloadResult,
-} from './base';
-import {WebExtError} from '../errors';
-import {
-  showDesktopNotification as defaultDesktopNotifications,
-} from '../util/desktop-notifier';
-import type {FirefoxAndroidExtensionRunnerParams} from './firefox-android';
-import type {FirefoxDesktopExtensionRunnerParams} from './firefox-desktop';
-import type {ChromiumExtensionRunnerParams} from './chromium';
-import {createLogger} from '../util/logger';
-import type {FileFilterCreatorFn} from '../util/file-filter';
-import {
-  createFileFilter as defaultFileFilterCreator,
-} from '../util/file-filter';
-import {
-  isTTY, setRawMode,
-} from '../util/stdin';
-import defaultSourceWatcher from '../watcher';
-import type {OnSourceChangeFn} from '../watcher';
-
+} from "./base";
+import { WebExtError } from "../errors";
+import { showDesktopNotification as defaultDesktopNotifications } from "../util/desktop-notifier";
+import type { FirefoxAndroidExtensionRunnerParams } from "./firefox-android";
+import type { FirefoxDesktopExtensionRunnerParams } from "./firefox-desktop";
+import type { ChromiumExtensionRunnerParams } from "./chromium";
+import { createLogger } from "../util/logger";
+import type { FileFilterCreatorFn } from "../util/file-filter";
+import { createFileFilter as defaultFileFilterCreator } from "../util/file-filter";
+import { isTTY, setRawMode } from "../util/stdin";
+import defaultSourceWatcher from "../watcher";
+import type { OnSourceChangeFn } from "../watcher";
 
 const log = createLogger(__filename);
 
-export type ExtensionRunnerConfig = {|
-  target: 'firefox-desktop',
-  params: FirefoxDesktopExtensionRunnerParams,
-|} | {|
-  target: 'firefox-android',
-  params: FirefoxAndroidExtensionRunnerParams,
-|} | {|
-  target: 'chromium',
-  params: ChromiumExtensionRunnerParams,
-|};
+export type ExtensionRunnerConfig =
+  | {|
+      target: "firefox-desktop",
+      params: FirefoxDesktopExtensionRunnerParams,
+    |}
+  | {|
+      target: "firefox-android",
+      params: FirefoxAndroidExtensionRunnerParams,
+    |}
+  | {|
+      target: "chromium",
+      params: ChromiumExtensionRunnerParams,
+    |};
 
 export type MultiExtensionRunnerParams = {|
   runners: Array<IExtensionRunner>,
   desktopNotifications: typeof defaultDesktopNotifications,
 |};
 
-export async function createExtensionRunner(
-  config: ExtensionRunnerConfig
-): Promise<IExtensionRunner> {
+export async function createExtensionRunner(config: ExtensionRunnerConfig): Promise<IExtensionRunner> {
   switch (config.target) {
-    case 'firefox-desktop': {
+    case "firefox-desktop": {
       // TODO: use async import instead of require - https://github.com/mozilla/web-ext/issues/1306
-      const {FirefoxDesktopExtensionRunner} = require('./firefox-desktop');
+      const { FirefoxDesktopExtensionRunner } = require("./firefox-desktop");
       return new FirefoxDesktopExtensionRunner(config.params);
     }
-    case 'firefox-android': {
+    case "firefox-android": {
       // TODO: use async import instead of require - https://github.com/mozilla/web-ext/issues/1306
-      const {FirefoxAndroidExtensionRunner} = require('./firefox-android');
+      const { FirefoxAndroidExtensionRunner } = require("./firefox-android");
       return new FirefoxAndroidExtensionRunner(config.params);
     }
-    case 'chromium': {
+    case "chromium": {
       // TODO: use async import instead of require - https://github.com/mozilla/web-ext/issues/1306
-      const {ChromiumExtensionRunner} = require('./chromium');
+      const { ChromiumExtensionRunner } = require("./chromium");
       return new ChromiumExtensionRunner(config.params);
     }
     default:
@@ -89,7 +83,7 @@ export class MultiExtensionRunner {
    * Returns the runner name.
    */
   getName(): string {
-    return 'Multi Extension Runner';
+    return "Multi Extension Runner";
   }
 
   /**
@@ -114,15 +108,15 @@ export class MultiExtensionRunner {
    * desktop notification.
    */
   async reloadAllExtensions(): Promise<Array<ExtensionRunnerReloadResult>> {
-    log.debug('Reloading all reloadable add-ons');
+    console.log("Reloading all reloadable add-ons");
 
     const promises = [];
     for (const runner of this.extensionRunners) {
       const reloadPromise = runner.reloadAllExtensions().then(
         () => {
-          return {runnerName: runner.getName()};
+          return { runnerName: runner.getName() };
         },
-        (error) => {
+        error => {
           return {
             runnerName: runner.getName(),
             reloadError: error,
@@ -133,7 +127,7 @@ export class MultiExtensionRunner {
       promises.push(reloadPromise);
     }
 
-    return await Promise.all(promises).then((results) => {
+    return await Promise.all(promises).then(results => {
       this.handleReloadResults(results);
       return results;
     });
@@ -147,18 +141,16 @@ export class MultiExtensionRunner {
    * Any detected reload error is also logged on the terminal and shows as a
    * desktop notification.
    */
-  async reloadExtensionBySourceDir(
-    sourceDir: string
-  ): Promise<Array<ExtensionRunnerReloadResult>> {
-    log.debug(`Reloading add-on at ${sourceDir}`);
+  async reloadExtensionBySourceDir(sourceDir: string): Promise<Array<ExtensionRunnerReloadResult>> {
+    console.log(`Reloading add-on at ${sourceDir}`);
 
     const promises: Array<Promise<ExtensionRunnerReloadResult>> = [];
     for (const runner of this.extensionRunners) {
       const reloadPromise = runner.reloadExtensionBySourceDir(sourceDir).then(
         () => {
-          return {runnerName: runner.getName(), sourceDir};
+          return { runnerName: runner.getName(), sourceDir };
         },
-        (error) => {
+        error => {
           return {
             runnerName: runner.getName(),
             reloadError: error,
@@ -170,7 +162,7 @@ export class MultiExtensionRunner {
       promises.push(reloadPromise);
     }
 
-    return await Promise.all(promises).then((results) => {
+    return await Promise.all(promises).then(results => {
       this.handleReloadResults(results);
       return results;
     });
@@ -186,9 +178,11 @@ export class MultiExtensionRunner {
     // the promise will be resolved when the particular runner calls its
     // registered cleanup callbacks.
     for (const runner of this.extensionRunners) {
-      promises.push(new Promise((resolve) => {
-        runner.registerCleanup(resolve);
-      }));
+      promises.push(
+        new Promise(resolve => {
+          runner.registerCleanup(resolve);
+        })
+      );
     }
 
     // Wait for all the created promises to be resolved or rejected
@@ -212,20 +206,20 @@ export class MultiExtensionRunner {
   // Private helper methods.
 
   handleReloadResults(results: Array<ExtensionRunnerReloadResult>): void {
-    for (const {runnerName, reloadError, sourceDir} of results) {
+    for (const { runnerName, reloadError, sourceDir } of results) {
       if (reloadError instanceof Error) {
-        let message = 'Error occurred while reloading';
+        let message = "Error occurred while reloading";
         if (sourceDir) {
           message += ` "${sourceDir}" `;
         }
 
         message += `on "${runnerName}" - ${reloadError.message}`;
 
-        log.error(`\n${message}`);
-        log.debug(reloadError.stack);
+        console.log(`\n${message}`);
+        console.log(reloadError.stack);
 
         this.desktopNotifications({
-          title: 'web-ext run: extension reload error',
+          title: "web-ext run: extension reload error",
           message,
         });
       }
@@ -236,7 +230,7 @@ export class MultiExtensionRunner {
 // defaultWatcherCreator types and implementation.
 
 export type WatcherCreatorParams = {|
-  reloadExtension: (string) => void,
+  reloadExtension: string => void,
   sourceDir: string,
   watchFile?: Array<string>,
   watchIgnored?: Array<string>,
@@ -248,27 +242,26 @@ export type WatcherCreatorParams = {|
 
 export type WatcherCreatorFn = (params: WatcherCreatorParams) => Watchpack;
 
-export function defaultWatcherCreator(
-  {
-    reloadExtension, sourceDir, watchFile,
-    watchIgnored, artifactsDir, ignoreFiles,
-    onSourceChange = defaultSourceWatcher,
-    createFileFilter = defaultFileFilterCreator,
-  }: WatcherCreatorParams
-): Watchpack {
-  const fileFilter = createFileFilter(
-    {sourceDir, artifactsDir, ignoreFiles}
-  );
+export function defaultWatcherCreator({
+  reloadExtension,
+  sourceDir,
+  watchFile,
+  watchIgnored,
+  artifactsDir,
+  ignoreFiles,
+  onSourceChange = defaultSourceWatcher,
+  createFileFilter = defaultFileFilterCreator,
+}: WatcherCreatorParams): Watchpack {
+  const fileFilter = createFileFilter({ sourceDir, artifactsDir, ignoreFiles });
   return onSourceChange({
     sourceDir,
     watchFile,
     watchIgnored,
     artifactsDir,
     onChange: () => reloadExtension(sourceDir),
-    shouldWatchFile: (file) => fileFilter.wantFile(file),
+    shouldWatchFile: file => fileFilter.wantFile(file),
   });
 }
-
 
 // defaultReloadStrategy types and implementation.
 
@@ -307,11 +300,11 @@ export function defaultReloadStrategy(
 ): void {
   const allowInput = !noInput;
   if (!allowInput) {
-    log.debug('Input has been disabled because of noInput==true');
+    console.log("Input has been disabled because of noInput==true");
   }
 
   const watcher: Watchpack = createWatcher({
-    reloadExtension: (watchedSourceDir) => {
+    reloadExtension: watchedSourceDir => {
       extensionRunner.reloadExtensionBySourceDir(watchedSourceDir);
     },
     sourceDir,
@@ -332,49 +325,49 @@ export function defaultReloadStrategy(
     readline.emitKeypressEvents(stdin);
     setRawMode(stdin, true);
 
-    const keypressUsageInfo = 'Press R to reload (and Ctrl-C to quit)';
+    const keypressUsageInfo = "Press R to reload (and Ctrl-C to quit)";
 
     // NOTE: this `Promise.resolve().then(...)` is basically used to spawn a "co-routine"
     // that is executed before the callback attached to the Promise returned by this function
     // (and it allows the `run` function to not be stuck in the while loop).
-    Promise.resolve().then(async function() {
-      log.info(keypressUsageInfo);
+    Promise.resolve().then(async function () {
+      console.log(keypressUsageInfo);
 
       let userExit = false;
 
       while (!userExit) {
-        const keyPressed = await new Promise((resolve) => {
-          stdin.once('keypress', (str, key) => resolve(key));
+        const keyPressed = await new Promise(resolve => {
+          stdin.once("keypress", (str, key) => resolve(key));
         });
 
-        if (keyPressed.ctrl && keyPressed.name === 'c') {
+        if (keyPressed.ctrl && keyPressed.name === "c") {
           userExit = true;
-        } else if (keyPressed.name === 'z') {
+        } else if (keyPressed.name === "z") {
           // Prepare to suspend.
 
           // NOTE: Switch the raw mode off before suspending (needed to make the keypress event
           // to work correctly when the nodejs process is resumed).
           setRawMode(stdin, false);
 
-          log.info('\nweb-ext has been suspended on user request');
-          kill(process.pid, 'SIGTSTP');
+          console.log("\nweb-ext has been suspended on user request");
+          kill(process.pid, "SIGTSTP");
 
           // Prepare to resume.
 
-          log.info(`\nweb-ext has been resumed. ${keypressUsageInfo}`);
+          console.log(`\nweb-ext has been resumed. ${keypressUsageInfo}`);
 
           // Switch the raw mode on on resume.
           setRawMode(stdin, true);
-        } else if (keyPressed.name === 'r') {
-          log.debug('Reloading installed extensions on user request');
-          await extensionRunner.reloadAllExtensions().catch((err) => {
-            log.warn(`\nError reloading extension: ${err}`);
-            log.debug(`Reloading extension error stack: ${err.stack}`);
+        } else if (keyPressed.name === "r") {
+          console.log("Reloading installed extensions on user request");
+          await extensionRunner.reloadAllExtensions().catch(err => {
+            console.log(`\nError reloading extension: ${err}`);
+            console.log(`Reloading extension error stack: ${err.stack}`);
           });
         }
       }
 
-      log.info('\nExiting web-ext on user request');
+      console.log("\nExiting web-ext on user request");
       extensionRunner.exit();
     });
   }

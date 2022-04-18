@@ -1,16 +1,15 @@
 /* @flow */
-import path from 'path';
+import path from "path";
 
-import {fs} from 'mz';
-import parseJSON from 'parse-json';
-import stripBom from 'strip-bom';
-import stripJsonComments from 'strip-json-comments';
+import { fs } from "mz";
+import parseJSON from "parse-json";
+import stripBom from "strip-bom";
+import stripJsonComments from "strip-json-comments";
 
-import {InvalidManifest} from '../errors';
-import {createLogger} from './logger';
+import { InvalidManifest } from "../errors";
+import { createLogger } from "./logger";
 
 const log = createLogger(__filename);
-
 
 // getValidatedManifest helper types and implementation
 
@@ -32,19 +31,16 @@ export type ExtensionManifest = {|
   permissions?: Array<string>,
 |};
 
-export default async function getValidatedManifest(
-  sourceDir: string
-): Promise<ExtensionManifest> {
-  const manifestFile = path.join(sourceDir, 'manifest.json');
-  log.debug(`Validating manifest at ${manifestFile}`);
+export default async function getValidatedManifest(sourceDir: string): Promise<ExtensionManifest> {
+  const manifestFile = path.join(sourceDir, "manifest.json");
+  console.log(`Validating manifest at ${manifestFile}`);
 
   let manifestContents;
 
   try {
-    manifestContents = await fs.readFile(manifestFile, {encoding: 'utf-8'});
+    manifestContents = await fs.readFile(manifestFile, { encoding: "utf-8" });
   } catch (error) {
-    throw new InvalidManifest(
-      `Could not read manifest.json file at ${manifestFile}: ${error}`);
+    throw new InvalidManifest(`Could not read manifest.json file at ${manifestFile}: ${error}`);
   }
 
   manifestContents = stripBom(manifestContents);
@@ -54,8 +50,7 @@ export default async function getValidatedManifest(
   try {
     manifestData = parseJSON(stripJsonComments(manifestContents));
   } catch (error) {
-    throw new InvalidManifest(
-      `Error parsing manifest.json file at ${manifestFile}: ${error}`);
+    throw new InvalidManifest(`Error parsing manifest.json file at ${manifestFile}: ${error}`);
   }
 
   const errors = [];
@@ -77,19 +72,14 @@ export default async function getValidatedManifest(
   }
 
   if (errors.length) {
-    throw new InvalidManifest(
-      `Manifest at ${manifestFile} is invalid: ${errors.join('; ')}`);
+    throw new InvalidManifest(`Manifest at ${manifestFile} is invalid: ${errors.join("; ")}`);
   }
 
   return manifestData;
 }
 
-
 export function getManifestId(manifestData: ExtensionManifest): string | void {
-  const manifestApps = [
-    manifestData.browser_specific_settings,
-    manifestData.applications,
-  ];
+  const manifestApps = [manifestData.browser_specific_settings, manifestData.applications];
   for (const apps of manifestApps) {
     // If both bss and applicants contains a defined gecko property,
     // we prefer bss even if the id property isn't available.

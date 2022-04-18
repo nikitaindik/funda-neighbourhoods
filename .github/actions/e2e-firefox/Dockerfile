@@ -7,7 +7,7 @@ ENV FIREFOX_BINARY_PATH /usr/bin/firefox-esr
 
 # RUN groupadd -r myuser && useradd -r -g myuser myuser
 # RUN chown -R myuser /github
-# USER myuser
+USER 1001
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

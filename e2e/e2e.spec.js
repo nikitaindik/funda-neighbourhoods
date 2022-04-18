@@ -21,6 +21,7 @@ describe("Property page", () => {
     // child_process.execSync(`${process.env.FIREFOX_BINARY_PATH} --remote-debugging-port=${cdpPort}`);
     // console.log(child_process.execSync("ls").toString());
     console.log(child_process.execSync("whoami").toString()); // root
+    console.log(child_process.execSync("ls /home").toString()); // root
     try {
       await webExt.cmd.run(
         {

@@ -10,7 +10,6 @@ on:
     branches: [master]
   schedule:
     - cron: "0 0 * * *"
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,6 +29,7 @@ jobs:
 
       - name: Build and Test
         uses: ./.github/actions/e2e-firefox
+        timeout-minutes: 10
         env:
           CI: "true"
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"

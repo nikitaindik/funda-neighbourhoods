@@ -1,8 +1,6 @@
 const child_process = require("child_process");
 const path = require("path");
 
-//
-
 const puppeteer = require("puppeteer-core");
 const webExt = require("web-ext");
 const getPort = require("get-port");

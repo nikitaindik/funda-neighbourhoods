@@ -212,7 +212,7 @@ describe("Property page", () => {
     await wait(page, 15000);
     console.log("Done");
 
-    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS, waitUntil: "networkidle2" });
+    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS, waitUntil: "domcontentloaded" });
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);

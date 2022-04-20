@@ -187,26 +187,32 @@ describe("Property page", () => {
     await lastOpenPage.screenshot({ path: "3.jpg", type: "jpeg", quality: 30 });
     console.log("Done");
 
+    console.log("Deselecting default badges...");
     await lastOpenPage.click("[data-test=optionsPagePropertyLabel-neighbourhoodName]");
     await lastOpenPage.click("[data-test=optionsPagePropertyLabel-meanIncomePerResident]");
+    console.log("Done...");
 
+    console.log("Selecting all badges...");
     const optionHandles = await lastOpenPage.$$("[data-test^=optionsPagePropertyLabel-]");
 
     await asyncForEach(optionHandles, async optionHandle => {
       await optionHandle.click();
     });
+    console.log("Done");
 
     console.log("Waiting a little bit more, just in case...");
     await wait(lastOpenPage, 5000);
     console.log("Done");
 
+    console.log("Closing the page...");
     await lastOpenPage.close();
+    console.log("Done");
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);
     console.log("Done");
 
-    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS });
+    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS, waitUntil: "networkidle2" });
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);

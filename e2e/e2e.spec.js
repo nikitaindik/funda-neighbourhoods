@@ -44,7 +44,7 @@ describe("Property page", () => {
   });
 
   it("Test", async () => {
-    console.log("Opening a new page...");
+    console.log("Getting the page object...");
     const pages = await browser.pages();
     const page = pages[0];
     console.log("Done");
@@ -204,7 +204,7 @@ describe("Property page", () => {
     await wait(page, 15000);
     console.log("Done");
 
-    await page.reload({ timeout: ONE_MINUTE_IN_MS });
+    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS });
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);

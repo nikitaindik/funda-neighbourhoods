@@ -52,6 +52,7 @@ describe("Property page", () => {
     console.log("Going to a property page...");
     await page.goto("https://www.funda.nl/koop/stadskanaal/huis-42752531-baronielaan-25/", {
       timeout: 3 * ONE_MINUTE_IN_MS,
+      waitUntil: "domcontentloaded",
     });
     console.log("Done");
 

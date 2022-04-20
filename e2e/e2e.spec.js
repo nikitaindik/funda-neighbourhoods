@@ -44,7 +44,7 @@ describe("Property page", () => {
   });
 
   it("Test", async () => {
-    console.log("Opening a new page...");
+    console.log("Getting the page object...");
     const pages = await browser.pages();
     const page = pages[0];
     console.log("Done");
@@ -52,6 +52,7 @@ describe("Property page", () => {
     console.log("Going to a property page...");
     await page.goto("https://www.funda.nl/koop/stadskanaal/huis-42752531-baronielaan-25/", {
       timeout: 3 * ONE_MINUTE_IN_MS,
+      waitUntil: "domcontentloaded",
     });
     console.log("Done");
 
@@ -185,26 +186,32 @@ describe("Property page", () => {
     await lastOpenPage.screenshot({ path: "3.jpg", type: "jpeg", quality: 30 });
     console.log("Done");
 
+    console.log("Deselecting default badges...");
     await lastOpenPage.click("[data-test=optionsPagePropertyLabel-neighbourhoodName]");
     await lastOpenPage.click("[data-test=optionsPagePropertyLabel-meanIncomePerResident]");
+    console.log("Done...");
 
+    console.log("Selecting all badges...");
     const optionHandles = await lastOpenPage.$$("[data-test^=optionsPagePropertyLabel-]");
 
     await asyncForEach(optionHandles, async optionHandle => {
       await optionHandle.click();
     });
+    console.log("Done");
 
     console.log("Waiting a little bit more, just in case...");
     await wait(lastOpenPage, 5000);
     console.log("Done");
 
+    console.log("Closing the page...");
     await lastOpenPage.close();
+    console.log("Done");
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);
     console.log("Done");
 
-    await page.reload({ timeout: ONE_MINUTE_IN_MS });
+    await page.reload({ timeout: 3 * ONE_MINUTE_IN_MS, waitUntil: "domcontentloaded" });
 
     console.log("Waiting a little bit more, just in case...");
     await wait(page, 15000);

@@ -246,7 +246,7 @@
     "message": "Geen info"
   },
   "veryHigh": {
-    "message": "Heel hoog"
+    "message": "Zeer hoog"
   },
   "high": {
     "message": "Hoog"
@@ -261,7 +261,7 @@
     "message": "Laag"
   },
   "veryLow": {
-    "message": "Heel laag"
+    "message": "Zeer laag"
   },
   "extremelyLow": {
     "message": "Extreem laag"

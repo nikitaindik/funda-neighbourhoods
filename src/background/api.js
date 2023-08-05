@@ -6,6 +6,7 @@ const STATS_API_ID_BY_YEAR = {
   2019: "84583NED",
   2020: "84799NED",
   2021: "85039NED",
+  2022: "85318NED",
 };
 
 export async function fetchNeighbourhoodMeta(zipCode) {
@@ -18,9 +19,7 @@ export async function fetchNeighbourhoodMeta(zipCode) {
   const urlParametersString = getParametersString(parameters);
 
   try {
-    const response = await fetch(
-      `https://geodata.nationaalgeoregister.nl/locatieserver/v3/free?${urlParametersString}`
-    );
+    const response = await fetch(`https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?${urlParametersString}`);
 
     const responseJson = await response.json();
 

@@ -2,6 +2,17 @@
 
 **UPD: ⚠️ I don't have time to support this extension anymore, so I have archived the repo and unpublished the extension from stores.**
 
+Since I have received a copyright infringement claim from Funda, I'd like to mention that I have no affiliation to Funda and this is not an official Funda extension.
+
+```
+All trademarks and tradenames related to Funda, amongst which domain name www.funda.nl
+that is registered for Funda’s benefit and a protected and well-known trademark FUNDA
+belong to Funda B.V., Funda Real Estate B.V. and Funda Intellectual Property B.V. (“Funda”),
+with its registered office in Amsterdam, Piet Heinkade 167, 1019GM Amsterdam.
+```
+
+---
+
 Chrome / Edge / Firefox extension that adds useful info about a neighbourhood to funda.nl pages.
 
 **Adds info about**:

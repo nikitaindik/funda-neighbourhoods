@@ -1,5 +1,7 @@
 # Funda Neighbourhoods &middot; ![](https://github.com/nikitaindik/funda-neighbourhoods/workflows/Node.js%20CI/badge.svg)
 
+**UPD: ⚠️ I don't have time to support this extension anymore, so I have archived the repo.**
+
 Chrome / Edge / Firefox extension that adds useful info about a neighbourhood to funda.nl pages.
 
 **Adds info about**:

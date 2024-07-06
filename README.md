@@ -1,6 +1,6 @@
 # Funda Neighbourhoods &middot; ![](https://github.com/nikitaindik/funda-neighbourhoods/workflows/Node.js%20CI/badge.svg)
 
-**UPD: ⚠️ I don't have time to support this extension anymore, so I have archived the repo.**
+**UPD: ⚠️ I don't have time to support this extension anymore, so I have archived the repo and unpublished the extension from stores.**
 
 Chrome / Edge / Firefox extension that adds useful info about a neighbourhood to funda.nl pages.
 
@@ -19,9 +19,9 @@ Data comes from Dutch census bureau (CBS) API.
 
 ### Install extension
 
-**Chrome**: https://chrome.google.com/webstore/detail/funda-neighbourhoods/jibdjhaojkpiagiccmolddmlhllancgj  
-**Edge**: https://microsoftedge.microsoft.com/addons/detail/ndloapdppofpipoclcpehfijapbfbpip  
-**Firefox**: https://addons.mozilla.org/en-US/firefox/addon/funda-neighbourhoods/
+**Chrome**: ~~https://chrome.google.com/webstore/detail/funda-neighbourhoods/jibdjhaojkpiagiccmolddmlhllancgj~~  
+**Edge**: ~~https://microsoftedge.microsoft.com/addons/detail/ndloapdppofpipoclcpehfijapbfbpip~~  
+**Firefox**: ~~https://addons.mozilla.org/en-US/firefox/addon/funda-neighbourhoods/~~
 
 ---
 
